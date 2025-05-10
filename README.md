@@ -1,4 +1,3 @@
-```markdown
 # Quizz Masterz – Deine Wissensreise
 
 **Quizz Masterz** ist eine intuitive, unterhaltsame Quiz-Web-App, die Wissen mit spielerischem Fortschritt verbindet. Nutzer:innen reisen über eine virtuelle Weltkarte, lösen thematische Quizfragen, schalten neue Regionen frei und treten gegen andere an.
