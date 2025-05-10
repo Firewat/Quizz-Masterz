@@ -14,8 +14,8 @@ An intuitive and fun web app that lets users play quizzes, create their own, sha
 
 - **Backend**: Python, Flask
 - **Frontend**: HTML5, CSS3, JavaScript
-- **Data storage**: JSON files (optionally SQLite for persistence)
-- **Real-time support**: Flask-SocketIO (for multiplayer mode)
+- **Data storage**: JSON files (SQLite for persistence)
+- (OPT.**Real-time support**: Flask-SocketIO (for multiplayer mode))
 
 ## 📁 Project Structure
 
