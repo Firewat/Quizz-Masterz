@@ -1,34 +1,46 @@
-# Flask Quiz App – Create, Play, Share!
+```markdown
+# Quizz Masterz – Deine Wissensreise
 
-An intuitive and fun web app that lets users play quizzes, create their own, share them, and challenge others – either in real-time or asynchronously. Built with Flask (Python) and using JSON for flexible question storage.
+**Quizz Masterz** ist eine intuitive, unterhaltsame Quiz-Web-App, die Wissen mit spielerischem Fortschritt verbindet. Nutzer:innen reisen über eine virtuelle Weltkarte, lösen thematische Quizfragen, schalten neue Regionen frei und treten gegen andere an.
 
-## Features
+## Team
 
--  **Play quizzes**: Answer questions in the browser with automatic scoring and instant feedback.
--  **Create quizzes**: Build your own quizzes via a web form or by uploading JSON.
--  **Share & challenge**: Generate shareable links and invite friends to compete.
--  **Multiplayer mode**: Play in real-time (using WebSockets) or asynchronously.
--  **Stats & high scores**: Track progress, view leaderboards, and compare results.
+**Name:** Quizz Masterz  
+**Contributors:** Furkan Dinc, David Levi, Lasse Schulz
 
-##  Tech Stack
+## Idee
 
-- **Backend**: Python, Flask
-- **Frontend**: HTML5, CSS3, JavaScript
-- **Data storage**: JSON files (SQLite for persistence)
-- (OPT.**Real-time support**: Flask-SocketIO (for multiplayer mode))
+Viele Lernplattformen sind unübersichtlich oder nicht motivierend genug. Unser Ziel ist es, Lernen spannender zu machen – durch Gamification, soziale Herausforderungen und eine ansprechende visuelle Aufbereitung.
 
-## 📁 Project Structure
+## Konzept
 
-```bash
-flask-quiz-app/
-│
-├── app.py                # Main Flask application
-├── templates/
-│   └── index.html        # Main UI and quiz interface
-├── static/
-│   ├── style.css         # CSS styles
-│   └── script.js         # Client-side interactivity
-├── quizzes/
-│   └── example_quiz.json      # Sample quiz in JSON format
-├── requirements.txt      # Python dependencies
-└── README.md             # This file
+- Interaktive Weltkarte mit freischaltbaren Themenbereichen  
+- Quiz-Spielmodi mit Punkten, Jokern, Belohnungen  
+- Möglichkeit, eigene Quizze zu erstellen und zu teilen  
+- Optional: Herausforderungen gegen Freund:innen oder Bossgegner  
+
+## Zielgruppen
+
+- Schüler:innen, Studierende  
+- Lehrkräfte mit Fokus auf interaktive Inhalte  
+- Wissensbegeisterte, die spielerisch lernen wollen  
+
+## Tech Stack
+
+- **Backend:** Python (Flask), SQLite  
+- **Frontend:** HTML, CSS, JavaScript, Jinja  
+- **Daten:** JSON  
+
+## Projektstruktur
+
+```
+
+quiz-webapp/
+├── docs/          # Dokumentation
+├── frontend/      # UI (Jinja, CSS, JS)
+├── backend/       # Flask Backend
+├── quizzes/       # JSON-Quizdaten
+├── README.md      # Projektübersicht
+
+```
+
