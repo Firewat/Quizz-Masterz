@@ -63,7 +63,7 @@ quiz-webapp/
 │   │       ├── continents/    # Icons/Visuals zu Quiz-Kategorien
 │   │       └── ui/            # Buttons, Fortschrittsleisten etc.
 │   └── templates/
-│       ├── layout.html        # Grundlayout (Navbar etc.)
+│       ├── layout.html        # Grundlayout 
 │       ├── index.html         # Startseite
 │       ├── login.html         # Login/Register
 │       ├── dashboard.html     # Profilübersicht
