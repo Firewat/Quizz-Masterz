@@ -1,0 +1,199 @@
+// Database Model Diagram for Quiz Masters Application
+// Generated for comprehensive data visualization
+// This diagram represents the complete database schema including current and planned models
+
+// Users table - currently implemented
+Table users {
+  id integer [primary key, increment]
+  email varchar(150) [unique, not null]
+  password varchar(150) [not null]
+  first_name varchar(150) [not null]
+  role varchar(50) [not null, note: 'student or teacher']
+  created_at timestamp [default: `now()`]
+  updated_at timestamp [default: `now()`]
+  
+  Note: "User authentication and role-based access control"
+}
+
+// Classrooms table - planned implementation
+Table classrooms {
+  id integer [primary key, increment]
+  name varchar(200) [not null]
+  description text
+  code varchar(20) [unique, not null, note: 'unique join code for students']
+  teacher_id integer [ref: > users.id, not null]
+  created_at timestamp [default: `now()`]
+  updated_at timestamp [default: `now()`]
+  is_active boolean [default: true]
+  
+  Note: "Teacher-managed learning environments"
+}
+
+// Student-Classroom enrollment relationship
+Table classroom_enrollments {
+  id integer [primary key, increment]
+  student_id integer [ref: > users.id, not null]
+  classroom_id integer [ref: > classrooms.id, not null]
+  enrolled_at timestamp [default: `now()`]
+  is_active boolean [default: true]
+  
+  indexes {
+    (student_id, classroom_id) [unique]
+  }
+  
+  Note: "Many-to-many relationship between students and classrooms"
+}
+
+// Quizzes table - planned implementation
+Table quizzes {
+  id integer [primary key, increment]
+  title varchar(200) [not null]
+  description text
+  teacher_id integer [ref: > users.id, not null]
+  total_points integer [default: 0]
+  time_limit integer [note: 'time limit in minutes, null for unlimited']
+  is_active boolean [default: true]
+  created_at timestamp [default: `now()`]
+  updated_at timestamp [default: `now()`]
+  
+  Note: "Quiz definitions created by teachers"
+}
+
+// Questions table - planned implementation
+Table questions {
+  id integer [primary key, increment]
+  quiz_id integer [ref: > quizzes.id, not null]
+  question_text text [not null]
+  question_type varchar(50) [default: 'multiple_choice', note: 'multiple_choice, true_false, short_answer']
+  points integer [default: 1, note: 'learning points for correct answer']
+  order_index integer [not null, note: 'question order within quiz']
+  created_at timestamp [default: `now()`]
+  
+  Note: "Individual quiz questions with multiple types"
+}
+
+// Answer options table - planned implementation
+Table answers {
+  id integer [primary key, increment]
+  question_id integer [ref: > questions.id, not null]
+  answer_text text [not null]
+  is_correct boolean [default: false]
+  order_index integer [not null, note: 'answer option order']
+  
+  Note: "Answer choices for questions, supports multiple correct answers"
+}
+
+// Quiz assignments to classrooms - planned implementation
+Table quiz_assignments {
+  id integer [primary key, increment]
+  quiz_id integer [ref: > quizzes.id, not null]
+  classroom_id integer [ref: > classrooms.id, not null]
+  assigned_at timestamp [default: `now()`]
+  due_date timestamp [note: 'optional deadline for quiz completion']
+  is_active boolean [default: true]
+  
+  indexes {
+    (quiz_id, classroom_id) [unique]
+  }
+  
+  Note: "Assignment of quizzes to specific classrooms"
+}
+
+// Quiz submissions - planned implementation
+Table quiz_submissions {
+  id integer [primary key, increment]
+  user_id integer [ref: > users.id, not null]
+  quiz_id integer [ref: > quizzes.id, not null]
+  classroom_id integer [ref: > classrooms.id]
+  score integer [default: 0, note: 'total points earned']
+  max_score integer [note: 'maximum possible points']
+  percentage decimal(5,2) [note: 'calculated percentage score']
+  time_taken integer [note: 'time taken in seconds']
+  submitted_at timestamp [default: `now()`]
+  is_completed boolean [default: false]
+  
+  indexes {
+    (user_id, quiz_id)
+  }
+  
+  Note: "Student quiz attempts and scoring"
+}
+
+// Individual question responses - planned implementation
+Table user_answers {
+  id integer [primary key, increment]
+  submission_id integer [ref: > quiz_submissions.id, not null]
+  question_id integer [ref: > questions.id, not null]
+  selected_answers text [note: 'JSON array of selected answer IDs for multiple selection']
+  is_correct boolean [default: false]
+  points_earned integer [default: 0]
+  
+  indexes {
+    (submission_id, question_id) [unique]
+  }
+  
+  Note: "Individual question responses with multiple answer support"
+}
+
+// Student notes - planned implementation  
+Table student_notes {
+  id integer [primary key, increment]
+  user_id integer [ref: > users.id, not null]
+  title varchar(200) [not null]
+  content text [not null]
+  quiz_id integer [ref: > quizzes.id, note: 'optional reference to related quiz']
+  classroom_id integer [ref: > classrooms.id, note: 'optional reference to related classroom']
+  created_at timestamp [default: `now()`]
+  updated_at timestamp [default: `now()`]
+  
+  Note: "Student study notes and learning materials"
+}
+
+// Learning achievements - planned implementation
+Table achievements {
+  id integer [primary key, increment]
+  user_id integer [ref: > users.id, not null]
+  achievement_type varchar(100) [not null, note: 'quiz_master, perfect_score, streak_master, etc.']
+  achievement_name varchar(200) [not null]
+  description text
+  points_reward integer [default: 0]
+  earned_at timestamp [default: `now()`]
+  
+  Note: "Student achievements and learning milestones"
+}
+
+// Learning points tracking - planned implementation
+Table learning_points {
+  id integer [primary key, increment]
+  user_id integer [ref: > users.id, not null]
+  points integer [default: 0]
+  source varchar(100) [note: 'quiz_completion, achievement, bonus, etc.']
+  description varchar(200)
+  earned_at timestamp [default: `now()`]
+  
+  Note: "Detailed learning points history and tracking"
+}
+
+// User profiles and statistics - planned implementation
+Table user_profiles {
+  id integer [primary key, increment]
+  user_id integer [ref: > users.id, not null]
+  total_learning_points integer [default: 0]
+  quizzes_completed integer [default: 0]
+  average_score decimal(5,2) [default: 0.0]
+  current_streak integer [default: 0, note: 'consecutive days with quiz activity']
+  longest_streak integer [default: 0]
+  preferred_subjects text [note: 'JSON array of preferred quiz topics']
+  
+  Note: "Extended user profile information and statistics"
+}
+
+// Relationships Summary:
+// - Users can be teachers or students (role-based)
+// - Teachers create and manage classrooms and quizzes
+// - Students enroll in classrooms and take quizzes
+// - Quizzes contain multiple questions with multiple answer options
+// - Questions can have multiple correct answers for partial credit
+// - Quiz submissions track student performance and scoring
+// - Learning points system rewards student progress
+// - Achievement system gamifies the learning experience
