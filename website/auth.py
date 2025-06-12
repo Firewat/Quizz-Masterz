@@ -1,4 +1,4 @@
-# Responsible: 
+# Responsible: Lasse
 # filepath: c:\Users\lasse\Desktop\Full_Stack_Quizz_Masterz\website\auth.py
 """
 Authentication Routes for Quiz Masters Application

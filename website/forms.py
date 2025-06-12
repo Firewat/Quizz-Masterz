@@ -1,4 +1,4 @@
-# Responsible: Furkan
+# Responsible: Lasse
 # filepath: c:\Users\lasse\Desktop\Full_Stack_Quizz_Masterz\website\forms.py
 """
 Enhanced Python-based Forms for Quiz Masters

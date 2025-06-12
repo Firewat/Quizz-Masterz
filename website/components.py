@@ -1,4 +1,4 @@
-# Responsible: David
+# Responsible: LAsse
 # filepath: c:\Users\lasse\Desktop\Full_Stack_Quizz_Masterz\website\components.py
 """
 Python-based UI Components for Quiz Masters
