@@ -1,0 +1,53 @@
+<!-- Responsible: David -->
+<!-- filepath: c:\Users\lasse\Desktop\Full_Stack_Quizz_Masterz\website\templates\sign_up.html -->
+{% extends "base.html" %}
+{% block title %}Sign Up{% endblock %}
+
+{% block content %}
+<h1>Sign Up</h1>
+<form method="POST">
+    {{ form.hidden_tag() }}
+    <div>
+        {{ form.email.label }}
+        {{ form.email() }}
+        {% for error in form.email.errors %}
+            <span>{{ error }}</span>
+        {% endfor %}
+    </div>
+    <div>
+        {{ form.first_name.label }}
+        {{ form.first_name() }}
+        {% for error in form.first_name.errors %}
+            <span>{{ error }}</span>
+        {% endfor %}
+    </div>
+    <div>
+        {{ form.password1.label }}
+        {{ form.password1() }}
+        {% for error in form.password1.errors %}
+            <span>{{ error }}</span>
+        {% endfor %}
+    </div>
+    <div>
+        {{ form.password2.label }}
+        {{ form.password2() }}
+        {% for error in form.password2.errors %}
+            <span>{{ error }}</span>
+        {% endfor %}
+    </div>
+    <div>
+        {{ form.role.label }}
+        {{ form.role() }}
+        {% for error in form.role.errors %}
+            <span>{{ error }}</span>
+        {% endfor %}
+    </div>
+    <div>
+        {{ form.submit() }}
+    </div>
+</form>
+<br>
+<p>Already have an account? <a href="/login">Login here</a></p>
+{% endblock %}
+<!-- Teacher/Student role selection -->
+

@@ -1,0 +1,29 @@
+<!-- Responsible: David -->
+<!-- filepath: c:\Users\lasse\Desktop\Full_Stack_Quizz_Masterz\website\templates\test_quiz_results.html -->
+{% extends "base.html" %}
+{% block title %}Quiz Results{% endblock %}
+
+{% block content %}
+<h1>Quiz Results</h1>
+<h2>Your Score: {{ score }} out of {{ total }}</h2>
+
+{% for result in results %}
+    <div style="border: 1px solid #ccc; margin: 10px 0; padding: 10px;">
+        <h3>Question {{ loop.index }}</h3>
+        <p><strong>{{ result.question.question }}</strong></p>
+        <pre>{{ result.question.code }}</pre>
+        
+        <p><strong>Your Answer:</strong> {{ result.question.options[result.selected] }}</p>
+        <p><strong>Correct Answer:</strong> {{ result.question.options[result.correct] }}</p>
+        
+        {% if result.is_correct %}
+            <p style="color: green;"><strong>✓ Correct!</strong></p>
+        {% else %}
+            <p style="color: red;"><strong>✗ Incorrect</strong></p>
+        {% endif %}
+    </div>
+{% endfor %}
+
+<br>
+<p><a href="/test-quiz">Take Quiz Again</a> | <a href="/">Back to Home</a></p>
+{% endblock %}

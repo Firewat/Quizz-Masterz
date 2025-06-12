@@ -1,0 +1,31 @@
+<!-- Responsible: David -->
+<!-- filepath: c:\Users\lasse\Desktop\Full_Stack_Quizz_Masterz\website\templates\home.html -->
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+{% if user.role == 'teacher' %}
+    <h1>Welcome Teacher {{ user.first_name }}!</h1>
+    <p>You are logged in as a teacher.</p>
+    <ul>
+        <li>Create and manage quizzes</li>
+        <li>View student submissions</li>
+        <li>Manage classrooms</li>
+        <li>View statistics and analytics</li>
+    </ul>
+{% elif user.role == 'student' %}
+    <h1>Welcome Student {{ user.first_name }}!</h1>
+    <p>You are logged in as a student.</p>
+    <ul>
+        <li>Take quizzes</li>
+        <li>View your results</li>
+        <li>Join classrooms</li>
+    </ul>
+    <br>
+    <p><a href="/test-quiz">Test Quiz - Python Code Understanding</a></p>
+{% else %}
+    <h1>Welcome {{ user.first_name }}!</h1>
+    <p>Please contact administrator to set your role.</p>
+{% endif %}
+{% endblock %}
+
