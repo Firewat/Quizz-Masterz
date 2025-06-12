@@ -99,7 +99,7 @@ Full_Stack_Quizz_Masterz/
 └── __pycache__/               # Python bytecode cache
 ```
 
-## 🏗️ Architecture Overview
+## Architecture Overview
 
 ### Backend Architecture (Lasses Responsibility)
 
