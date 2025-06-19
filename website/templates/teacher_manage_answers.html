@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Manage Answers for: {{ question.text[:50] }}...{% endblock %}
+
+{% block content %}
+<h1 align="center">Manage Answers for Question</h1>
+<div class="container">
+    <h4>Question: {{ question.text }} ({{ question.learning_points }} LP)</h4>
+    <hr>
+    
+    <h2>Add New Answer</h2>
+    {% if answers|length < 4 %}
+        <form method="POST" action="{{ url_for('views.teacher_manage_question_answers', question_id=question.id) }}">
+            <div class="form-group">
+                <label for="answer_text">Answer Text</label>
+                <input type="text" class="form-control" id="answer_text" name="answer_text" required>
+            </div>
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="is_correct" name="is_correct">
+                <label class="form-check-label" for="is_correct">correct answer?</label>
+            </div>
+            <br />
+            <button type="submit" class="btn btn-primary">Add Answer</button>
+        </form>
+    {% else %}
+        <p class="text-muted">Maximum of 4 answers reached for this question.</p>
+    {% endif %}
+
+    <hr>
+
+    <h2>Existing Answers</h2>
+    {% if answers %}
+        <ul class="list-group">
+            {% for answer in answers %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ answer.text }}
+                    <span class="badge bg-{{ 'success' if answer.is_correct else 'secondary' }}">
+                        {{ 'Correct' if answer.is_correct else 'Incorrect' }}
+                    </span>
+                    <!-- Add Edit/Delete Answer buttons here if needed later -->
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No answers added to this question yet.</p>
+    {% endif %}
+
+    <br />
+    <p><a href="{{ url_for('views.teacher_manage_quiz_questions', quiz_id=quiz_id) }}">Back to Manage Questions for Quiz: {{ question.quiz.name }}</a></p>
+</div>
+{% endblock %}

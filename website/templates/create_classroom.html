@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Create Classroom{% endblock %}
+
+{% block content %}
+<h1 align="center">Create New Classroom</h1>
+
+<form method="POST">
+    <div class="form-group">
+        <label for="classroom_name">Classroom Name</label>
+        <input 
+            type="text" 
+            class="form-control" 
+            id="classroom_name" 
+            name="classroom_name" 
+            placeholder="Enter classroom name"
+            required
+        />
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary">Create Classroom</button>
+</form>
+<br />
+<p><a href="{{ url_for('views.teacher_classrooms') }}">Back to My Classrooms</a></p>
+
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Create New Quiz{% endblock %}
+
+{% block content %}
+<h1 align="center">Create New Quiz for Classroom: {{ classroom.name }}</h1>
+
+<div class="container">
+    <form method="POST" action="{{ url_for('views.create_quiz_for_classroom', classroom_id=classroom.id) }}">
+        <div class="form-group">
+            <label for="quiz_name">Quiz Name</label>
+            <input type="text" class="form-control" id="quiz_name" name="quiz_name" placeholder="Enter the name of your new quiz" required>
+        </div>
+        <br />
+        <button type="submit" class="btn btn-primary">Create Quiz and Add Questions</button>
+    </form>
+    <br />
+    <p><a href="{{ url_for('views.add_quiz_to_classroom', classroom_id=classroom.id) }}">Back to Add Quiz Options</a></p>
+</div>
+{% endblock %}

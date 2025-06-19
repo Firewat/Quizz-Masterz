@@ -11,3 +11,41 @@ Interface for teachers to assign quizzes to specific classrooms
 <!-- Classroom assignment options -->
 <!-- Form validation and submission -->
 
+{% extends "base.html" %}
+{% block title %}Add Quiz to {{ classroom.name }}{% endblock %}
+
+{% block content %}
+<h1 align="center">Add Quiz to Classroom: {{ classroom.name }}</h1>
+
+<div class="container">
+    <h2>Select an Existing Quiz</h2>
+    {% if available_quizzes %}
+        <form method="POST" action="{{ url_for('views.add_quiz_to_classroom', classroom_id=classroom.id) }}">
+            <div class="form-group">
+                <label for="quiz_id">Choose a quiz:</label>
+                <select name="quiz_id" id="quiz_id" class="form-control">
+                    {% for quiz in available_quizzes %}
+                        <option value="{{ quiz.id }}">{{ quiz.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Selected Quiz</button>
+        </form>
+    {% else %}
+        <p>You have no quizzes that are not already in this classroom. You can create a new one.</p>
+    {% endif %}
+
+    <hr>
+
+    <h2>Or Create a New Quiz for this Classroom</h2>
+    <form method="POST" action="{{ url_for('views.add_quiz_to_classroom', classroom_id=classroom.id) }}">
+        <input type="hidden" name="quiz_id" value="new">
+        <button type="submit" class="btn btn-success">Create New Quiz</button>
+    </form>
+    
+    <br />
+    <p><a href="{{ url_for('views.edit_classroom', classroom_id=classroom.id) }}">Back to Edit Classroom</a></p>
+    <p><a href="{{ url_for('views.teacher_classrooms') }}">Back to My Classrooms</a></p>
+</div>
+{% endblock %}
+

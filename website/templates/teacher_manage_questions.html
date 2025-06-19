@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Manage Questions for {{ quiz.name }}{% endblock %}
+
+{% block content %}
+<h1 align="center">Manage Questions for Quiz: {{ quiz.name }}</h1>
+
+<div class="container">
+    <h2>Add New Question</h2>
+    <form method="POST" action="{{ url_for('views.teacher_manage_quiz_questions', quiz_id=quiz.id) }}">
+        <div class="form-group">
+            <label for="question_text">Question Text</label>
+            <textarea class="form-control" id="question_text" name="question_text" rows="3" required></textarea>
+        </div>
+        <div class="form-group">
+            <label for="learning_points">Learning Points (LP)</label>
+            <input type="number" class="form-control" id="learning_points" name="learning_points" value="1" min="0" required>
+        </div>
+        <br />
+        <button type="submit" class="btn btn-primary">Add Question and Manage Answers</button>
+    </form>
+
+    <hr>
+
+    <h2>Existing Questions</h2>
+    {% if questions %}
+        <ul class="list-group">
+            {% for question in questions %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <p><strong>{{ question.text }}</strong></p>
+                        <small>LP: {{ question.learning_points }} | Answers: {{ question.answers.count() }}</small>
+                    </div>
+                    <div>
+                        <a href="{{ url_for('views.teacher_manage_question_answers', question_id=question.id) }}" class="btn btn-sm btn-info">Manage Answers</a>
+                        <!-- Add Edit/Delete Question buttons here if needed later -->
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No questions added to this quiz yet.</p>
+    {% endif %}
+
+    <br />
+    <p><a href="{{ url_for('views.teacher_classrooms') }}">Back to My Classrooms</a></p> 
+    <!-- Consider a link back to a general quiz list or edit quiz page if those exist -->
+</div>
+{% endblock %}
