@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Join Classroom{% endblock %}
+
+{% block content %}
+<h1 align="center">Join a Classroom</h1>
+
+<form method="POST">
+    <div class="form-group">
+        <label for="join_code">Enter Join Code</label>
+        <input 
+            type="text" 
+            class="form-control" 
+            id="join_code" 
+            name="join_code" 
+            placeholder="Enter code provided by your teacher"
+            required
+        />
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary">Join Classroom</button>
+</form>
+<br />
+<p><a href="{{ url_for('views.home') }}">Back to Dashboard</a></p>
+
+{% endblock %}

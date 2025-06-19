@@ -1,10 +1,3 @@
-# Responsible: Lasse
-# filepath: c:\Users\lasse\Desktop\Full_Stack_Quizz_Masterz\website\auth.py
-"""
-Authentication Routes for Quiz Masters Application
-Handles user login, logout, and registration with enhanced security and validation
-"""
-
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from .models import User
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -17,7 +10,6 @@ auth = Blueprint('auth', __name__)
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
-    """User login with email and password validation"""
     form = LoginForm()
     if form.validate_on_submit():
         email = form.email.data
@@ -40,14 +32,12 @@ def login():
 @auth.route('/logout')
 @login_required
 def logout():
-    """User logout and session termination"""
     logout_user()
     return redirect(url_for('auth.login'))
 
 
 @auth.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
-    """User registration with role selection (student/teacher)"""
     form = SignUpForm()
     if form.validate_on_submit():
         email = form.email.data
@@ -67,4 +57,3 @@ def sign_up():
             return redirect(url_for('views.home'))
 
     return render_template("sign_up.html", user=current_user, form=form)
-    # Email uniqueness validation and account setup

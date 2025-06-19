@@ -1,13 +1,34 @@
-<!-- Responsible: David -->
-<!-- filepath: c:\Users\lasse\Desktop\Full_Stack_Quizz_Masterz\website\templates\teacher_classrooms.html -->
-<!-- 
-Teacher Classroom Management Template for Quiz Masters Application
-Interface for teachers to create, manage, and oversee their classrooms
--->
+{% extends "base.html" %}
 
+{% block title %}My Classrooms{% endblock %}
 
+{% block content %}
+<h1 align="center">My Classrooms</h1>
 
-<!-- Classroom management dashboard for teachers -->
-<!-- Classroom creation form with unique join codes -->
-<!-- Student enrollment tracking and management -->
-<!-- Quiz assignment and classroom analytics -->
+<div class="mb-3">
+    <a href="{{ url_for('views.create_classroom') }}" class="btn btn-success">Create New Classroom</a>
+</div>
+
+{% if classrooms %}
+    <ul class="list-group">
+        {% for classroom in classrooms %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                    <h5>{{ classroom.name }}</h5>
+                    <small>Join Code: <strong>{{ classroom.join_code }}</strong></small>
+                </div>
+                <div>
+                    <a href="{{ url_for('views.add_quiz_to_classroom', classroom_id=classroom.id) }}" class="btn btn-sm btn-primary">Add Quiz</a>
+                    <a href="{{ url_for('views.edit_classroom', classroom_id=classroom.id) }}" class="btn btn-sm btn-warning">Edit</a>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>You haven't created any classrooms yet.</p>
+{% endif %}
+
+<br />
+<p><a href="{{ url_for('views.home') }}">Back to Dashboard</a></p>
+
+{% endblock %}

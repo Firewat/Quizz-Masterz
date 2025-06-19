@@ -1,31 +1,28 @@
-<!-- Responsible: David -->
-<!-- filepath: c:\Users\lasse\Desktop\Full_Stack_Quizz_Masterz\website\templates\home.html -->
 {% extends "base.html" %}
 {% block title %}Home{% endblock %}
 
 {% block content %}
-{% if user.role == 'teacher' %}
-    <h1>Welcome Teacher {{ user.first_name }}!</h1>
-    <p>You are logged in as a teacher.</p>
-    <ul>
-        <li>Create and manage quizzes</li>
-        <li>View student submissions</li>
-        <li>Manage classrooms</li>
-        <li>View statistics and analytics</li>
-    </ul>
-{% elif user.role == 'student' %}
-    <h1>Welcome Student {{ user.first_name }}!</h1>
-    <p>You are logged in as a student.</p>
-    <ul>
-        <li>Take quizzes</li>
-        <li>View your results</li>
-        <li>Join classrooms</li>
-    </ul>
-    <br>
-    <p><a href="/test-quiz">Test Quiz - Python Code Understanding</a></p>
-{% else %}
-    <h1>Welcome {{ user.first_name }}!</h1>
-    <p>Please contact administrator to set your role.</p>
-{% endif %}
+<div class="container">
+    <h1 align="center">Welcome, {{ user.first_name }}!</h1>
+    <hr>
+
+    {% if user.role == 'teacher' %}
+        <h2>Teacher Dashboard</h2>
+        <p>Manage your classrooms and quizzes.</p>
+        <a href="{{ url_for('views.teacher_classrooms') }}" class="btn btn-primary">View My Classrooms</a>
+        <!-- Add other teacher-specific links here -->
+
+    {% elif user.role == 'student' %}
+        <h2>Student Dashboard</h2>
+        <p>Your total Learning Points: <strong>{{ user.learning_points if user.learning_points is not none else 0 }} LP</strong></p>
+        <a href="{{ url_for('views.student_my_classrooms') }}" class="btn btn-info">My Classrooms</a>
+        <a href="{{ url_for('views.student_join_classroom') }}" class="btn btn-success">Join a Classroom</a>
+        <!-- Add other student-specific links here -->
+
+    {% else %}
+        <p>Your role is not defined. Please contact support.</p>
+    {% endif %}
+
+</div>
 {% endblock %}
 

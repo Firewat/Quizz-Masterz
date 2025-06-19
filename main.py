@@ -10,7 +10,5 @@ from website import create_app
 app = create_app()
 
 if __name__ == '__main__':
-    # Development server with debug mode enabled
-    # In production, use a proper WSGI server like Gunicorn
-    app.run(debug=True)
+    # Development server 
     app.run(debug=True)
