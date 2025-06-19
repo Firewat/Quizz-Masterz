@@ -5,7 +5,7 @@ nav_order: 1
 ---
 
 {: .label }
-[Jane Dane]
+[sollen wir hier was reinschreiben?]
 
 {: .no_toc }
 # Architecture
@@ -34,6 +34,34 @@ nav_order: 1
 ## Overview
 
 [Give a high-level overview of what your app does and how it achieves it: similar to the value proposition, but targeted at a fellow developer who wishes to contribute.]
+
+For Teachers
+
+    Classroom Management & Creation: Create and manage multiple classrooms.
+
+    Quiz Creation: Build quizzes with multiple-choice questions supporting multiple correct answers.
+
+    Student Monitoring: View student performance and quiz results.
+
+    Set Learning Points: Set multiple correct answers with flexible scoring for Students to earn Learning Points (LP).
+
+For Students
+
+    Classroom Participation: Join classrooms using unique classroom codes.
+
+    Quiz Taking: Take quizzes with multiple answer selection capability.
+
+    Performance Tracking: View quiz results with detailed scoring breakdown and earn LPs for your right answers.
+
+    Shop: Level up and earn Skins for your Profile.
+
+System Features
+
+    Multiple Answer Support: Students can select multiple answers per question.
+
+    Partial Credit Scoring: Scoring system with partial credit for partially correct answers and penalties for incorrect selections.
+
+    User Authentication: Secure login and registration system with role-based access (Teacher/Student).
 
 ## Codemap
 
