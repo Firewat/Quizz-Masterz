@@ -22,13 +22,15 @@ About
 Matr.-Nr.
 : 77212023467
 
-### [Joe Doe]
+### [Furkan Dinc]
 
 About
-: Some info about Joe
+:Hallo! Ich bin aktuell Student im Bereich Wirtschaftsinformatik und bringe eine eher untypische Vorgeschichte mit: Vor meinem Studium hatte ich nur begrenzte Berührungspunkte mit der Informatik. Erste Erfahrungen sammelte ich während meiner Ausbildung, wo ich unter anderem einfache Datenbankabfragen formulierte und eine grundlegende HTML-Seite erstellte – mehr aus Pflicht als aus Leidenschaft.
+
+Ich sehe mich nicht als klassischen „Techie“, sondern eher als jemand, der komplexe Themen greifbar machen und zwischen Fachbereichen vermitteln kann – und genau das reizt mich an der Wirtschaftsinformatik. 
 
 Matr.-Nr.
-: 1234567
+: 77212019316
 
 ## Eidesstattliche Erklärung
 
