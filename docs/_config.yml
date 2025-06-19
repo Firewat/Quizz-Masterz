@@ -1,9 +1,8 @@
 title: Quiz Masterz
 description: Documentation for Quiz Masterz Project
 theme: just-the-docs
+baseurl: "/Quizz-Masterz"
 
-# Enable Mermaid diagram support
+# Enable Mermaid diagrams
 mermaid:
-  # Version of mermaid library
   version: "9.1.3"
-  # Put any additional configuration here
