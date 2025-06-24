@@ -1,6 +1,6 @@
 title: Quiz Masterz
 description: Documentation for Quiz Masterz Project
-theme: just-the-docs
+remote_theme: just-the-docs/just-the-docs
 baseurl: "/Quizz-Masterz"
 
 # Enable Mermaid diagrams
