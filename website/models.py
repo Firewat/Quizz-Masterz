@@ -21,6 +21,7 @@ class User(db.Model, UserMixin):
     first_name = db.Column(db.String(150))
     role = db.Column(db.String(50))  # 'student' or 'teacher'
     learning_points = db.Column(db.Integer, default=0) # User's total LPs
+    
     # Relationship for teachers to their created classrooms
     classrooms_created = db.relationship('Classroom', foreign_keys='[Classroom.teacher_id]', backref='teacher', lazy=True)
     # Relationship for students to the classrooms they've joined
@@ -28,12 +29,60 @@ class User(db.Model, UserMixin):
                                         backref=db.backref('students', lazy='dynamic'),
                                         lazy='dynamic')
     quiz_attempts = db.relationship('StudentQuizAttempt', backref='student', lazy='dynamic') # Added
+    owned_skins = db.relationship('UserSkin', backref='owner', lazy='dynamic')  # Added for shop system
+    
+    def get_level_info(self):
+        """Calculate user's current level and progress to next level (infinite levels)"""
+        if not self.learning_points or self.learning_points < 100:
+            return {
+                'current_level': 0,
+                'current_lp': self.learning_points or 0,
+                'next_level_lp': 100,
+                'progress_percentage': ((self.learning_points or 0) / 100) * 100,
+                'remaining_lp': 100 - (self.learning_points or 0),
+                'level_start_lp': 0,
+                'lp_in_current_level': self.learning_points or 0,
+                'lp_needed_for_next': 100,
+                'is_max_level': False
+            }
+        
+        # Level 1 at 100 LP, Level 2 at 200 LP, Level 3 at 400 LP, Level 4 at 800 LP, etc.
+        level = 1
+        level_threshold = 100
+        
+        # Keep calculating until we find the correct level (no cap)
+        while self.learning_points >= level_threshold * 2:
+            level += 1
+            level_threshold *= 2
+        
+        # Calculate next level threshold
+        next_level_threshold = level_threshold * 2
+        
+        # Calculate progress within current level
+        lp_in_current_level = self.learning_points - level_threshold
+        lp_needed_for_next = next_level_threshold - level_threshold
+        progress_percentage = (lp_in_current_level / lp_needed_for_next) * 100
+        
+        return {
+            'current_level': level,
+            'current_lp': self.learning_points,
+            'level_start_lp': level_threshold,
+            'next_level_lp': next_level_threshold,
+            'progress_percentage': min(max(progress_percentage, 0), 100),
+            'remaining_lp': max(next_level_threshold - self.learning_points, 0),
+            'lp_in_current_level': lp_in_current_level,
+            'lp_needed_for_next': lp_needed_for_next,
+            'is_max_level': False  # No max level anymore
+        }
 
 class Quiz(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(150), nullable=False)
     teacher_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False) # Added: who created quiz
+    is_published = db.Column(db.Boolean, default=False, nullable=False) # Draft/upload workflow
     questions = db.relationship('Question', backref='quiz', lazy='dynamic', cascade="all, delete-orphan") # Added
+    # Relationship to teacher who created this quiz
+    teacher = db.relationship('User', backref=db.backref('created_quizzes', lazy='dynamic'))
     # Add other relevant quiz fields here, e.g., description, number of questions
     # Example: description = db.Column(db.Text, nullable=True)
 
@@ -83,3 +132,16 @@ class StudentQuizAttempt(db.Model):
 
     def __repr__(self):
         return f'<StudentQuizAttempt student_id={self.student_id} quiz_id={self.quiz_id} classroom_id={self.classroom_id} score={self.score}>'
+
+class UserSkin(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    skin_id = db.Column(db.Integer, nullable=False)  # Reference to skin ID
+    skin_name = db.Column(db.String(50), nullable=False)
+    skin_icon = db.Column(db.String(50), nullable=False)
+    skin_color = db.Column(db.String(20), nullable=False)
+    purchased_at = db.Column(db.DateTime, default=db.func.current_timestamp())
+    is_selected = db.Column(db.Boolean, default=False)  # Whether this skin is currently selected for display
+
+    def __repr__(self):
+        return f'<UserSkin user_id={self.user_id} skin_name={self.skin_name} selected={self.is_selected}>'
