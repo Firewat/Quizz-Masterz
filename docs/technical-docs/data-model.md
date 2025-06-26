@@ -19,9 +19,9 @@ Quiz Masterz Team
 
 ## Database Schema
 
-![UML Use Case Diagram - Simplified](../assets/pdfs/FullStack_Quizz_Masterz_UML_Use_Case_Diagramm_simplified.pdf)
-
-![UML Use Case Diagram - Complete](../assets/pdfs/FullStack_Quizz_Mastzerz_Complete_UML_Use_Case_Diagram.pdf)
+ **UML Use Case Diagrams**
+- [UML Use Case Diagram - Simplified](../assets/pdfs/FullStack_Quizz_Masterz_UML_Use_Case_Diagramm_simplified.pdf)
+- [UML Use Case Diagram - Complete](../assets/pdfs/FullStack_Quizz_Mastzerz_Complete_UML_Use_Case_Diagram.pdf)
 
 ## Authentication & User Management
 

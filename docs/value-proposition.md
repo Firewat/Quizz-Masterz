@@ -31,13 +31,13 @@ Traditional classroom methods are often time-consuming and provide limited engag
 
 **Quiz Masterz** is a comprehensive web-based quiz platform that creates new classroom learning through:
 
-###  **For Teachers:**
+###  **For Teachers**
 - **Classroom Management** - Create and manage multiple classrooms
 - **Interactive Quiz Creation** - Build engaging quizzes with multiple question types
 - **Real-time Analytics** - Track student progress and performance instantly
 - **Automated Grading** - Save time with automatic scoring and feedback
 
-### **For Students:**
+### **For Students**
 - **Gamified Learning** - Earn learning points and unlock rewards
 - **Progress Tracking** - Monitor personal learning journey
 - **Social Features** - Compete with classmates through leaderboards
@@ -47,7 +47,7 @@ Traditional classroom methods are often time-consuming and provide limited engag
 
 ## Target Users
 
-### Primary Personas:
+### Primary Personas
 
 **"Ms. Sarah" - The Modern Teacher**
 - Age: 32
@@ -72,14 +72,14 @@ Students and teachers can quickly sign up and get started immediately.
 ![Sign Up](assets/images/Sign%20up%20form.PNG)
 *registration process*
 
-### **Teacher Workflow:**
+### **Teacher Workflow**
 
 1. **Create Classroom** → Set up learning spaces
 2. **Build Quizzes** → Add questions 
 3. **Invite Students** → Share classroom codes 
 4. **Monitor Progress** → View real-time analytics and leaderboards
 
-### **Student Workflow:**
+### **Student Workflow**
 
 ![Student Success](assets/images/Student%20logged%20in%20successfully.PNG)
 *Successful login with welcoming interface*
@@ -101,7 +101,7 @@ Students and teachers can quickly sign up and get started immediately.
 ![Take Quiz](assets/images/Take%20Quiz%20Student.PNG)
 *Interactive quiz-taking interface*
 
-### **Gamification Features:**
+### **Gamification Features**
 
 ![Student Shop](assets/images/Student%20Shop%20student.PNG)
 *Reward shop where students can spend learning points*
