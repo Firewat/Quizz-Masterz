@@ -19,11 +19,16 @@ Quiz Masterz Team
 
 ## Database Schema
 
+ **UML Use Case Diagrams**
+
 ![UML Use Case Diagram - Simplified](../assets/images/FullStack_Quizz_Masterz_UML_Use_Case_Diagramm_simplified.jpg)
 *Simplified UML Use Case Diagram showing the main system interactions.*
 
 ![UML Use Case Diagram - Complete](../assets/images/FullStack_Quizz_Mastzerz_Complete_UML_Use_Case_Diagram.jpg)
 *Complete UML Use Case Diagram with detailed system architecture and relationships.*
+
+- [UML Use Case Diagram - Simplified](../assets/pdfs/FullStack_Quizz_Masterz_UML_Use_Case_Diagramm_simplified.pdf)
+- [UML Use Case Diagram - Complete](../assets/pdfs/FullStack_Quizz_Mastzerz_Complete_UML_Use_Case_Diagram.pdf)
 
 ## Authentication & User Management
 
