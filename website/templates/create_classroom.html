@@ -25,22 +25,22 @@
                         required
                         maxlength="100"
                     />
-                    <small style="color: var(--text-secondary); font-size: 0.875rem; margin-top: 0.25rem; display: block;">
+                    <small class="form-help">
                         <i class="fas fa-info-circle"></i> Choose a descriptive name for your classroom
                     </small>
                 </div>
                 
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">
+                    <button type="submit" class="btn btn-primary btn-lg btn-full-width">
                         <i class="fas fa-plus"></i> Create Classroom
                     </button>
                 </div>
             </form>
         </div>
         
-        <div class="card-body" style="border-top: 1px solid var(--border-color); margin-top: 0;">
+        <div class="card-body card-divider">
             <p class="text-center">
-                <a href="{{ url_for('views.teacher_classrooms') }}" style="color: var(--primary-color); font-weight: 600;">
+                <a href="{{ url_for('views.teacher_classrooms') }}" class="link-primary">
                     <i class="fas fa-arrow-left"></i> Back to My Classrooms
                 </a>
             </p>        </div>

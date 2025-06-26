@@ -1,5 +1,8 @@
 <!-- Responsible: David -->
-<!-- filepath: c:\Users\lasse\Desktop\Full_Stack_Quizz_Masterz\website\templates\edit_classroom.html -->
+<!-- filepath: c:\Users\lasse\Desktop\Full_Stack_Quizz_Masterz\web                        <div class="empty-state empty-state-small">
+                            <i class="fas fa-users empty-state-icon"></i>
+                            <p class="empty-state-description mb-0">No students have joined this classroom yet.</p>
+                        </div>\templates\edit_classroom.html -->
 <!-- 
 Classroom Editing Template for Quiz Masters Application
 Interface for teachers to edit classroom details and manage settings
@@ -20,7 +23,7 @@ Interface for teachers to edit classroom details and manage settings
                     <label for="classroom_name">Classroom Name</label>
                     <input type="text" class="form-control" id="classroom_name" name="classroom_name" value="{{ classroom.name }}" required>
                 </div>
-                <button type="submit" name="update_name" class="btn btn-primary" style="margin-top: -1 rem;">Update Name</button>
+                <button type="submit" name="update_name" class="btn btn-primary btn-update-name">Update Name</button>
             </form>
         </div>
     </div>
@@ -32,12 +35,12 @@ Interface for teachers to edit classroom details and manage settings
                 <div class="card-header">
                     <h4><i class="fas fa-trophy text-warning"></i> Student Leaderboard & Management</h4>
                 </div>
-                <div class="card-body" style="padding: 1rem;">
+                <div class="card-body p-3">
                     {% if leaderboard %}
                         <div class="leaderboard-container">
                             {% for student in leaderboard %}
                                 {% set place = loop.index %}
-                                <div class="leaderboard-item {% if place == 1 %}first-place{% elif place == 2 %}second-place{% elif place == 3 %}third-place{% endif %}" style="margin-bottom: 0.75rem;">
+                                <div class="leaderboard-item {% if place == 1 %}first-place{% elif place == 2 %}second-place{% elif place == 3 %}third-place{% endif %} mb-3">
                                     <div class="position-indicator">
                                         {% if place == 1 %}
                                             <div class="place-badge gold">
@@ -64,9 +67,9 @@ Interface for teachers to edit classroom details and manage settings
                                     <div class="student-info">
                                         <div class="student-avatar">
                                             {% if student.skin %}
-                                                <i class="{{ student.skin.skin_icon }}" style="color: {{ student.skin.skin_color }}; font-size: 1.5rem;"></i>
+                                                <i class="{{ student.skin.skin_icon }} avatar-skin" style="color: {{ student.skin.skin_color }};"></i>
                                             {% else %}
-                                                <i class="fas fa-user-circle text-muted" style="font-size: 1.5rem;"></i>
+                                                <i class="fas fa-user-circle avatar-default"></i>
                                             {% endif %}
                                         </div>
                                         <div class="student-details">
@@ -82,7 +85,7 @@ Interface for teachers to edit classroom details and manage settings
                                         <div class="score-label">points</div>
                                     </div>
                                     
-                                    <div class="student-actions" style="margin-left: 1rem;">
+                                    <div class="student-actions">
                                         <form method="POST" action="{{ url_for('views.kick_student', classroom_id=classroom.id, student_id=student.student_id) }}" onsubmit="return confirm('Are you sure you want to kick {{ student.name }}?');">
                                             <button type="submit" class="btn btn-sm btn-warning">
                                                 <i class="fas fa-user-times"></i> Kick
@@ -165,10 +168,10 @@ Interface for teachers to edit classroom details and manage settings
                             </a>
                         </div>
                     {% else %}
-                        <div class="text-center" style="padding: 2rem;">
-                            <i class="fas fa-file-plus text-muted" style="font-size: 3rem; margin-bottom: 1rem;"></i>
-                            <h5>No Draft Quizzes</h5>
-                            <p class="text-muted">Create a new quiz to get started.</p>
+                        <div class="empty-state">
+                            <i class="fas fa-file-plus empty-state-icon"></i>
+                            <h5 class="empty-state-title">No Draft Quizzes</h5>
+                            <p class="empty-state-description">Create a new quiz to get started.</p>
                             <a href="{{ url_for('views.create_quiz_for_classroom', classroom_id=classroom.id) }}" class="btn btn-primary">
                                 <i class="fas fa-plus"></i> Create New Quiz
                             </a>
@@ -245,10 +248,10 @@ Interface for teachers to edit classroom details and manage settings
                             </div>
                         {% endfor %}
                     {% else %}
-                        <div class="text-center" style="padding: 2rem;">
-                            <i class="fas fa-clipboard-list text-muted" style="font-size: 3rem; margin-bottom: 1rem;"></i>
-                            <h5>No Quizzes in This Classroom</h5>
-                            <p class="text-muted">Add quizzes to this classroom to see student submissions and reviews.</p>
+                        <div class="empty-state">
+                            <i class="fas fa-clipboard-list empty-state-icon"></i>
+                            <h5 class="empty-state-title">No Quizzes in This Classroom</h5>
+                            <p class="empty-state-description">Add quizzes to this classroom to see student submissions and reviews.</p>
                             <a href="{{ url_for('views.add_quiz_to_classroom', classroom_id=classroom.id) }}" class="btn btn-primary">
                                 <i class="fas fa-plus"></i> Add Quiz
                             </a>
@@ -278,165 +281,5 @@ Interface for teachers to edit classroom details and manage settings
     </div>
 </div>
 
-<style>
-/* Modern Leaderboard Styling */
-.leaderboard-container {
-    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-    border-radius: 12px;
-    padding: 1rem;
-}
-
-.leaderboard-item {
-    display: flex;
-    align-items: center;
-    background: white;
-    border-radius: 10px;
-    padding: 0.75rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    transition: all 0.2s ease;
-    border-left: 4px solid #e2e8f0;
-}
-
-/* Draft Quiz Card Styling */
-.draft-quiz-card {
-    border: 2px dashed #fbbf24;
-    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
-    transition: all 0.2s ease;
-}
-
-.draft-quiz-card:hover {
-    border-color: #f59e0b;
-    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.15);
-}
-
-.leaderboard-item.first-place {
-    border-left-color: #fbbf24;
-    background: linear-gradient(135deg, #fef3c7 0%, #ffffff 100%);
-}
-
-.leaderboard-item.second-place {
-    border-left-color: #9ca3af;
-    background: linear-gradient(135deg, #f3f4f6 0%, #ffffff 100%);
-}
-
-.leaderboard-item.third-place {
-    border-left-color: #cd7c32;
-    background: linear-gradient(135deg, #fed7aa 0%, #ffffff 100%);
-}
-
-.position-indicator {
-    margin-right: 1rem;
-    min-width: 50px;
-    text-align: center;
-}
-
-.place-badge {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.25rem;
-}
-
-.place-badge.gold {
-    color: #f59e0b;
-}
-
-.place-badge.silver {
-    color: #6b7280;
-}
-
-.place-badge.bronze {
-    color: #cd7c32;
-}
-
-.place-badge.regular {
-    color: #64748b;
-    font-weight: 600;
-}
-
-.place-badge i {
-    font-size: 1.5rem;
-}
-
-.place-badge span {
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.student-info {
-    display: flex;
-    align-items: center;
-    flex: 1;
-    gap: 0.75rem;
-}
-
-.student-avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: #f1f5f9;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 2px solid #e2e8f0;
-}
-
-.student-details {
-    flex: 1;
-}
-
-.student-name {
-    font-weight: 600;
-    color: #1e293b;
-    font-size: 0.95rem;
-}
-
-.student-title {
-    font-size: 0.8rem;
-    color: #64748b;
-    margin-top: 0.1rem;
-}
-
-.score-display {
-    text-align: center;
-    min-width: 60px;
-}
-
-.score-number {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: #059669;
-}
-
-.score-label {
-    font-size: 0.7rem;
-    color: #64748b;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .leaderboard-item {
-        padding: 0.5rem;
-    }
-    
-    .position-indicator {
-        margin-right: 0.5rem;
-        min-width: 40px;
-    }
-    
-    .place-badge i {
-        font-size: 1.2rem;
-    }
-    
-    .student-avatar {
-        width: 35px;
-        height: 35px;
-    }
-}
-</style>
 {% endblock %}
 

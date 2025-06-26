@@ -1,47 +1,132 @@
 {% extends "base.html" %}
 
-{% block title %}{{ classroom.name }}{% endblock %}
+{% block title %}{{ classroom.name }} - Quiz Masterz{% endblock %}
 
 {% block content %}
-<h1 align="center">{{ classroom.name }}</h1>
-<p>Taught by: {{ classroom.teacher.first_name }}</p> <!-- Assuming teacher relationship gives User object -->
+<div class="container">
+    <!-- Classroom Header -->
+    <div class="card mb-4">
+        <div class="card-body text-center">
+            <h1><i class="fas fa-chalkboard text-primary"></i> {{ classroom.name }}</h1>
+            <p class="text-muted">
+                <i class="fas fa-user-tie"></i> Taught by: {{ classroom.teacher.first_name }} {{ classroom.teacher.last_name }}
+            </p>
+        </div>
+    </div>
 
-<hr>
+    <div class="row">
+        <!-- Available Quizzes Section -->
+        <div class="col-lg-8 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-clipboard-list text-success"></i> Available Quizzes</h3>
+                </div>
+                <div class="card-body">                    {% if available_quizzes %}
+                        <div class="list-group list-group-flush">
+                            {% for quiz_data in available_quizzes %}
+                                <div class="list-group-item d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="mb-1">{{ quiz_data.quiz.name }}</h6>
+                                        <small class="text-muted">
+                                            <i class="fas fa-clock"></i> Available now
+                                            {% if quiz_data.taken %}
+                                                <span class="badge bg-success ms-2">
+                                                    <i class="fas fa-check"></i> Completed
+                                                </span>
+                                            {% endif %}
+                                        </small>
+                                    </div>
+                                    {% if quiz_data.taken %}
+                                        <a href="{{ url_for('views.take_quiz', quiz_id=quiz_data.quiz.id, classroom_id=classroom.id) }}" 
+                                           class="btn btn-retake btn-sm btn-disabled">
+                                            <i class="fas fa-redo"></i> Retake Quiz
+                                        </a>
+                                    {% else %}
+                                        <a href="{{ url_for('views.take_quiz', quiz_id=quiz_data.quiz.id, classroom_id=classroom.id) }}" 
+                                           class="btn btn-primary btn-sm">
+                                            <i class="fas fa-play"></i> Start Quiz
+                                        </a>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="empty-state">
+                            <i class="fas fa-clipboard-list empty-state-icon"></i>
+                            <h5 class="empty-state-title">No Quizzes Available</h5>
+                            <p class="empty-state-description">No quizzes are currently available in this classroom. Check back later!</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
 
-<h2>Available Quizzes</h2>
-{% if available_quizzes %}
-    <ul class="list-group">
-        {% for quiz in available_quizzes %}
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                {{ quiz.name }}
-                <!-- Add a button/link to take the quiz, e.g., url_for('views.take_quiz', quiz_id=quiz.id) -->
-                <a href="{{ url_for('views.take_quiz', quiz_id=quiz.id, classroom_id=classroom.id) }}" class="btn btn-primary btn-sm">Start Quiz</a>
-            </li>
-        {% else %}
-            <li class="list-group-item">No quizzes available in this classroom yet.</li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>No quizzes are currently available in this classroom.</p>
-{% endif %}
-
-<hr>
-
-<h2>Classroom Leaderboard</h2>
-{% if leaderboard_students %}
-    <ol class="list-group list-group-numbered">
-        {% for student in leaderboard_students %}
-            <li class="list-group-item">{{ student.first_name }} 
-                <!-- Add score or other metrics here when available -->
-            </li>
-        {% endfor %}
-    </ol>
-{% else %}
-    <p>No students in this classroom yet (besides you!).</p>
-{% endif %}
-
-<br />
-<p><a href="{{ url_for('views.student_my_classrooms') }}">Back to My Classrooms</a></p>
-<p><a href="{{ url_for('views.home') }}">Back to Dashboard</a></p>
+        <!-- Classroom Leaderboard Section -->
+        <div class="col-lg-4 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h4><i class="fas fa-trophy text-warning"></i> Leaderboard</h4>
+                </div>                <div class="card-body p-3">
+                    {% if leaderboard %}
+                        <div class="leaderboard-container">
+                            {% for student in leaderboard %}
+                                {% set place = loop.index %}
+                                <div class="leaderboard-item {% if place == 1 %}first-place{% elif place == 2 %}second-place{% elif place == 3 %}third-place{% endif %} mb-3">
+                                    <div class="position-indicator">
+                                        {% if place == 1 %}
+                                            <div class="place-badge gold">
+                                                <i class="fas fa-crown"></i>
+                                                <span>1st</span>
+                                            </div>
+                                        {% elif place == 2 %}
+                                            <div class="place-badge silver">
+                                                <i class="fas fa-medal"></i>
+                                                <span>2nd</span>
+                                            </div>
+                                        {% elif place == 3 %}
+                                            <div class="place-badge bronze">
+                                                <i class="fas fa-award"></i>
+                                                <span>3rd</span>
+                                            </div>
+                                        {% else %}
+                                            <div class="place-badge regular">
+                                                <span>{{ place }}{{ 'th' if place > 3 else '' }}</span>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    
+                                    <div class="student-info">
+                                        <div class="student-avatar">
+                                            {% if student.skin %}
+                                                <i class="{{ student.skin.skin_icon }} avatar-skin" style="color: {{ student.skin.skin_color }};"></i>
+                                            {% else %}
+                                                <i class="fas fa-user-circle avatar-default"></i>
+                                            {% endif %}
+                                        </div>
+                                        <div class="student-details">
+                                            <div class="student-name">{{ student.name }}</div>
+                                            <div class="student-title">
+                                                {% if student.skin %}{{ student.skin.skin_name }}{% else %}Student{% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="score-display">
+                                        <div class="score-number">{{ student.score }}</div>
+                                        <div class="score-label">points</div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="empty-state empty-state-small">
+                            <i class="fas fa-users empty-state-icon"></i>
+                            <p class="empty-state-description mb-0">No other students yet!</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>        </div>
+    </div>
+</div>
 
 {% endblock %}
