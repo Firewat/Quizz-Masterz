@@ -3,12 +3,6 @@ title: Home
 nav_order: 1
 layout: default
 ---
-
-{: .attention }
-> Any text enclosed by `[ ]` are placeholders, including the opening and closing brackets.
->
-> You may delete this `attention` box.
-
 # Quiz Masterz
 
 Flask-based web application for creating, managing, and taking educational quizzes. Quiz Masters provides a platform for teachers to create and manage classrooms, create quizzes, and for students to join classrooms and take quizzes with multiple answer support and partial credit scoring known as LP (Learning Points).

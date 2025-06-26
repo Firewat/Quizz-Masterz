@@ -5,8 +5,10 @@ nav_order: 1
 
 {: .label }
 Lasse Schulz
+
 {: .label }
-FUrkan Dinc
+Furkan Dinc
+
 {: .label }
 David Levi
 
