@@ -1,26 +1,49 @@
 {% extends "base.html" %}
 
-{% block title %}Create Classroom{% endblock %}
+{% block title %}Create Classroom - Quiz Masterz{% endblock %}
 
 {% block content %}
-<h1 align="center">Create New Classroom</h1>
-
-<form method="POST">
-    <div class="form-group">
-        <label for="classroom_name">Classroom Name</label>
-        <input 
-            type="text" 
-            class="form-control" 
-            id="classroom_name" 
-            name="classroom_name" 
-            placeholder="Enter classroom name"
-            required
-        />
+<div class="container-sm">
+    <div class="card">
+        <div class="card-header text-center">
+            <h1><i class="fas fa-plus-circle"></i> Create New Classroom</h1>
+            <p>Set up a new classroom for your students</p>
+        </div>
+        
+        <div class="card-body">
+            <form method="POST">
+                <div class="form-group">
+                    <label for="classroom_name" class="form-label">
+                        <i class="fas fa-chalkboard"></i> Classroom Name
+                    </label>
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        id="classroom_name" 
+                        name="classroom_name" 
+                        placeholder="e.g., Math 101, History Advanced, etc."
+                        required
+                        maxlength="100"
+                    />
+                    <small style="color: var(--text-secondary); font-size: 0.875rem; margin-top: 0.25rem; display: block;">
+                        <i class="fas fa-info-circle"></i> Choose a descriptive name for your classroom
+                    </small>
+                </div>
+                
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">
+                        <i class="fas fa-plus"></i> Create Classroom
+                    </button>
+                </div>
+            </form>
+        </div>
+        
+        <div class="card-body" style="border-top: 1px solid var(--border-color); margin-top: 0;">
+            <p class="text-center">
+                <a href="{{ url_for('views.teacher_classrooms') }}" style="color: var(--primary-color); font-weight: 600;">
+                    <i class="fas fa-arrow-left"></i> Back to My Classrooms
+                </a>
+            </p>        </div>
     </div>
-    <br />
-    <button type="submit" class="btn btn-primary">Create Classroom</button>
-</form>
-<br />
-<p><a href="{{ url_for('views.teacher_classrooms') }}">Back to My Classrooms</a></p>
-
+</div>
 {% endblock %}

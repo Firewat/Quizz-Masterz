@@ -20,34 +20,423 @@ Interface for teachers to edit classroom details and manage settings
                     <label for="classroom_name">Classroom Name</label>
                     <input type="text" class="form-control" id="classroom_name" name="classroom_name" value="{{ classroom.name }}" required>
                 </div>
-                <button type="submit" name="update_name" class="btn btn-primary">Update Name</button>
+                <button type="submit" name="update_name" class="btn btn-primary" style="margin-top: -1 rem;">Update Name</button>
             </form>
-            <hr>
-            <h2>Delete Classroom</h2>
-            <form method="POST" action="{{ url_for('views.edit_classroom', classroom_id=classroom.id) }}" onsubmit="return confirm('Are you sure you want to delete this classroom? This action cannot be undone.');">
-                <button type="submit" name="delete_classroom" class="btn btn-danger">Delete Classroom</button>
-            </form>
-        </div>
-        <div class="col-md-6">
-            <h2>Students in Classroom</h2>
-            {% if classroom.students %}
-                <ul class="list-group">
-                    {% for student in classroom.students %}
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            {{ student.first_name }} ({{ student.email }})
-                            <form method="POST" action="{{ url_for('views.kick_student', classroom_id=classroom.id, student_id=student.id) }}" onsubmit="return confirm('Are you sure you want to kick this student?');">
-                                <button type="submit" class="btn btn-sm btn-warning">Kick</button>
-                            </form>
-                        </li>
-                    {% endfor %}
-                </ul>
-            {% else %}
-                <p>No students have joined this classroom yet.</p>
-            {% endif %}
         </div>
     </div>
-    <br />
-    <p><a href="{{ url_for('views.teacher_classrooms') }}">Back to My Classrooms</a></p>
+    
+    <!-- Classroom Leaderboard Section with Student Management -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4><i class="fas fa-trophy text-warning"></i> Student Leaderboard & Management</h4>
+                </div>
+                <div class="card-body" style="padding: 1rem;">
+                    {% if leaderboard %}
+                        <div class="leaderboard-container">
+                            {% for student in leaderboard %}
+                                {% set place = loop.index %}
+                                <div class="leaderboard-item {% if place == 1 %}first-place{% elif place == 2 %}second-place{% elif place == 3 %}third-place{% endif %}" style="margin-bottom: 0.75rem;">
+                                    <div class="position-indicator">
+                                        {% if place == 1 %}
+                                            <div class="place-badge gold">
+                                                <i class="fas fa-crown"></i>
+                                                <span>1st</span>
+                                            </div>
+                                        {% elif place == 2 %}
+                                            <div class="place-badge silver">
+                                                <i class="fas fa-medal"></i>
+                                                <span>2nd</span>
+                                            </div>
+                                        {% elif place == 3 %}
+                                            <div class="place-badge bronze">
+                                                <i class="fas fa-award"></i>
+                                                <span>3rd</span>
+                                            </div>
+                                        {% else %}
+                                            <div class="place-badge regular">
+                                                <span>{{ place }}{{ 'th' if place > 3 else '' }}</span>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    
+                                    <div class="student-info">
+                                        <div class="student-avatar">
+                                            {% if student.skin %}
+                                                <i class="{{ student.skin.skin_icon }}" style="color: {{ student.skin.skin_color }}; font-size: 1.5rem;"></i>
+                                            {% else %}
+                                                <i class="fas fa-user-circle text-muted" style="font-size: 1.5rem;"></i>
+                                            {% endif %}
+                                        </div>
+                                        <div class="student-details">
+                                            <div class="student-name">{{ student.name }}</div>
+                                            <div class="student-title">
+                                                {% if student.skin %}{{ student.skin.name }}{% else %}{{ student.email }}{% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="score-display">
+                                        <div class="score-number">{{ student.score }}</div>
+                                        <div class="score-label">points</div>
+                                    </div>
+                                    
+                                    <div class="student-actions" style="margin-left: 1rem;">
+                                        <form method="POST" action="{{ url_for('views.kick_student', classroom_id=classroom.id, student_id=student.student_id) }}" onsubmit="return confirm('Are you sure you want to kick {{ student.name }}?');">
+                                            <button type="submit" class="btn btn-sm btn-warning">
+                                                <i class="fas fa-user-times"></i> Kick
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="text-center" style="padding: 1rem;">
+                            <i class="fas fa-users text-muted" style="font-size: 2rem; margin-bottom: 0.5rem;"></i>
+                            <p class="text-muted mb-0">No students in this classroom yet!</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Draft Quizzes Section -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4><i class="fas fa-edit text-warning"></i> Draft Quizzes</h4>
+                    <small class="text-muted">Quizzes in progress - not yet visible to students</small>
+                </div>
+                <div class="card-body">
+                    {% if draft_quiz_reviews %}
+                        <div class="row">
+                            {% for draft in draft_quiz_reviews %}
+                                <div class="col-md-6 col-lg-4 mb-3">
+                                    <div class="card draft-quiz-card">
+                                        <div class="card-body">
+                                            <h6 class="card-title">
+                                                <i class="fas fa-file-alt text-secondary"></i> {{ draft.quiz.name }}
+                                                <span class="badge badge-secondary">Draft</span>
+                                            </h6>
+                                            <p class="card-text small text-muted">
+                                                Questions: {{ draft.quiz.questions.count() }}
+                                                {% if not draft.has_questions %}
+                                                    <br><span class="text-danger"><i class="fas fa-exclamation-triangle"></i> No questions added</span>
+                                                {% elif not draft.questions_have_answers %}
+                                                    <br><span class="text-warning"><i class="fas fa-exclamation-triangle"></i> Some questions missing answers</span>
+                                                {% else %}
+                                                    <br><span class="text-success"><i class="fas fa-check"></i> Ready to upload</span>
+                                                {% endif %}
+                                            </p>
+                                            <div class="btn-group-vertical w-100">
+                                                <a href="{{ url_for('views.teacher_manage_quiz_questions', quiz_id=draft.quiz.id, classroom_id=classroom.id) }}" 
+                                                   class="btn btn-sm btn-outline-primary">
+                                                    <i class="fas fa-edit"></i> Edit Quiz
+                                                </a>
+                                                {% if draft.has_questions and draft.questions_have_answers %}
+                                                    <a href="{{ url_for('views.upload_quiz_to_classroom', quiz_id=draft.quiz.id, classroom_id=classroom.id) }}" 
+                                                       class="btn btn-sm btn-success"
+                                                       onclick="return confirm('Upload this quiz to make it available to students?')">
+                                                        <i class="fas fa-upload"></i> Upload Quiz
+                                                    </a>
+                                                {% else %}
+                                                    <button class="btn btn-sm btn-secondary" disabled>
+                                                        <i class="fas fa-upload"></i> Upload Quiz
+                                                    </button>
+                                                {% endif %}
+                                                <a href="{{ url_for('views.delete_quiz', quiz_id=draft.quiz.id, classroom_id=classroom.id) }}" 
+                                                   class="btn btn-sm btn-outline-danger"
+                                                   onclick="return confirm('Are you sure you want to delete this draft quiz? This action cannot be undone.')">
+                                                    <i class="fas fa-trash"></i> Delete Quiz
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="mt-3">
+                            <a href="{{ url_for('views.create_quiz_for_classroom', classroom_id=classroom.id) }}" class="btn btn-primary">
+                                <i class="fas fa-plus"></i> Create New Quiz
+                            </a>
+                        </div>
+                    {% else %}
+                        <div class="text-center" style="padding: 2rem;">
+                            <i class="fas fa-file-plus text-muted" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                            <h5>No Draft Quizzes</h5>
+                            <p class="text-muted">Create a new quiz to get started.</p>
+                            <a href="{{ url_for('views.create_quiz_for_classroom', classroom_id=classroom.id) }}" class="btn btn-primary">
+                                <i class="fas fa-plus"></i> Create New Quiz
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Quiz Reviews Section -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4><i class="fas fa-clipboard-check text-info"></i> Published Quizzes & Submissions</h4>
+                    <small class="text-muted">Quizzes available to students with submission reviews</small>
+                </div>
+                <div class="card-body">
+                    {% if quiz_reviews %}
+                        {% for quiz_review in quiz_reviews %}
+                            <div class="mb-4">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h5>
+                                        <i class="fas fa-question-circle text-success"></i> {{ quiz_review.quiz.name }}
+                                        <span class="badge badge-info ml-2">{{ quiz_review.quiz.questions.count() }} questions</span>
+                                        <span class="badge badge-secondary ml-1">{{ quiz_review.submissions|length }} submissions</span>
+                                    </h5>
+                                    <div class="btn-group">
+                                        <a href="{{ url_for('views.quiz_review_details', quiz_id=quiz_review.quiz.id, classroom_id=classroom.id) }}" 
+                                           class="btn btn-primary btn-sm">
+                                            <i class="fas fa-chart-bar"></i> Review Quiz Details
+                                        </a>
+                                        <a href="{{ url_for('views.delete_quiz', quiz_id=quiz_review.quiz.id, classroom_id=classroom.id) }}" 
+                                           class="btn btn-outline-danger btn-sm"
+                                           onclick="return confirm('Are you sure you want to remove this quiz from the classroom? This will also remove all student submissions for this classroom.')">
+                                            <i class="fas fa-times"></i> Remove from Classroom
+                                        </a>
+                                    </div>
+                                </div>
+                                
+                                {% if quiz_review.submissions %}
+                                    <div class="table-responsive mt-3">
+                                        <table class="table table-sm table-hover">
+                                            <thead class="thead-light">
+                                                <tr>
+                                                    <th>Student</th>
+                                                    <th>Email</th>
+                                                    <th>Score</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for submission in quiz_review.submissions %}
+                                                    <tr>
+                                                        <td><strong>{{ submission.student_name }}</strong></td>
+                                                        <td><small class="text-muted">{{ submission.student_email }}</small></td>
+                                                        <td>
+                                                            <span class="badge badge-{% if submission.score >= 80 %}success{% elif submission.score >= 60 %}warning{% else %}danger{% endif %}">
+                                                                {{ submission.score }} pts
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                {% else %}
+                                    <div class="alert alert-info">
+                                        <i class="fas fa-info-circle"></i> No submissions yet for this quiz.
+                                    </div>
+                                {% endif %}
+                                
+                                {% if not loop.last %}<hr>{% endif %}
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="text-center" style="padding: 2rem;">
+                            <i class="fas fa-clipboard-list text-muted" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                            <h5>No Quizzes in This Classroom</h5>
+                            <p class="text-muted">Add quizzes to this classroom to see student submissions and reviews.</p>
+                            <a href="{{ url_for('views.add_quiz_to_classroom', classroom_id=classroom.id) }}" class="btn btn-primary">
+                                <i class="fas fa-plus"></i> Add Quiz
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Delete Classroom Section -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="card border-danger">
+                <div class="card-header bg-danger text-white">
+                    <h4><i class="fas fa-exclamation-triangle"></i> Danger Zone</h4>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="{{ url_for('views.edit_classroom', classroom_id=classroom.id) }}" onsubmit="return confirm('Are you sure you want to delete this classroom? This action cannot be undone and will remove all students and quiz data.');">
+                        <button type="submit" name="delete_classroom" class="btn btn-danger">
+                            <i class="fas fa-trash"></i> Delete Classroom Permanently
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<style>
+/* Modern Leaderboard Styling */
+.leaderboard-container {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border-radius: 12px;
+    padding: 1rem;
+}
+
+.leaderboard-item {
+    display: flex;
+    align-items: center;
+    background: white;
+    border-radius: 10px;
+    padding: 0.75rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: all 0.2s ease;
+    border-left: 4px solid #e2e8f0;
+}
+
+/* Draft Quiz Card Styling */
+.draft-quiz-card {
+    border: 2px dashed #fbbf24;
+    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+    transition: all 0.2s ease;
+}
+
+.draft-quiz-card:hover {
+    border-color: #f59e0b;
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.15);
+}
+
+.leaderboard-item.first-place {
+    border-left-color: #fbbf24;
+    background: linear-gradient(135deg, #fef3c7 0%, #ffffff 100%);
+}
+
+.leaderboard-item.second-place {
+    border-left-color: #9ca3af;
+    background: linear-gradient(135deg, #f3f4f6 0%, #ffffff 100%);
+}
+
+.leaderboard-item.third-place {
+    border-left-color: #cd7c32;
+    background: linear-gradient(135deg, #fed7aa 0%, #ffffff 100%);
+}
+
+.position-indicator {
+    margin-right: 1rem;
+    min-width: 50px;
+    text-align: center;
+}
+
+.place-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.place-badge.gold {
+    color: #f59e0b;
+}
+
+.place-badge.silver {
+    color: #6b7280;
+}
+
+.place-badge.bronze {
+    color: #cd7c32;
+}
+
+.place-badge.regular {
+    color: #64748b;
+    font-weight: 600;
+}
+
+.place-badge i {
+    font-size: 1.5rem;
+}
+
+.place-badge span {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.student-info {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    gap: 0.75rem;
+}
+
+.student-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #f1f5f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #e2e8f0;
+}
+
+.student-details {
+    flex: 1;
+}
+
+.student-name {
+    font-weight: 600;
+    color: #1e293b;
+    font-size: 0.95rem;
+}
+
+.student-title {
+    font-size: 0.8rem;
+    color: #64748b;
+    margin-top: 0.1rem;
+}
+
+.score-display {
+    text-align: center;
+    min-width: 60px;
+}
+
+.score-number {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #059669;
+}
+
+.score-label {
+    font-size: 0.7rem;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .leaderboard-item {
+        padding: 0.5rem;
+    }
+    
+    .position-indicator {
+        margin-right: 0.5rem;
+        min-width: 40px;
+    }
+    
+    .place-badge i {
+        font-size: 1.2rem;
+    }
+    
+    .student-avatar {
+        width: 35px;
+        height: 35px;
+    }
+}
+</style>
 {% endblock %}
 

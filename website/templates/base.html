@@ -1,34 +1,84 @@
 <!-- Responsible: David -->
 <!-- filepath: c:\Users\lasse\Desktop\Full_Stack_Quizz_Masterz\website\templates\base.html -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{% block title %}Quiz Masters{% endblock %}</title>
+    <title>{% block title %}Quiz Masterz{% endblock %}</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <nav>
-        <a href="/">Home</a>
-        {% if user.is_authenticated %}
-            <a href="/logout">Logout</a>
-        {% else %}
-            <a href="/login">Login</a>
-            <a href="/sign-up">Sign Up</a>
-        {% endif %}
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="nav-brand">
+                <i class="fas fa-graduation-cap"></i> Quiz Masterz
+            </a>
+            <div class="nav-links">
+                {% if user.is_authenticated %}
+                    <a href="/" class="nav-link">
+                        <i class="fas fa-home"></i> Home
+                    </a>                    {% if user.role == 'teacher' %}
+                        <a href="{{ url_for('views.teacher_classrooms') }}" class="nav-link">
+                            <i class="fas fa-chalkboard"></i> Classrooms
+                        </a>                    {% elif user.role == 'student' %}
+                        <a href="{{ url_for('views.student_my_classrooms') }}" class="nav-link">
+                            <i class="fas fa-users"></i> My Classrooms
+                        </a>
+                        <a href="{{ url_for('views.student_quizzes') }}" class="nav-link">
+                            <i class="fas fa-clipboard-list"></i> Quizzes
+                        </a>
+                        <a href="{{ url_for('views.shop') }}" class="nav-link shop-link">
+                            <i class="fas fa-shopping-cart"></i> Shop
+                            {% if user.learning_points and user.learning_points >= 100 %}
+                                <span class="shop-badge">!</span>
+                            {% endif %}
+                        </a>
+                    {% endif %}
+                    <a href="/profile" class="nav-link">
+                        <i class="fas fa-user"></i> Profile
+                    </a>
+                    <a href="/logout" class="nav-link">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                {% else %}
+                    <a href="/login" class="nav-link">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </a>
+                    <a href="/sign-up" class="nav-link">
+                        <i class="fas fa-user-plus"></i> Sign Up
+                    </a>
+                {% endif %}
+            </div>
+        </div>
     </nav>
 
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, message in messages %}
-                <div>{{ message }}</div>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
+    <main>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="container">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ 'danger' if category == 'error' else category }}">
+                            <i class="fas fa-{{ 'exclamation-triangle' if category == 'error' else 'check-circle' if category == 'success' else 'info-circle' }}"></i>
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
 
-    <div>
         {% block content %}
         {% endblock %}
-    </div>
+    </main>
 </body>
 </html>
