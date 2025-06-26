@@ -4,7 +4,11 @@ nav_order: 1
 ---
 
 {: .label }
-Quiz Masterz Team
+Lasse Schulz
+{: .label }
+FUrkan Dinc
+{: .label }
+David Levi
 
 {: .no_toc }
 # Value Proposition - Quiz Masterz
