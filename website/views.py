@@ -32,7 +32,25 @@ def get_quiz_or_404(quiz_id, teacher_check=True):
 @views.route('/')
 @login_required
 def home():
-    return render_template("home.html", user=current_user)
+    available_quizzes = []
+    if current_user.role == 'student':
+        student_classrooms = current_user.joined_classrooms
+        for classroom in student_classrooms:
+            for quiz in classroom.quizzes.filter_by(is_published=True):
+                existing_attempt = StudentQuizAttempt.query.filter_by(
+                    student_id=current_user.id,
+                    quiz_id=quiz.id,
+                    classroom_id=classroom.id
+                ).first()
+                
+                if not existing_attempt:  # Only show quizzes not yet taken
+                    quiz_data = {
+                        'quiz': quiz,
+                        'classroom': classroom
+                    }
+                    available_quizzes.append(quiz_data)
+    
+    return render_template("home.html", user=current_user, available_quizzes=available_quizzes)
 
 
 
@@ -741,6 +759,13 @@ def student_quizzes():
 
 
 
+
+
+
+
+
+
+
 # Shop Route (TODO: Implement working Shop)
 @views.route('/shop')
 @login_required
@@ -750,3 +775,7 @@ def shop():
         return redirect(url_for('views.home'))
     
     return render_template("shop.html", user=current_user)
+
+
+
+

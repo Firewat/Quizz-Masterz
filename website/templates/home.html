@@ -104,13 +104,14 @@
             </div>
             {% endif %}
         </div>    {% elif user.role == 'student' %}
-        <!-- Student Dashboard Header with Quick Actions -->
+
+
         <div class="row mb-4">
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
                         <div class="text-center mb-3">
-                            <h2><i class="fas fa-user-graduate text-primary"></i> Student Dashboard</h2>
+                            <h2><i class="fas fa-user-graduate text-muted"></i> Student Dashboard</h2>
                             <p class="text-muted mb-0">Join classrooms, take quizzes, and track your learning progress.</p>
                         </div>                        <!-- Quick Action Buttons -->
                         <div class="d-flex justify-content-center gap-3 flex-wrap">
@@ -120,14 +121,39 @@
                             <a href="{{ url_for('views.student_join_classroom') }}" class="btn btn-success btn-action">
                                 <i class="fas fa-plus-circle"></i> Join Classroom
                             </a>
-                            <a href="{{ url_for('views.student_quizzes') }}" class="btn btn-info btn-action">
-                                <i class="fas fa-clipboard-list"></i> Available Quizzes
-                            </a>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>        <!-- Learning Points and Statistics in Single Horizontal Row -->
+        </div>
+
+        {% if available_quizzes %}
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="mb-3"><i class="fas fa-clipboard-list text-primary"></i> Available Quizzes</h3>
+                        <div class="dashboard-quiz-grid">
+                            {% for quiz_data in available_quizzes %}
+                            <div class="dashboard-quiz-card">
+                                <div class="dashboard-quiz-content">
+                                    <h5 class="dashboard-quiz-title">{{ quiz_data.quiz.name }}</h5>
+                                    <p class="dashboard-quiz-classroom">{{ quiz_data.classroom.name }}</p>
+                                    <div class="dashboard-quiz-info">
+                                        <span class="dashboard-quiz-points"><i class="fas fa-star"></i> {{ quiz_data.quiz.questions|sum(attribute='learning_points') }} LP</span>
+                                        <span class="dashboard-quiz-questions">{{ quiz_data.quiz.questions.count() }} questions</span>
+                                    </div>
+                                </div>
+                                <a href="{{ url_for('views.take_quiz', quiz_id=quiz_data.quiz.id, classroom_id=quiz_data.classroom.id) }}" 
+                                   class="btn btn-primary btn-sm">Start Quiz</a>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}        
         <div class="stats-row">
             <!-- Learning Points -->
             <div class="stat-card stat-card-primary">
