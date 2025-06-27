@@ -52,9 +52,9 @@ For Students
 
     Quiz Taking: Take quizzes with multiple answer selection capability.
 
-    Performance Tracking: View quiz results with detailed scoring breakdown and earn LPs for your right answers.
+    (TODO) Performance Tracking: View quiz results with detailed scoring breakdown and earn LPs for your right answers.
 
-    Shop: Level up and earn Skins for your Profile.
+    (TODO) Shop: Level up and earn Skins for your Profile.
 
 System Features
 

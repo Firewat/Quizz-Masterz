@@ -7,16 +7,17 @@ from . import db
 from flask_login import login_user, login_required, logout_user, current_user
 from .forms import LoginForm, SignUpForm
 
+# Create a Blueprint for authentication routes
 auth = Blueprint('auth', __name__)
 
-
+# Authentication routes (login and sign-up)
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
     if form.validate_on_submit():
         email = form.email.data
         password = form.password.data
-        
+        # Check if the user exists
         user = User.query.filter_by(email=email).first()
         if user:
             if check_password_hash(user.password, password):
@@ -37,6 +38,8 @@ def logout():
     logout_user()
     return redirect(url_for('auth.login'))
 
+
+# Sign-up route
 
 @auth.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():

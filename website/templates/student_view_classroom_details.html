@@ -97,17 +97,11 @@
                                     
                                     <div class="student-info">
                                         <div class="student-avatar">
-                                            {% if student.skin %}
-                                                <i class="{{ student.skin.skin_icon }} avatar-skin" style="color: {{ student.skin.skin_color }};"></i>
-                                            {% else %}
-                                                <i class="fas fa-user-circle avatar-default"></i>
-                                            {% endif %}
+                                            <i class="fas fa-user-circle avatar-default"></i>
                                         </div>
                                         <div class="student-details">
                                             <div class="student-name">{{ student.name }}</div>
-                                            <div class="student-title">
-                                                {% if student.skin %}{{ student.skin.skin_name }}{% else %}Student{% endif %}
-                                            </div>
+                                            <div class="student-title">Student</div>
                                         </div>
                                     </div>
                                     

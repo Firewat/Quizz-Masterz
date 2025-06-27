@@ -31,7 +31,6 @@ class User(db.Model, UserMixin):
                                         backref=db.backref('students', lazy='dynamic'),
                                         lazy='dynamic')
     quiz_attempts = db.relationship('StudentQuizAttempt', backref='student', lazy='dynamic') # Added
-    owned_skins = db.relationship('UserSkin', backref='owner', lazy='dynamic')  # Added for shop system
     
     def get_level_info(self):
         """Calculate user's current level and progress to next level (infinite levels)"""
@@ -135,15 +134,5 @@ class StudentQuizAttempt(db.Model):
     def __repr__(self):
         return f'<StudentQuizAttempt student_id={self.student_id} quiz_id={self.quiz_id} classroom_id={self.classroom_id} score={self.score}>'
 
-class UserSkin(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    skin_id = db.Column(db.Integer, nullable=False)  # Reference to skin ID
-    skin_name = db.Column(db.String(50), nullable=False)
-    skin_icon = db.Column(db.String(50), nullable=False)
-    skin_color = db.Column(db.String(20), nullable=False)
-    purchased_at = db.Column(db.DateTime, default=db.func.current_timestamp())
-    is_selected = db.Column(db.Boolean, default=False)  # Whether this skin is currently selected for display
-
-    def __repr__(self):
-        return f'<UserSkin user_id={self.user_id} skin_name={self.skin_name} selected={self.is_selected}>'
+### class UserSkin(db.Model):
+### TODO: Implement UserSkin model for shop system

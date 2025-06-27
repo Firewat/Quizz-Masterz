@@ -1,7 +1,4 @@
 # Quiz Masterz
-More actions
-
-
 
 Flask-based web application for creating, managing, and taking educational quizzes. Quiz Masters provides a platform for teachers to create and manage classrooms, create quizzes, and for students to join classrooms and take quizzes with multiple answer support and partial credit scoring.
 
