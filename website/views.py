@@ -1,3 +1,5 @@
+# Responsible: Lasse
+
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_required, current_user
 from .models import Classroom, User, Quiz, Question, Answer, StudentQuizAttempt, UserSkin

@@ -1,5 +1,4 @@
 # Responsible: Lasse
-# filepath: c:\Users\lasse\Desktop\Full_Stack_Quizz_Masterz\website\forms.py
 
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SelectField, SubmitField

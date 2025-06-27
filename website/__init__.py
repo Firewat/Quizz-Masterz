@@ -1,9 +1,5 @@
-# Responsible: Furkan
-# filepath: c:\Users\lasse\Desktop\Full_Stack_Quizz_Masterz\website\__init__.py
-"""
-Flask Application Factory for Quiz Masters
-Configures Flask app with database, authentication, and blueprint registration
-"""
+# Responsible: Lasse
+
 
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
