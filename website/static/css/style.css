@@ -1,7 +1,8 @@
-/* Quiz Masterz - Consolidated Stylesheet */
+/* Quiz Masterz - CSS */
 :root {
     --primary: #3b82f6; --secondary: #64748b; --success: #059669; --warning: #f59e0b; --danger: #dc2626;
     --bg: #f8fafc; --surface: #fff; --text: #1e293b; --text-muted: #64748b; --border: #e2e8f0;
+    --text-secondary: #64748b; --border-color: #e2e8f0; --primary-color: #3b82f6;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }

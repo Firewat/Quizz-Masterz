@@ -8,7 +8,6 @@ import secrets
 
 views = Blueprint('views', __name__)
 
-# Helper function to check if user is a teacher
 def require_role(role):
     if current_user.role != role:
         flash('Access denied.', category='error')
@@ -29,7 +28,6 @@ def get_quiz_or_404(quiz_id, teacher_check=True):
         return None
     return quiz
 
-#### Home Route ######
 
 @views.route('/')
 @login_required
@@ -37,24 +35,18 @@ def home():
     return render_template("home.html", user=current_user)
 
 
-######### Profile Route ########
 
 @views.route('/profile')
 @login_required
 def profile():
-    # Get user's selected skin if they're a student
-    ## selected_skin = None
     level_info = None
     if current_user.role == 'student':
-        # selected_skin = UserSkin.query.filter_by(user_id=current_user.id, is_selected=True).first()
         level_info = current_user.get_level_info()
     
     return render_template("profile.html", user=current_user, 
-                           # selected_skin=selected_skin, 
                            level_info=level_info)
 
 
-######## Student Classroom Routes ######
 
 @views.route('/take-quiz/<int:quiz_id>/<int:classroom_id>', methods=['GET', 'POST'])
 @login_required
@@ -66,7 +58,6 @@ def take_quiz(quiz_id, classroom_id):
     quiz = Quiz.query.get_or_404(quiz_id)
     classroom = Classroom.query.get_or_404(classroom_id)
 
-    # Check if quiz is published
     if not quiz.is_published:
         flash('This quiz is not available yet.', category='error')
         return redirect(url_for('views.student_view_classroom', classroom_id=classroom_id))
@@ -79,7 +70,6 @@ def take_quiz(quiz_id, classroom_id):
         flash('This quiz is not available in this classroom.', category='error')
         return redirect(url_for('views.student_view_classroom', classroom_id=classroom_id))
 
-    # Check if student has already attempted this quiz in this classroom
     existing_attempt = StudentQuizAttempt.query.filter_by(
         student_id=current_user.id, 
         quiz_id=quiz.id, 
@@ -114,14 +104,13 @@ def take_quiz(quiz_id, classroom_id):
             if is_question_correct:
                 question_score += question.learning_points
             else:
-                pass # No points for false answers
+                pass 
 
             total_score_for_attempt += question_score
 
-        # Update student's total learning points
         current_user.learning_points = (current_user.learning_points or 0) + total_score_for_attempt
         
-        # save the attempt
+ 
         new_attempt = StudentQuizAttempt(
             student_id=current_user.id,
             quiz_id=quiz.id,
@@ -146,7 +135,6 @@ def teacher_classrooms():
     return render_template("teacher_classrooms.html", user=current_user, classrooms=classrooms)
 
 
-####### Teacher Classroom CREATION Route ######
 
 @views.route('/teacher/create_classroom', methods=['GET', 'POST'])
 @login_required
@@ -169,7 +157,6 @@ def create_classroom():
 
 
 
-####### Teacher CLASSROOM Management Routes ######
 
 @views.route('/teacher/edit_classroom/<int:classroom_id>', methods=['GET', 'POST'])
 @login_required
@@ -193,7 +180,6 @@ def edit_classroom(classroom_id):
                 db.session.commit()
                 flash('Classroom name updated successfully', category='success')
         elif 'delete_classroom' in request.form:
-            # Add logic to handle quizzes and student enrollments before deleting
             db.session.delete(classroom)
             db.session.commit()
             flash('Classroom deleted successfully', category='success')
@@ -203,7 +189,7 @@ def edit_classroom(classroom_id):
 
 
 
-    # Leaderboard logic for teacher view 
+
     all_students = classroom.students.all()
 
     attempts_in_classroom = StudentQuizAttempt.query.filter_by(classroom_id=classroom.id).all()
@@ -211,34 +197,28 @@ def edit_classroom(classroom_id):
     for attempt in attempts_in_classroom:
         student_scores[attempt.student_id] = student_scores.get(attempt.student_id, 0) + attempt.score
     
-    # Create leaderboard entries for all students
+
     leaderboard = []
     for student in all_students:
-        # Get student's selected skin
-        # selected_skin = UserSkin.query.filter_by(user_id=student.id, is_selected=True).first()
         leaderboard_entry = {
             'name': student.first_name,
             'email': student.email,
             'student_id': student.id,
-            'score': student_scores.get(student.id, 0),  # 0 if no attempts
+            'score': student_scores.get(student.id, 0),  
            # 'skin': selected_skin
         }
         leaderboard.append(leaderboard_entry)
     
-    # Sort by score
+
     leaderboard.sort(key=lambda x: x['score'], reverse=True)
 
-    # Get quizzes and their submissions for review
-    # Get published quizzes in this classroom
+
     classroom_quizzes = classroom.quizzes.filter_by(is_published=True).all()
-    # Get draft quizzes created by this teacher (not yet in classroom)
     draft_quizzes = Quiz.query.filter_by(teacher_id=current_user.id, is_published=False).all()
     
     quiz_reviews = []
     
-    # Process published quizzes with submissions
     for quiz in classroom_quizzes:
-        # Get all submissions for this quiz in this classroom
         submissions = StudentQuizAttempt.query.filter_by(
             quiz_id=quiz.id, 
             classroom_id=classroom.id
@@ -261,8 +241,6 @@ def edit_classroom(classroom_id):
         
         quiz_reviews.append(quiz_review)
     
-    # Add draft quizzes to review
-    # Draft quizzes are not published yet, so we just show their details
     draft_quiz_reviews = []
     for quiz in draft_quizzes:
         draft_quiz_review = {
@@ -277,7 +255,6 @@ def edit_classroom(classroom_id):
 
 
 
-###### Teacher Student MANAGEMENT Routes ######
 
 @views.route('/teacher/kick_student/<int:classroom_id>/<int:student_id>', methods=['POST'])
 @login_required
@@ -305,8 +282,6 @@ def kick_student(classroom_id, student_id):
 
 
 
-######## Teacher Quiz Management Routes ######
-
 @views.route('/teacher/classroom/<int:classroom_id>/add_quiz', methods=['GET', 'POST'])
 @login_required
 def add_quiz_to_classroom(classroom_id):
@@ -331,9 +306,9 @@ def add_quiz_to_classroom(classroom_id):
                     flash(f'Quiz "{quiz.name}" is already in this classroom.', category='info')
             else:
                 flash('Invalid quiz selected or you do not own this quiz.', category='error')
-        return redirect(url_for('views.teacher_classrooms')) # Or back to edit_classroom
+        return redirect(url_for('views.teacher_classrooms')) 
 
-    # Get published quizzes created by this teacher that are not already in this classroom
+
     teacher_quizzes = Quiz.query.filter_by(teacher_id=current_user.id, is_published=True).all()
     existing_classroom_quiz_ids = [q.id for q in classroom.quizzes]
     available_quizzes = [q for q in teacher_quizzes if q.id not in existing_classroom_quiz_ids]
@@ -341,7 +316,6 @@ def add_quiz_to_classroom(classroom_id):
     return render_template('add_quiz_to_classroom.html', user=current_user, classroom=classroom, available_quizzes=available_quizzes)
 
 
-##### Teacher Quiz Creation and Management Routes ######
 
 @views.route('/teacher/classroom/<int:classroom_id>/create_quiz', methods=['GET', 'POST'])
 @login_required
@@ -349,7 +323,7 @@ def create_quiz_for_classroom(classroom_id):
     if current_user.role != 'teacher':
         flash('Access denied.', category='error')
         return redirect(url_for('views.home'))
-    classroom = Classroom.query.get_or_404(classroom_id) # Ensure classroom context
+    classroom = Classroom.query.get_or_404(classroom_id) 
     if classroom.teacher_id != current_user.id:
         flash('You do not own this classroom context.', category='error')
         return redirect(url_for('views.teacher_classrooms'))
@@ -359,7 +333,6 @@ def create_quiz_for_classroom(classroom_id):
         if not quiz_name:
             flash('Quiz name cannot be empty.', category='error')
         else:
-            # Create quiz as draft (not published and not added to classroom yet)
             new_quiz = Quiz(name=quiz_name, teacher_id=current_user.id, is_published=False)
             db.session.add(new_quiz)
             db.session.commit()
@@ -368,7 +341,6 @@ def create_quiz_for_classroom(classroom_id):
     return render_template('teacher_create_quiz.html', user=current_user, classroom=classroom)
 
 
-##### Teacher Quiz Management Routes ######
 
 @views.route('/teacher/quiz/<int:quiz_id>/manage_questions', methods=['GET', 'POST'])
 @login_required
@@ -381,7 +353,7 @@ def teacher_manage_quiz_questions(quiz_id):
         flash('You do not own this quiz.', category='error')
         return redirect(url_for('views.teacher_classrooms'))
     
-    # Get classroom_id from request args if provided
+
     classroom_id = request.args.get('classroom_id', type=int)
 
     if request.method == 'POST':
@@ -400,7 +372,7 @@ def teacher_manage_quiz_questions(quiz_id):
     return render_template('teacher_manage_questions.html', user=current_user, quiz=quiz, questions=questions, classroom_id=classroom_id)
 
 
-##### Teacher Question Management Routes ######
+
 
 @views.route('/teacher/question/<int:question_id>/manage_answers', methods=['GET', 'POST'])
 @login_required
@@ -414,7 +386,7 @@ def teacher_manage_question_answers(question_id):
         flash('You do not own the quiz this question belongs to.', category='error')
         return redirect(url_for('views.teacher_classrooms'))
     
-    # Get classroom_id from request args if provided
+
     classroom_id = request.args.get('classroom_id', type=int)
 
     if request.method == 'POST':
@@ -423,16 +395,13 @@ def teacher_manage_question_answers(question_id):
 
         if not answer_text:
             flash('Answer text cannot be empty.', category='error')
-        elif len(question.answers.all()) >= 4 and not request.form.get('edit_answer_id'): # Limit to 4 answers for new adds
+        elif len(question.answers.all()) >= 4 and not request.form.get('edit_answer_id'): 
              flash('You can add a maximum of 4 answers per question.', category='error')
         else:
-            # This part is simplified; real edit/delete would need more logic
-            # For now, just adding new answers
             new_answer = Answer(question_id=question.id, text=answer_text, is_correct=is_correct)
             db.session.add(new_answer)
             db.session.commit()
             flash('Answer added.', category='success')
-            # Stay on the same page to add more answers or finish
             return redirect(url_for('views.teacher_manage_question_answers', question_id=question.id, classroom_id=classroom_id))
 
     answers = question.answers.all()
@@ -440,7 +409,7 @@ def teacher_manage_question_answers(question_id):
 
 
 
-###### Teacher Quiz Draft and Publish Routes ######
+
 
 @views.route('/teacher/quiz/<int:quiz_id>/save_draft/<int:classroom_id>')
 @login_required
@@ -457,13 +426,13 @@ def save_quiz_draft(quiz_id, classroom_id):
         flash('You do not own this quiz or classroom.', category='error')
         return redirect(url_for('views.teacher_classrooms'))
     
-    # Quiz remains as draft (is_published=False)
+
     flash(f'Quiz "{quiz.name}" saved as draft!', category='success')
     return redirect(url_for('views.edit_classroom', classroom_id=classroom.id))
 
 
 
-###### Teacher Quiz Upload and Review Routes ######
+
 
 @views.route('/teacher/quiz/<int:quiz_id>/upload_to_classroom/<int:classroom_id>')
 @login_required
@@ -480,12 +449,12 @@ def upload_quiz_to_classroom(quiz_id, classroom_id):
         flash('You do not own this quiz or classroom.', category='error')
         return redirect(url_for('views.teacher_classrooms'))
     
-    # Check if quiz has questions
+
     if quiz.questions.count() == 0:
         flash('Cannot upload quiz without any questions!', category='error')
         return redirect(url_for('views.edit_classroom', classroom_id=classroom.id))
     
-    # Check if questions have answers
+
     questions_without_answers = []
     for question in quiz.questions:
         if question.answers.count() == 0:
@@ -495,7 +464,7 @@ def upload_quiz_to_classroom(quiz_id, classroom_id):
         flash(f'Cannot upload quiz! Some questions have no answers: {", ".join(questions_without_answers)}', category='error')
         return redirect(url_for('views.edit_classroom', classroom_id=classroom.id))
     
-    # Publish the quiz and add to classroom
+
     quiz.is_published = True
     if quiz not in classroom.quizzes:
         classroom.quizzes.append(quiz)
@@ -506,7 +475,6 @@ def upload_quiz_to_classroom(quiz_id, classroom_id):
 
 
 
-####### Teacher Quiz Review Routes ######
 
 @views.route('/teacher/quiz/<int:quiz_id>/review/<int:classroom_id>')
 @login_required
@@ -522,25 +490,24 @@ def quiz_review_details(quiz_id, classroom_id):
     if quiz.teacher_id != current_user.id or classroom.teacher_id != current_user.id:
         flash('You do not own this quiz or classroom.', category='error')
         return redirect(url_for('views.teacher_classrooms'))
-    
-    # Check if quiz is in this classroom
+
     if quiz not in classroom.quizzes:
         flash('This quiz is not in the specified classroom.', category='error')
         return redirect(url_for('views.edit_classroom', classroom_id=classroom.id))
     
-    # Get all students in the classroom
+
     all_students = classroom.students.all()
     
-    # Get all submissions for this quiz in this classroom
+
     submissions = StudentQuizAttempt.query.filter_by(
         quiz_id=quiz.id, 
         classroom_id=classroom.id
     ).all()
     
-    # Create a mapping of student_id to submission
+
     submissions_by_student = {submission.student_id: submission for submission in submissions}
     
-    # Create detailed student data
+
     student_details = []
     for student in all_students:
         submission = submissions_by_student.get(student.id)
@@ -552,10 +519,10 @@ def quiz_review_details(quiz_id, classroom_id):
         }
         student_details.append(student_detail)
     
-    # Sort: students who took it first (by score desc), then students who haven't taken it
+
     student_details.sort(key=lambda x: (not x['has_taken'], -x['score'] if x['has_taken'] else 0))
     
-    # Calculate statistics
+
     total_students = len(all_students)
     students_taken = len([s for s in student_details if s['has_taken']])
     students_not_taken = total_students - students_taken
@@ -586,7 +553,6 @@ def quiz_review_details(quiz_id, classroom_id):
 
 
 
-######## Teacher Quiz Deletion Routes ######
 
 @views.route('/teacher/quiz/<int:quiz_id>/delete/<int:classroom_id>')
 @login_required
@@ -604,15 +570,15 @@ def delete_quiz(quiz_id, classroom_id):
     
     quiz_name = quiz.name
     
-    # If the quiz is published and in the classroom, remove from classroom
+
     if quiz.is_published and quiz in classroom.quizzes:
         classroom.quizzes.remove(quiz)
-        # Delete student quiz attempts for this quiz in this classroom only
+
         StudentQuizAttempt.query.filter_by(quiz_id=quiz.id, classroom_id=classroom.id).delete()
         db.session.commit()
         flash(f'Quiz "{quiz_name}" has been removed from classroom "{classroom.name}".', category='success')
     elif not quiz.is_published:
-        # For draft quizzes, we can delete them entirely since they're not published anywhere
+
         StudentQuizAttempt.query.filter_by(quiz_id=quiz.id).delete()
         db.session.delete(quiz)
         db.session.commit()
@@ -624,7 +590,6 @@ def delete_quiz(quiz_id, classroom_id):
 
 
 
-######### Student Classroom Routes ########
 
 @views.route('/student/join_classroom', methods=['GET', 'POST'])
 @login_required
@@ -646,7 +611,7 @@ def student_join_classroom():
                     classroom_to_join.students.append(current_user)
                     db.session.commit()
                     flash(f'Successfully joined classroom: {classroom_to_join.name}!', category='success')
-                    return redirect(url_for('views.home')) # Or back to a student dashboard page
+                    return redirect(url_for('views.home')) 
             else:
                 flash('Invalid join code. Classroom not found.', category='error')
     
@@ -655,7 +620,6 @@ def student_join_classroom():
 
 
 
-########## Student Classroom Routes ########
 
 @views.route('/student/my_classrooms', methods=['GET'])
 @login_required
@@ -663,15 +627,13 @@ def student_my_classrooms():
     if current_user.role != 'student':
         flash('Access denied.', category='error')
         return redirect(url_for('views.home'))
-
-    # Get classrooms the student has joined
-    # The joined_classrooms relationship on the User model provides this directly
-    classrooms_joined = current_user.joined_classrooms.all() # Use .all() if you need to iterate in template immediately
+    
+    classrooms_joined = current_user.joined_classrooms.all() 
     
     return render_template("student_my_classrooms.html", user=current_user, classrooms_joined=classrooms_joined)
 
 
-####### Student View Classroom Details Route ######
+
 
 @views.route('/student/classroom/<int:classroom_id>', methods=['GET'])
 @login_required
@@ -686,11 +648,11 @@ def student_view_classroom(classroom_id):
         flash('You are not a member of this classroom.', category='error')
         return redirect(url_for('views.student_my_classrooms'))
 
-    # Get available quizzes with taken status (only published quizzes)
+
     available_quizzes_data = []
     published_quizzes = classroom.quizzes.filter_by(is_published=True).all()
     for quiz in published_quizzes:
-        # Check if student has taken this quiz
+
         existing_attempt = StudentQuizAttempt.query.filter_by(
             student_id=current_user.id,
             quiz_id=quiz.id,
@@ -703,31 +665,27 @@ def student_view_classroom(classroom_id):
         }
         available_quizzes_data.append(quiz_data)
 
-    # Leaderboard logic - Show all students in classroom
+
     all_students = classroom.students.all()
     
-    # Get quiz attempts for scoring
+
     attempts_in_classroom = StudentQuizAttempt.query.filter_by(classroom_id=classroom.id).all()
     student_scores = {}
     for attempt in attempts_in_classroom:
         student_scores[attempt.student_id] = student_scores.get(attempt.student_id, 0) + attempt.score
     
-    # Create leaderboard entries for all students
+
     leaderboard = []
     for student in all_students:
-        # Get student's selected skin
-        # TODO: skin option in leaderboard
         leaderboard_entry = {
             'name': student.first_name,
-            'score': student_scores.get(student.id, 0),  # 0 if no attempts
-           # 'skin': selected_skin
+            'score': student_scores.get(student.id, 0),  
         }
         leaderboard.append(leaderboard_entry)
     
-    # Sort by score (highest first)
+
     leaderboard.sort(key=lambda x: x['score'], reverse=True)
 
-    # Ensure User.learning_points is available for the student
     student_total_lp = current_user.learning_points if current_user.learning_points is not None else 0
     
     return render_template("student_view_classroom_details.html", 
@@ -735,10 +693,10 @@ def student_view_classroom(classroom_id):
                          classroom=classroom,
                          available_quizzes=available_quizzes_data,
                          leaderboard=leaderboard,
-                         student_total_lp=student_total_lp) # Pass total LP
+                         student_total_lp=student_total_lp) 
 
 
-####### Teacher Quizzes Routes ######
+
 
 @views.route('/teacher/quizzes')
 @login_required
@@ -747,13 +705,11 @@ def teacher_quizzes():
         flash('Access denied. Teachers only.', category='error')
         return redirect(url_for('views.home'))
     
-    # Get all quizzes created by this teacher
     teacher_quizzes = Quiz.query.filter_by(teacher_id=current_user.id).all()
     
     return render_template("teacher_quizzes.html", user=current_user, quizzes=teacher_quizzes)
 
 
-######## Student Quizzes Routes ######
 
 @views.route('/student/quizzes')
 @login_required
@@ -761,14 +717,12 @@ def student_quizzes():
     if current_user.role != 'student':
         flash('Access denied. Students only.', category='error')
         return redirect(url_for('views.home'))
-    
-    # Get quizzes available to this student through their classrooms
+
     student_classrooms = current_user.joined_classrooms
     available_quizzes = []
     
     for classroom in student_classrooms:
         for quiz in classroom.quizzes:
-            # Check if student has taken this quiz by looking for existing attempts
             from .models import StudentQuizAttempt
             existing_attempt = StudentQuizAttempt.query.filter_by(
                 student_id=current_user.id,
