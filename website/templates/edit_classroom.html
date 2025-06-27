@@ -248,12 +248,12 @@
         </div>
     </div>
     
-    <!-- Delete Classroom Section -->
+
     <div class="row mt-5">
         <div class="col-12">
-            <div class="card border-danger">
-                <div class="card-header bg-danger text-white">
-                    <h4><i class="fas fa-exclamation-triangle"></i> Danger Zone</h4>
+            <div class="card border-primary">
+                <div class="card-header bg-primary text-red">
+                    <h4><i class="fas fa-exclamation-triangle"></i> Delete Classroom</h4>
                 </div>
                 <div class="card-body">
                     <form method="POST" action="{{ url_for('views.edit_classroom', classroom_id=classroom.id) }}" onsubmit="return confirm('Are you sure you want to delete this classroom? This action cannot be undone and will remove all students and quiz data.');">

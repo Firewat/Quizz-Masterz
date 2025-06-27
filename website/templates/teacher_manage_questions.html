@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 {% block title %}Manage Questions for {{ quiz.name }}{% endblock %}
 
+
 {% block content %}
-<h1 align="center">Manage Questions for Quiz: {{ quiz.name }}</h1>
+<h1 align="center">Questions for Quiz: {{ quiz.name }}</h1>
 
 <div class="container">
     <h2>Add New Question</h2>
@@ -18,7 +19,7 @@
         <br />
         <button type="submit" class="btn btn-primary">Add Question and Manage Answers</button>
     </form>
-
+    <br />
     <hr>
 
     <h2>Existing Questions</h2>
@@ -31,8 +32,8 @@
                         <small>LP: {{ question.learning_points }} | Answers: {{ question.answers.count() }}</small>
                     </div>
                     <div>
-                        <a href="{{ url_for('views.teacher_manage_question_answers', question_id=question.id) }}" class="btn btn-sm btn-info">Manage Answers</a>
-                        <!-- Add Edit/Delete Question buttons here if needed later -->
+                        <a href="{{ url_for('views.teacher_manage_question_answers', question_id=question.id, classroom_id=classroom_id) }}" class="btn btn-sm btn-info">Manage Answers</a>
+
                     </div>
                 </li>
             {% endfor %}
@@ -42,7 +43,10 @@
     {% endif %}
 
     <br />
-    <p><a href="{{ url_for('views.teacher_classrooms') }}">Back to My Classrooms</a></p> 
-    <!-- Consider a link back to a general quiz list or edit quiz page if those exist -->
+    {% if classroom_id %}
+    <button onclick="location.href='{{ url_for('views.edit_classroom', classroom_id=classroom_id) }}'" class="btn btn-primary">Back to Classroom</button>
+    {% else %}
+    <button onclick="location.href='{{ url_for('views.teacher_classrooms') }}'" class="btn btn-success">Go Back to Classrooms</button>
+    {% endif %}
 </div>
 {% endblock %}

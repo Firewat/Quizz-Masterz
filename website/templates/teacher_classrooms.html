@@ -18,8 +18,7 @@
                     <small>Join Code: <strong>{{ classroom.join_code }}</strong></small>
                 </div>
                 <div>
-                    <a href="{{ url_for('views.add_quiz_to_classroom', classroom_id=classroom.id) }}" class="btn btn-sm btn-primary">Add Quiz</a>
-                    <a href="{{ url_for('views.edit_classroom', classroom_id=classroom.id) }}" class="btn btn-sm btn-warning">Edit</a>
+                    <a href="{{ url_for('views.edit_classroom', classroom_id=classroom.id) }}" class="btn btn-sm btn-warning">Manage</a>
                 </div>
             </li>
         {% endfor %}

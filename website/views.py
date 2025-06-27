@@ -423,6 +423,12 @@ def teacher_manage_question_answers(question_id):
             return redirect(url_for('views.teacher_manage_question_answers', question_id=question.id, classroom_id=classroom_id))
 
     answers = question.answers.all()
+    
+    # Get the classroom this quiz belongs to
+    quiz_classroom = quiz.classrooms_assigned_to.first()
+    if quiz_classroom:
+        classroom_id = quiz_classroom.id
+    
     return render_template('teacher_manage_answers.html', user=current_user, question=question, answers=answers, quiz_id=quiz.id, classroom_id=classroom_id)
 
 
