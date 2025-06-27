@@ -452,7 +452,7 @@ def upload_quiz_to_classroom(quiz_id, classroom_id):
 
     if quiz.questions.count() == 0:
         flash('Cannot upload quiz without any questions!', category='error')
-        return redirect(url_for('views.edit_classroom', classroom_id=classroom.id))
+        return redirect(url_for('views.classroom', classroom_id=classroom.id))
     
 
     questions_without_answers = []
