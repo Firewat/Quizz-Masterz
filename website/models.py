@@ -31,9 +31,8 @@ class User(db.Model, UserMixin):
                                         backref=db.backref('students', lazy='dynamic'),
                                         lazy='dynamic')
     quiz_attempts = db.relationship('StudentQuizAttempt', backref='student', lazy='dynamic') # Added
-    
+
     def get_level_info(self):
-        """Calculate user's current level and progress to next level (infinite levels)"""
         if not self.learning_points or self.learning_points < 100:
             return {
                 'current_level': 0,
