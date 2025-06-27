@@ -663,7 +663,7 @@ def student_my_classrooms():
     if current_user.role != 'student':
         flash('Access denied.', category='error')
         return redirect(url_for('views.home'))
-    
+
     # Get classrooms the student has joined
     # The joined_classrooms relationship on the User model provides this directly
     classrooms_joined = current_user.joined_classrooms.all() # Use .all() if you need to iterate in template immediately
@@ -785,12 +785,14 @@ def student_quizzes():
     
     return render_template("student_quizzes.html", user=current_user, available_quizzes=available_quizzes)
 
-# Shop Route (TODO: Remove or implement)
-# @views.route('/shop')
-# @login_required
-# def shop():
-#     if current_user.role != 'student':
-#         flash('Access denied. Shop is only available to students.', category='error')
-#         return redirect(url_for('views.home'))
-#     
-#     #### SKIN ROUTE TODO
+
+
+# Shop Route (TODO: Implement working Shop)
+@views.route('/shop')
+@login_required
+def shop():
+    if current_user.role != 'student':
+        flash('Access denied. Shop is only available to students.', category='error')
+        return redirect(url_for('views.home'))
+    
+    return render_template("shop.html", user=current_user)
