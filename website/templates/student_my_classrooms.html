@@ -3,45 +3,50 @@
 {% block title %}My Classrooms - Quiz Masterz{% endblock %}
 
 {% block content %}
-<div class="container">
-    <div class="text-center mb-4">
-        <h1><i class="fas fa-users text-muted"></i> My Classrooms</h1>
-        <p class="text-muted">View and manage your joined classrooms</p>
-    </div>
-
-    {% if classrooms_joined %}
-        <div class="row">
-            {% for classroom in classrooms_joined %}
-                <div class="col-md-6 col-lg-4 mb-4">
-                    <div class="card h-100" style="transition: all 0.2s ease;">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <i class="fas fa-chalkboard text-primary"></i> {{ classroom.name }}
-                            </h5>
-                            <p class="card-text text-muted">
-                                <small><i class="fas fa-user-tie"></i> Teacher: {{ classroom.teacher.first_name }} {{ classroom.teacher.last_name }}</small>
-                            </p>
-                            <div class="mt-auto">
+<div class="container-sm">
+    <div class="card">
+        <div class="card-header text-center">
+            <h1> My Classrooms</h1>
+            <p class="text-muted mb-0">View and manage your joined classrooms</p>
+        </div>
+        
+        <div class="card-body">
+            {% if classrooms_joined %}
+                <div class="list-group list-group-flush">
+                    {% for classroom in classrooms_joined %}
+                        <div class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="mb-1">{{ classroom.name }}</h6>
+                                <small class="text-muted">
+                                    {{ classroom.teacher.first_name }} {{ classroom.teacher.last_name }}
+                                </small>
+                            </div>
+                            <div>
                                 <a href="{{ url_for('views.student_view_classroom', classroom_id=classroom.id) }}" 
                                    class="btn btn-primary btn-sm">
-                                    <i class="fas fa-arrow-right"></i> View Classroom
+                                    <i class="fas fa-arrow-right"></i> View
                                 </a>
                             </div>
                         </div>
-                    </div>
+                    {% endfor %}
                 </div>
-            {% endfor %}
-        </div>
-    {% else %}
-        <div class="card text-center">
-            <div class="card-body" style="padding: 3rem;">
-                <i class="fas fa-users text-muted" style="font-size: 4rem; margin-bottom: 1rem;"></i>
-                <h3>No Classrooms Yet</h3>
-                <p class="text-muted mb-4">You haven't joined any classrooms yet</p>
-                <a href="{{ url_for('views.student_join_classroom') }}" class="btn btn-success btn-lg">
-                    <i class="fas fa-plus-circle"></i> Join a Classroom
+            {% else %}
+                <div class="text-center py-4">
+                    <i class="fas fa-users text-muted" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                    <h5>No Classrooms Yet</h5>
+                    <p class="text-muted mb-3">You haven't joined any classrooms yet</p>
+                    <a href="{{ url_for('views.student_join_classroom') }}" class="btn btn-success">
+                        <i class="fas fa-plus-circle"></i> Join a Classroom
+                    </a>
+                </div>
+            {% endif %}
+            
+            <div class="text-center mt-3 pt-3 border-top">
+                <a href="{{ url_for('views.home') }}" class="link-primary">
+                    <i class="fas fa-arrow-left"></i> Back to Dashboard
                 </a>
             </div>
-        </div>    {% endif %}
+        </div>
+    </div>
 </div>
 {% endblock %}

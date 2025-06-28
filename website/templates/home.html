@@ -54,6 +54,9 @@
                 <div class="quick-actions">
                     <a href="{{ url_for('views.create_classroom') }}" class="btn btn-success btn-sm">
                         <i class="fas fa-plus"></i> New Classroom</a>
+                        <br>
+                        <hr>
+                        <br>
                 </div> More Actions to come...
             </div>
 
@@ -61,13 +64,20 @@
             <div class="dashboard-card">
                 <h3> Classrooms</h3>
                 {% for classroom in user.classrooms_created[:3] %}
-                    <div class="classroom-info-box">
-                        <strong>{{ classroom.name }}</strong>
-                        <br>
-                        <small class="classroom-meta">
-                            <i>/</i> {{ classroom.students.count() }} students
-                            <i >/</i> {{ classroom.quizzes.count() }} quizzes
-                        </small>
+                    <div class="classroom-info-box d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>{{ classroom.name }}</strong>
+                            <br>
+                            <small class="classroom-meta">
+                                <i>/</i> {{ classroom.students.count() }} students
+                                <i>/</i> {{ classroom.quizzes.count() }} quizzes
+                            </small>
+                        </div>
+                        <div>
+                            <a href="{{ url_for('views.edit_classroom', classroom_id=classroom.id) }}" class="btn btn-sm btn-primary">
+                                <i class="fas fa-arrow-right"></i> Access
+                            </a>
+                        </div>
                     </div>
                 {% endfor %}
             </div>
@@ -88,6 +98,18 @@
             </div>
             {% endif %}
         </div>    {% elif user.role == 'student' %}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         <div class="row mb-4">

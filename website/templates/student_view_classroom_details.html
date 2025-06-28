@@ -4,18 +4,16 @@
 
 {% block content %}
 <div class="container">
-    <!-- Classroom Header -->
     <div class="card mb-4">
         <div class="card-body text-center">
-            <h1><i class="fas fa-chalkboard text-primary"></i> {{ classroom.name }}</h1>
+            <h1>{{ classroom.name }}</h1>
             <p class="text-muted">
-                <i class="fas fa-user-tie"></i> Taught by: {{ classroom.teacher.first_name }} {{ classroom.teacher.last_name }}
+                Taught by: {{ classroom.teacher.first_name }} {{ classroom.teacher.last_name }}
             </p>
         </div>
     </div>
 
     <div class="row">
-        <!-- Available Quizzes Section -->
         <div class="col-lg-8 mb-4">
             <div class="card">
                 <div class="card-header">
@@ -58,10 +56,15 @@
                         </div>
                     {% endif %}
                 </div>
+                
+                <div class="card-footer text-center">
+                    <a href="{{ url_for('views.home') }}" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Back to Dashboard
+                    </a>
+                </div>
             </div>
         </div>
 
-        <!-- Classroom Leaderboard Section -->
         <div class="col-lg-4 mb-4">
             <div class="card">
                 <div class="card-header">
@@ -73,26 +76,9 @@
                                 {% set place = loop.index %}
                                 <div class="leaderboard-item {% if place == 1 %}first-place{% elif place == 2 %}second-place{% elif place == 3 %}third-place{% endif %} mb-3">
                                     <div class="position-indicator">
-                                        {% if place == 1 %}
-                                            <div class="place-badge gold">
-                                                <i class="fas fa-crown"></i>
-                                                <span>1st</span>
-                                            </div>
-                                        {% elif place == 2 %}
-                                            <div class="place-badge silver">
-                                                <i class="fas fa-medal"></i>
-                                                <span>2nd</span>
-                                            </div>
-                                        {% elif place == 3 %}
-                                            <div class="place-badge bronze">
-                                                <i class="fas fa-award"></i>
-                                                <span>3rd</span>
-                                            </div>
-                                        {% else %}
                                             <div class="place-badge regular">
                                                 <span>{{ place }}{{ 'th' if place > 3 else '' }}</span>
                                             </div>
-                                        {% endif %}
                                     </div>
                                     
                                     <div class="student-info">
@@ -119,7 +105,9 @@
                         </div>
                     {% endif %}
                 </div>
+                
     </div>
+    
 </div>
 
 {% endblock %}
