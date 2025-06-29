@@ -138,7 +138,7 @@ def take_quiz(quiz_id, classroom_id):
         db.session.add(new_attempt)
         db.session.commit()
 
-        flash(f'Quiz submitted! You scored {total_score_for_attempt} LP on "{quiz.name}". Your total LP is now {current_user.learning_points}.', category='success')
+        flash(f'Done! You scored {total_score_for_attempt} LP on "{quiz.name}". Your total LP is now {current_user.learning_points}.', category='success')
         return redirect(url_for('views.student_view_classroom', classroom_id=classroom_id))
 
     return render_template('take_quiz.html', user=current_user, quiz=quiz, questions=questions, classroom_id=classroom_id, classroom=classroom)
