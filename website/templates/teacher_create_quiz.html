@@ -11,9 +11,10 @@
             <input type="text" class="form-control" id="quiz_name" name="quiz_name" placeholder="Enter the name of your new quiz" required>
         </div>
         <br />
-        <button type="submit" class="btn btn-primary">Create Quiz and Add Questions</button>
+        <button type="submit" class="btn btn-success">Create Quiz and Add Questions</button>
     </form>
     <br />
-    <p><a href="{{ url_for('views.add_quiz_to_classroom', classroom_id=classroom.id) }}">Back to Add Quiz Options</a></p>
+        <button onclick="location.href='{{ url_for('views.home', classroom_id=classroom.id) }}'" type="button" class="btn btn-primary">Back to Dashboard</button>
+
 </div>
 {% endblock %}
