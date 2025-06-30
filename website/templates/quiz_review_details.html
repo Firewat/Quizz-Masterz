@@ -1,12 +1,140 @@
-<!-- Responsible: David -->
-<!-- filepath: c:\Users\lasse\Desktop\Full_Stack_Quizz_Masterz\website\templates\review_submissions.html -->
-<!-- 
-Submission Review Template for Quiz Masters Application
-Interface for teachers to review and grade student quiz submissions
--->
+{% extends "base.html" %}
 
-<!-- Submission review interface -->
-<!-- Student submission list with scores -->
-<!-- Individual submission details -->
-<!-- Grading and feedback options -->
+{% block title %}Quiz Review - {{ quiz.name }}{% endblock %}
+
+{% block content %}
+<div class="container-sm">
+    <div class="card">
+        <div class="card-header text-center">
+            <h1><i class="fas fa-chart-bar"></i> Quiz Review: {{ quiz.name }}</h1>
+            <p class="text-muted">Review student submissions and scores</p>
+        </div>
+        
+        <div class="card-body">
+            {% if student_details %}
+                <!-- Summary Stats -->
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <div class="card bg-light">
+                            <div class="card-body text-center">
+                                <h6>Total Students</h6>
+                                <h4 class="text-primary">{{ stats.total_students }}</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-light">
+                            <div class="card-body text-center">
+                                <h6> Completed</h6>
+                                <h4 class="text-success">{{ stats.students_taken }}</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-light">
+                            <div class="card-body text-center">
+                <h6> Average Score</h6>
+                {% if stats.students_taken > 0 %}
+                    {% set max_score = quiz.questions | sum(attribute='learning_points') %}
+                    {% if max_score > 0 %}
+                        {% set avg_percentage = (stats.average_score / max_score * 100) | round(1) %}
+                        <h4 class="text-info">{{ avg_percentage }}%</h4>
+                    {% else %}
+                        <h4 class="text-muted">N/A</h4>
+                    {% endif %}
+                {% else %}
+                    <h4 class="text-muted">N/A</h4>
+                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-light">
+                            <div class="card-body text-center">
+                                <h6><i class="fas fa-percentage"></i> Participation</h6>
+                                <h4 class="text-warning">{{ stats.participation_rate }}%</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <h5> Student Results</h5>
+                </div>
+                
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th><i class="fas fa-user"></i>Student Name</th>
+                                <th>Score</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for detail in student_details %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ detail.student.first_name }}</strong>
+                                    </td>                    <td>
+                        {% if detail.has_taken %}
+                            {% set max_score = quiz.questions | sum(attribute='learning_points') %}
+                            {% if max_score > 0 %}
+                                {% set percentage = (detail.score / max_score * 100) | round(1) %}
+                                <span class="badge 
+                                    {% if percentage >= 90 %}bg-success
+                                    {% elif percentage >= 70 %}bg-warning
+                                    {% else %}bg-danger
+                                    {% endif %}">
+                                    {{ detail.score }}/{{ max_score }} ({{ percentage }}%)
+                                </span>
+                            {% else %}
+                                <span class="badge bg-secondary">No questions</span>
+                            {% endif %}
+                        {% else %}
+                            <span class="text-muted">-</span>
+                        {% endif %}
+                    </td>
+                                    <td>
+                                        {% if detail.has_taken %}
+                                            <span class="badge bg-success">
+                                                <i class="fas fa-check"></i> Completed
+                                            </span>
+                                        {% else %}
+                                            <span class="badge bg-secondary">
+                                                <i class="fas fa-clock"></i> Not taken
+                                            </span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if detail.has_taken %}
+                                            <button class="btn btn-sm btn-primary">
+                                                 See Results
+                                            </button>
+                                        {% else %}
+                                            <span class="text-muted">-</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                
+            {% else %}
+                <div class="text-center py-5">
+                    <i class="fas fa-users fa-3x text-muted mb-3"></i>
+                    <h4 class="text-muted">No students in classroom</h4>
+                </div>
+            {% endif %}
+
+            <div class="text-center mt-4">
+                <a href="{{ url_for('views.edit_classroom', classroom_id=classroom.id) }}" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Back to Classroom
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
 

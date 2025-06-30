@@ -19,7 +19,7 @@ def create_app():
     db.init_app(app)
 
 
-    # Initialize Flask-Migrate (deleted for now)
+    # 1.
 
     from .views import views
     from .auth import auth

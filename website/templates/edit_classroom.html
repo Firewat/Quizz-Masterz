@@ -177,38 +177,7 @@
                                     </div>
                                 </div>
                                 
-                                {% if quiz_review.submissions %}
-                                    <div class="table-responsive mt-3">
-                                        <table class="table table-sm table-hover">
-                                            <thead class="thead-light">
-                                                <tr>
-                                                    <th>Student</th>
-                                                    <th>Email</th>
-                                                    <th>Score</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {% for submission in quiz_review.submissions %}
-                                                    <tr>
-                                                        <td><strong>{{ submission.student_name }}</strong></td>
-                                                        <td><small class="text-muted">{{ submission.student_email }}</small></td>
-                                                        <td>
-                                                            <span class="badge badge-{% if submission.score >= 80 %}success{% elif submission.score >= 60 %}warning{% else %}danger{% endif %}">
-                                                                {{ submission.score }} pts
-                                                            </span>
-                                                        </td>
-                                                    </tr>
-                                                {% endfor %}
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                {% else %}
-                                    <div class="alert alert-info">
-                                        <i class="fas fa-info-circle"></i> No submissions yet for this quiz
-                                    </div>
-                                {% endif %}
                                 
-                                {% if not loop.last %}<hr>{% endif %}
                             </div>
                         {% endfor %}
                     {% else %}
