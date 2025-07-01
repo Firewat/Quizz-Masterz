@@ -420,18 +420,6 @@ Quizz-Masterz/
 - Shop for Students
 - Notes Creation
 
-## Diagrams
-
-### Flowchart
-
-![AblaufDiagram_Full_stack_Dev_web drawio](https://github.com/user-attachments/assets/419c5b85-7b7b-479e-aae3-ae34672c3f36)
-
-### Data Model
-
-[Data_Model_Full_Stack_Dev_Web.pdf](https://github.com/user-attachments/files/20710013/Data_Model_Full_Stack_Dev_Web.pdf)
-
-
-
 
 ### AI Disclaimer
 
