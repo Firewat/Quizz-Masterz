@@ -4,9 +4,6 @@ parent: Technical Docs
 nav_order: 2
 ---
 
-{: .label }
-Quiz Masterz Team
-
 {: .no_toc }
 # Data Model
 

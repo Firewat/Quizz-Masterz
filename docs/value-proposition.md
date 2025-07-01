@@ -3,15 +3,6 @@ title: Value Proposition
 nav_order: 1
 ---
 
-{: .label }
-Lasse Schulz
-
-{: .label }
-Furkan Dinc
-
-{: .label }
-David Levi
-
 {: .no_toc }
 # Value Proposition - Quiz Masterz
 

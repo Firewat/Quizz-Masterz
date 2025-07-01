@@ -4,11 +4,8 @@ parent: Team Evaluation
 nav_order: 3
 ---
 
-{: .label }
-[Jane Dane]
-
 {: .no_toc }
-# Peer review
+# Peer review 20.07!!! MACHEN!
 
 <details open markdown="block">
 {: .text-delta }
