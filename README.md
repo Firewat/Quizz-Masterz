@@ -358,13 +358,13 @@ Quizz-Masterz/
 - **Dependencies** (`requirements.txt`)
 
   ```
-flask
-Flask-SQLAlchemy
-flask-login
-Flask-Migrate
-Flask-WTF
-WTForms
-email-validator
+ flask
+ Flask-SQLAlchemy
+ flask-login
+ Flask-Migrate
+ Flask-WTF
+ WTForms
+ email-validator
   ```
 
 
