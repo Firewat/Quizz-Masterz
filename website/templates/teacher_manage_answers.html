@@ -1,3 +1,5 @@
+<!-- Source: https://flask.palletsprojects.com/en/stable/-->
+<!-- source: https://pushmetrics.io/learn/jinja/jinja-loops/-->
 {% extends "base.html" %}
 {% block title %}    <br />
     <button onclick="location.href='{{ url_for('views.teacher_manage_quiz_questions', quiz_id=quiz_id, classroom_id=classroom_id) }}'" class="btn btn-primary">Back to Questions for: {{ question.quiz.name }} </button>
