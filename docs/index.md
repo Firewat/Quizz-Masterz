@@ -12,7 +12,7 @@ Flask-based web application for creating, managing, and taking educational quizz
 ### Lasse Schulz
 
 About:
-Seit fast 8 Jahren beschäftige ich mich immer wieder mit privaten Programmierprojekten und konnte so Erfahrungen im Software- und Hardwarebereich sammeln. Mein Interesse an der Programmierung wurde ursprünglich durch Projekte in der Schule geweckt, die mir einen ersten Einblick ermöglichten. Ich bin motiviert, meine Kenntnisse in Zukunft weiter zu vertiefen, sei es im Studium, privat oder im späteren Berufsleben.
+For almost 8 years, I have been working on private programming projects, which has allowed me to gain experience in the software and hardware fields. My interest in programming was originally sparked by projects at school, which gave me my first insight into the field. I am motivated to further deepen my knowledge in the future, whether through my studies, privately, or in my future career.
 
 Matr.-Nr.
 : 77212023467
@@ -20,9 +20,9 @@ Matr.-Nr.
 ### Furkan Dinc
 
 About:
-Hallo! Ich bin aktuell Student im Bereich Wirtschaftsinformatik und bringe eine eher untypische Vorgeschichte mit: Vor meinem Studium hatte ich nur begrenzte Berührungspunkte mit der Informatik. Erste Erfahrungen sammelte ich während meiner Ausbildung, wo ich unter anderem einfache Datenbankabfragen formulierte und eine grundlegende HTML-Seite erstellte – mehr aus Pflicht als aus Leidenschaft.
+Hello! I am currently a student of business informatics and have a rather unusual background: before my studies, I had only limited contact with computer science. I gained my first experience during my training, where I formulated simple database queries and created a basic HTML page, among other things.
 
-Ich sehe mich nicht als klassischen „Techie“, sondern eher als jemand, der komplexe Themen greifbar machen und zwischen Fachbereichen vermitteln kann – und genau das reizt mich an der Wirtschaftsinformatik. 
+I don't see myself as a classic “techie,” but rather as someone who can make complex topics tangible and communicate between different departments, and that's exactly what appeals to me about business informatics.
 
 Matr.-Nr.
 : 77212019316
@@ -30,9 +30,9 @@ Matr.-Nr.
 ### David Levi
 
 About:
-Schon seit ich ein Kleinkind war, faszinieren mich Computer und Technik. Ich war früh überzeugt, dass ich einmal in dieser Branche arbeiten würde – und dieser Traum hat sich bis heute gehalten. Generell sind Computer und alles, was damit zu tun hat, meine große Leidenschaft. Es macht mir einfach Spaß, mich damit zu beschäftigen, zu tüfteln und Neues zu lernen.
+Ever since I was a toddler, I have been fascinated by computers and technology. I was convinced early on that I would one day work in this industry. In general, computers and everything related to them are my great passion. I simply enjoy working with them, tinkering with them, and learning new things.
 
-Meine ersten Berührungspunkte mit der Informatik hatte ich schon früh, und seitdem habe ich privat immer wieder an kleinen Projekten gearbeitet. Ob Software oder Hardware – ich finde beide Bereiche spannend und habe so über die Jahre praktische Erfahrungen gesammelt. 
+I had my first encounters with computer science at an early age, and since then I have repeatedly worked on small projects in my spare time. Whether software or hardware, I find both areas exciting and have gained practical experience over the years.
 
 Matr.-Nr.
 : 77211987245
