@@ -358,29 +358,29 @@ Quizz-Masterz/
 - **Dependencies** (`requirements.txt`)
 
   ```
- flask
- Flask-SQLAlchemy
- flask-login
- Flask-Migrate
- Flask-WTF
- WTForms
- email-validator
+  flask
+  Flask-SQLAlchemy
+  flask-login
+  Flask-Migrate
+  Flask-WTF
+  WTForms
+  email-validator
   ```
 
 
 
 - **Git Configuration** (`.gitignore`)
 
-.vscode
-__pycache__
-instance/database.db
-/myenv/
+  ```
+  .vscode
+  __pycache__
+  instance/database.db
+  /myenv/
+  ```
 
 
 
-## Test Quiz Feature
-
-### Completed Features 
+## Completed Features 
 
 **Authentication & User Management:**
 - User registration and login system with role-based access (Student/Teacher)
@@ -407,11 +407,28 @@ instance/database.db
 
 
 
-### In Development 
+## In Development 
 
 - Advanced quiz management features
 - Shop
 - Quiz History for Students
+
+## Planned Features
+
+- Student performance analytics
+- Advanced question types
+- Shop for Students
+- Notes Creation
+
+## Diagrams
+
+### Flowchart
+
+![AblaufDiagram_Full_stack_Dev_web drawio](https://github.com/user-attachments/assets/419c5b85-7b7b-479e-aae3-ae34672c3f36)
+
+### Data Model
+
+[Data_Model_Full_Stack_Dev_Web.pdf](https://github.com/user-attachments/files/20710013/Data_Model_Full_Stack_Dev_Web.pdf)
 
 
 
