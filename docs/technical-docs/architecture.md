@@ -5,9 +5,6 @@ nav_order: 1
 layout: default
 ---
 
-{: .label }
-[sollen wir hier was reinschreiben?]
-
 {: .no_toc }
 # Architecture
 
