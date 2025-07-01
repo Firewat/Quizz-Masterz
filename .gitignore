@@ -1,5 +1,3 @@
-# Responsible: Lasse
-# filepath: c:\Users\lasse\Desktop\Full_Stack_Quizz_Masterz\.gitignore
 .vscode
 __pycache__
 instance/database.db

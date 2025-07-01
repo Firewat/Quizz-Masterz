@@ -78,23 +78,7 @@ Flask-based web application for creating, managing, and taking educational quizz
 
 
 
-3.  **Initialize the database**
-
-    The application uses Flask-Migrate for database migrations.
-
-    ```bash
-
-    # flask db init  (only if never done before)
-
-    # flask db migrate -m "init"
-
-    flask db upgrade
-
-    ```
-
-
-
-4.  **Run the application**
+3.  **Run the application**
 
     ```bash
 
@@ -106,9 +90,9 @@ Flask-based web application for creating, managing, and taking educational quizz
 
 
 
-5.  **Access the application**
+4.  **Access the application**
 
-    Open your browser and navigate to `http://127.0.0.1:5000`
+    Open your browser and navigate to `http://127.0.0.1:5000` or localhost website
 
 
 
@@ -116,7 +100,7 @@ Flask-based web application for creating, managing, and taking educational quizz
 
 ```
 
-Full_Stack_Quizz_Masterz/
+Quizz-Masterz/
 
 ├── main.py                      # Application entry point (Furkan)
 
@@ -126,99 +110,117 @@ Full_Stack_Quizz_Masterz/
 
 ├── .gitignore                  # Git ignore configuration (All)
 
+├── add_test_students.py        # Script to add test students to database
+
+├── database_diagram.dbml       # Database diagram definition
+
+├── venv/                       # Virtual environment folder
+
 ├── instance/                   # Flask instance folder
 
 │   └── database.db            # SQLite database file
 
-├── migrations/                 # Database migration files 
+├── docs/                       # Project documentation
+
+│   ├── _config.yml            # Documentation configuration
+
+│   ├── index.md               # Documentation index
+
+│   ├── README.md              # Documentation README
+
+│   ├── design-decisions.md    # Design decision documentation
+
+│   ├── ui-components.md       # UI components documentation
+
+│   ├── user-eval.md           # User evaluation documentation
+
+│   ├── value-proposition.md   # Value proposition documentation
+
+│   ├── assets/                # Documentation assets
+
+│   │   ├── images/            # Documentation images
+
+│   │   └── pdfs/              # Documentation PDFs
+
+│   ├── design-decisions/      # Design decision details
+
+│   ├── team-eval/             # Team evaluation documentation
+
+│   └── technical-docs/        # Technical documentation
 
 ├── website/                    # Main application package
 
 │   ├── __init__.py            # Flask app factory (Furkan)
 
-│   ├── models.py              # Database models (Lasse )
+│   ├── models.py              # Database models (Lasse)
 
-│   ├── views.py               # Main routes and views (Lasse )
+│   ├── views.py               # Main routes and views (Lasse)
 
 │   ├── auth.py                # Authentication routes (Lasse)
 
 │   ├── forms.py               # WTForms form definitions (Lasse)
 
-│   ├── components.py          # UI component helpers (David)
-
 │   ├── static/                # Static assets (CSS, JS, images)
 
-│   └── templates/             # Jinja2 HTML templates (David
+│   │   └── css/
 
-│       ├── base.html          # Base template with navigation
+│   │       └── style.css      # Main stylesheet
 
-│       ├── home.html          # Role-based home page
+│   ├── templates/             # Jinja2 HTML templates (David)
 
-│       ├── login.html         # User login form
+│   │   ├── base.html          # Base template with navigation
 
-│       ├── sign_up.html       # User registration form
+│   │   ├── home.html          # Role-based home page
 
-│       ├── test_quiz.html     # Student test quiz interface
+│   │   ├── login.html         # User login form
 
-│       ├── test_quiz_results.html # Test quiz results display
+│   │   ├── sign_up.html       # User registration form
 
-│       ├── teacher_classrooms.html # Teacher classroom management
+│   │   ├── profile.html       # User profile page
 
-│       ├── teacher_quizzes.html    # Teacher quiz management
+│   │   ├── shop.html          # Student shop interface
 
-│       ├── student_quizzes.html    # Student quiz dashboard
+│   │   ├── create_classroom.html # Teacher classroom creation
 
-│       ├── take_quiz.html          # Quiz taking interface
+│   │   ├── edit_classroom.html # Classroom editing
 
-│       ├── quiz_results.html       # Quiz results page
+│   │   ├── teacher_classrooms.html # Teacher classroom management
 
-│       ├── manage_questions.html   # Question management
+│   │   ├── teacher_create_quiz.html # Quiz creation interface
 
-│       ├── manage_answers.html     # Answer management
+│   │   ├── teacher_manage_questions.html # Question management
 
-│       ├── edit_classroom.html     # Classroom editing
+│   │   ├── teacher_manage_answers.html # Answer management
 
-│       ├── edit_quiz.html          # Quiz editing
+│   │   ├── student_join_classroom.html # Student classroom joining
 
-│       ├── edit_question.html      # Question editing
+│   │   ├── student_my_classrooms.html # Student classroom dashboard
 
-│       ├── add_quiz_to_classroom.html # Quiz assignment to classroom
+│   │   ├── student_quizzes.html # Student quiz dashboard
 
-│       ├── join_quiz.html          # Quiz joining interface
+│   │   ├── student_view_classroom_details.html # Classroom details view
 
-│       ├── profile.html            # User profile page
+│   │   ├── take_quiz.html     # Quiz taking interface
 
-│       ├── quiz_history.html       # Quiz history view
+│   │   └── quiz_review_details.html # Quiz review interface
 
-│       ├── review_submissions.html # Submission review
+│   └── __pycache__/           # Python bytecode cache
 
-└── __pycache__/               # Python bytecode cache
+└── .git/                      # Git repository metadata
 
 ```
 
 
 
 
-## 🏗️ Architecture Overview
+## Architecture Overview
 
 
 ## Architecture Overview
 
 
 
-### Backend Architecture (Lasses Responsibility)
-
-
-
-#### Core Components
-
-- **Flask Application** (`__init__.py`)
-
-  - Creates and configures Flask app
-
-  - Initializes database and login manager
-
-  - Registers blueprints
+### Backend Architecture
 
 
 
@@ -278,43 +280,8 @@ Full_Stack_Quizz_Masterz/
 
 
 
-#### Database Schema
 
-```sql
-
--- Users table with role-based access
-
-User(id, email, password, first_name, role)
-
-
-
--- Classroom management
-
-Classroom(id, name, code, teacher_id)
-
-
-
--- Quiz structure
-
-Quiz(id, title, description, teacher_id)
-
-Question(id, text, quiz_id)
-
-Answer(id, text, is_correct, question_id)
-
-
-
--- Student submissions
-
-QuizSubmission(id, user_id, quiz_id, score, submitted_at)
-
-UserAnswer(id, submission_id, question_id, selected_answers)
-
-```
-
-
-
-### Frontend Architecture (David's Responsibility)
+### Frontend Architecture
 
 
 
@@ -336,7 +303,7 @@ UserAnswer(id, submission_id, question_id, selected_answers)
 
   - `sign_up.html`: User registration
 
-  - Role-based welcome pages
+  - Role-based home pages
 
 
 
@@ -391,136 +358,61 @@ UserAnswer(id, submission_id, question_id, selected_answers)
 - **Dependencies** (`requirements.txt`)
 
   ```
-
-  Flask==2.3.3
-
-  Flask-SQLAlchemy==3.0.5
-
-  Flask-Login==0.6.3
-
-  Flask-WTF==1.1.1
-
-  WTForms==3.0.1
-
-  Werkzeug==2.3.7
-
+flask
+Flask-SQLAlchemy
+flask-login
+Flask-Migrate
+Flask-WTF
+WTForms
+email-validator
   ```
 
 
 
 - **Git Configuration** (`.gitignore`)
 
-  - Python cache files
-
-  - Virtual environment exclusions
-
-  - Database and instance files
-
-  - IDE-specific files
-
-
-
-#### Deployment Considerations
-
-- **Database**: SQLite for development, PostgreSQL recommended for production
-
-- **Environment Variables**: Secret key, database URL configuration
-
-- **Static Assets**: Served by Flask in development, CDN in production
-
-- **Session Management**: Secure session configuration required
+.vscode
+__pycache__
+instance/database.db
+/myenv/
 
 
 
 ## Test Quiz Feature
 
-
-
-### Implementation Details
-
-The test quiz feature provides a quick assessment tool for students and a Test for us:
-
-
-
-- **Question Set**: 3 Python code questions sourced from the application codebase
-
-- **Format**: Multiple choice with single correct answers
-
-- **Scoring**: Simple pass/fail with percentage calculation
-
-- **Session Management**: Quiz state maintained in Flask sessions
-
-
-
-### Quiz Questions
-
-1. **Flask Routes**: Identifying correct route decorator syntax
-
-2. **Database Models**: Understanding SQLAlchemy relationship definitions
-
-3. **Template Syntax**: Recognizing proper Jinja2 template syntax
-
-
-
 ### Completed Features 
 
-- Basic authentication system with role-based access
+**Authentication & User Management:**
+- User registration and login system with role-based access (Student/Teacher)
+- User profiles with learning points and level progression system
+- Secure password hashing and session management
 
-- Simple login and registration forms
+**Teacher Features:**
+- Classroom creation and management with unique join codes
+- Quiz creation with multiple-choice questions and answers
+- Student management and quiz result monitoring
+- Quiz publishing workflow (draft → published)
 
-- Test quiz functionality with 3 Python questions
+**Student Features:**
+- Classroom joining using unique join codes
+- Quiz taking with multiple answer selection
+- Automatic scoring with learning points reward system
+- Level progression based on accumulated learning points
 
-- Role-based home pages (student/teacher views)
-
-- Team responsibility assignments
-
-- Project structure documentation
+**Core System Features:**
+- Learning points system with exponential level progression
+- Quiz scoring with partial credit support
+- Role-based navigation and access control
+- Quiz attempt prevention for completed quizzes
 
 
 
 ### In Development 
 
 - Advanced quiz management features
+- Shop
+- Quiz History for Students
 
-- Classroom creation and management
-
-- Comprehensive student/teacher interfaces
-
-- Enhanced UI styling and responsiveness
-
-
-
-### Planned 
-
-- Full quiz creation and management system
-
-- Student performance analytics
-
-- Advanced question types
-
-- Shop for Students
-
-<<<<<<< HEAD
-
-- Notes Creation
-
-=======
-
-- Notes Creation
-
-
-
-### Diagrams
-
-## Flowchart
-
-![AblaufDiagram_Full_stack_Dev_web drawio](https://github.com/user-attachments/assets/419c5b85-7b7b-479e-aae3-ae34672c3f36)
-
-
-
-## Data Model
-
-[Data_Model_Full_Stack_Dev_Web.pdf](https://github.com/user-attachments/files/20710013/Data_Model_Full_Stack_Dev_Web.pdf)
 
 
 
