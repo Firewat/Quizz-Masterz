@@ -22,10 +22,10 @@ def add_test_students():
     
     with app.app_context():
         # Find the History 101 classroom
-        classroom = Classroom.query.filter_by(name="History 101").first()
+        classroom = Classroom.query.filter_by(name="Full-Stack Web Development SoSe-2025").first()
         
         if not classroom:
-            print("Error: Could not find classroom named 'History 101'")
+            print("Error: Could not find classroom named 'Full-Stack Web Development SoSe-2025'")
             print("Available classrooms:")
             for c in Classroom.query.all():
                 print(f"  - {c.name}")

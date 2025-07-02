@@ -96,7 +96,7 @@
                                                 {% elif not draft.questions_have_answers %}
                                                     <br><span class="text-warning"><i class="fas fa-exclamation-triangle"></i> Some questions missing answers</span>
                                                 {% else %}
-                                                    <br><span class="text-success"><i class="fas fa-check"></i> Ready to upload</span>
+                                                    <br><span class="text-success">Ready to upload</span>
                                                 {% endif %}
                                             </p>
                                             <div class="btn-group-vertical w-100">
@@ -151,7 +151,7 @@
             <div class="card">
                 <div class="card-header">
                     <h4>Published Quizzes & Submissions</h4>
-                    <small class="text-muted">Quizzes available to students with submission reviews</small>
+                    <small class="text-muted">Quizzes available to students</small>
                 </div>
                 <div class="card-body">
                     {% if quiz_reviews %}
@@ -183,7 +183,7 @@
                         <div class="empty-state">
                             <i class="fas fa-clipboard-list empty-state-icon"></i>
                             <h5 class="empty-state-title">No Quizzes in This Classroom</h5>
-                            <p class="empty-state-description">Upload quizzes to this classroom to see student submissions and reviews</p>
+                            <p class="empty-state-description">Upload quizzes to this classroom to see student submissions</p>
                             </a>
                         </div>
                     {% endif %}
