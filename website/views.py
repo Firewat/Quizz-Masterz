@@ -403,7 +403,6 @@ def teacher_manage_question_answers(question_id):
 @views.route('/teacher/quiz/<int:quiz_id>/save_draft/<int:classroom_id>')
 @login_required
 def save_quiz_draft(quiz_id, classroom_id):
-    """Save quiz as draft and return to classroom"""
     if current_user.role != 'teacher':
         flash('Access denied.', category='error')
         return redirect(url_for('views.home'))
@@ -426,7 +425,6 @@ def save_quiz_draft(quiz_id, classroom_id):
 @views.route('/teacher/quiz/<int:quiz_id>/upload_to_classroom/<int:classroom_id>')
 @login_required
 def upload_quiz_to_classroom(quiz_id, classroom_id):
-    """Publish quiz and make it available to students"""
     if current_user.role != 'teacher':
         flash('Access denied.', category='error')
         return redirect(url_for('views.home'))
@@ -464,7 +462,6 @@ def upload_quiz_to_classroom(quiz_id, classroom_id):
 @views.route('/teacher/quiz/<int:quiz_id>/review/<int:classroom_id>')
 @login_required
 def quiz_review_details(quiz_id, classroom_id):
-    """Show detailed review of a quiz including all students and submissions"""
     if current_user.role != 'teacher':
         flash('Access denied.', category='error')
         return redirect(url_for('views.home'))
@@ -703,7 +700,7 @@ def student_quizzes():
             })
     
     return render_template("student_quizzes.html", user=current_user, available_quizzes=available_quizzes)
-
+    # until here
 
 
 
