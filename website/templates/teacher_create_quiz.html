@@ -1,5 +1,4 @@
-<!-- Source: https://flask.palletsprojects.com/en/stable/-->
-<!-- source: https://pushmetrics.io/learn/jinja/jinja-loops/-->
+<!-- source: [10,8] -->
 {% extends "base.html" %}
 {% block title %}Create New Quiz{% endblock %}
 
@@ -16,7 +15,7 @@
         <button type="submit" class="btn btn-success">Create Quiz and Add Questions</button>
     </form>
     <br />
-        <button onclick="location.href='{{ url_for('views.home', classroom_id=classroom.id) }}'" type="button" class="btn btn-primary">Back to Dashboard</button>
+        <button onclick="location.href='{{ url_for('views.edit_classroom', classroom_id=classroom.id) }}';" type="button" class="btn btn-primary">Back to Classroom</button>
 
 </div>
 {% endblock %}

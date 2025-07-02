@@ -1,4 +1,4 @@
-<!-- Source: https://flask.palletsprojects.com/en/stable/-->
+<!-- source: [10,8] -->
 {% extends "base.html" %}
 {% block title %}Manage Questions for {{ quiz.name }}{% endblock %}
 
@@ -45,9 +45,9 @@
 
     <br />
     {% if classroom_id %}
-    <button onclick="location.href='{{ url_for('views.edit_classroom', classroom_id=classroom_id) }}'" class="btn btn-primary">Back to Classroom</button>
+    <button onclick="location.href='{{ url_for('views.edit_classroom', classroom_id=classroom_id) }}';" class="btn btn-primary">Back to Classroom</button>
     {% else %}
-    <button onclick="location.href='{{ url_for('views.teacher_classrooms') }}'" class="btn btn-success">Go Back to Classrooms</button>
+    <button onclick="location.href='{{ url_for('views.teacher_classrooms') }}';" class="btn btn-success">Go Back to Classrooms</button>
     {% endif %}
 </div>
 {% endblock %}

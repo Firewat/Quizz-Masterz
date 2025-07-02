@@ -1,4 +1,4 @@
-# Responsible: Lasse
+# source: [13,17,18,21,22,25]
 
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_required, current_user
@@ -43,7 +43,7 @@ def home():
                     classroom_id=classroom.id
                 ).first()
                 
-                if not existing_attempt:  # Only show quizzes not yet taken
+                if not existing_attempt: 
                     quiz_data = {
                         'quiz': quiz,
                         'classroom': classroom
@@ -424,7 +424,6 @@ def teacher_manage_question_answers(question_id):
 
     answers = question.answers.all()
     
-    # Get the classroom this quiz belongs to
     quiz_classroom = quiz.classrooms_assigned_to.first()
     if quiz_classroom:
         classroom_id = quiz_classroom.id

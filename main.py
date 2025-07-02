@@ -1,5 +1,4 @@
-# Responsible: Furkan
-# filepath: c:\Users\lasse\Desktop\Full_Stack_Quizz_Masterz\main.py
+# source: [13,18]
 """
 Main Application Entry Point for Quiz Masters
 Flask application startup and development server configuration

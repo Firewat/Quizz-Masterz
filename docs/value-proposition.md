@@ -110,7 +110,7 @@ Students and teachers can quickly sign up and get started immediately.
 
 ### **Time Savings**
 - Automated grading reduces teacher workload "from 15 hours per week to 9.75 hours per week".
-(source: https://www.researchgate.net/publication/387254488_Automated_Grading_and_Feedback_Systems_Reducing_Teacher_Workload_and_Improving_Student_Performance)
+(source: [22])
 - Instant quiz creation with pre-built templates
 
 ### **Improved Engagement** 
