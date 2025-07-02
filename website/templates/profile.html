@@ -1,4 +1,4 @@
-<!-- source: [20]-->
+<!-- source: [20, 27,34,37]-->
 {% extends "base.html" %}
 {% block title %}Profile - Quiz Masterz{% endblock %}
 
@@ -105,7 +105,8 @@
 </div>
 
 
-<!-- source: [27] -->
+<!-- source: [27] 
+ partially edited with AI-->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -114,13 +115,13 @@ document.addEventListener('DOMContentLoaded', function() {
         const chartDataElement = document.getElementById('chart-data');
         const chartData = JSON.parse(chartDataElement.textContent);     
         const ctx = chartElement.getContext('2d');
-        let progressColor = '#3b82f6'; 
+        let progressColor = '#3b82f6'; // var(--primary) level 0
         if (chartData.level >= 5) {
-            progressColor = '#f59e0b'; 
+            progressColor = '#f59e0b'; // var(--warning) level 5+
         } else if (chartData.level >= 3) {
-            progressColor = '#8b5cf6'; 
+            progressColor = '#8b5cf6'; // Purple (Level 3-4)
         } else if (chartData.level >= 1) {
-            progressColor = '#10b981'; 
+            progressColor = '#10b981'; // Green (Level 1-2) var(--success)
         }
         let progressValue, remainingValue, labels;       
         progressValue = chartData.currentLP;

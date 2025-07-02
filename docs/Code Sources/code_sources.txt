@@ -18,6 +18,13 @@ Code Sources for Quiz Masterz Project
 11. TestDriven.io Tips: https://testdriven.io/tips/
 12. MDN HTML Input Checkbox: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/checkbox
 
+--- Bootstrap
+32. Bootstraps Forms: https://getbootstrap.com/docs/5.0/forms/overview/ 
+33. Bootstraps Buttons: https://getbootstrap.com/docs/5.0/components/buttons/
+34. Bootstrap Header: https://getbootstrap.com/docs/5.0/examples/headers/
+35. Bootstrap: https://getbootstrap.com/docs/5.0/examples/#custom-components
+36. Bootstrap Table: https://getbootstrap.com/docs/5.0/content/tables/
+
 
 - Backend & Flask
 
@@ -62,7 +69,7 @@ Code Sources for Quiz Masterz Project
 
 -- CSS & Design
 26. YouTube CSS Tutorial: https://www.youtube.com/watch?v=qyomWr_C_jA&ab_channel=Sajid
-27. Chart.js Doughnut Charts: https://www.chartjs.org/docs/latest/samples/other-charts/doughnut.html
+27. Chart.js Doughnut Charts: https:/ /www.chartjs.org/docs/latest/samples/other-charts/doughnut.html
 28. Chart.js Examples: https://davidaparicio.github.io/chartjs/
 29. Font Awesome Icons: https://fontawesome.com/
 30. Google Fonts - Inter Font Family: https://fonts.google.com/specimen/Inter
@@ -71,4 +78,4 @@ Code Sources for Quiz Masterz Project
 
 -- Academic Sources
 31. Automated Grading Research: https://www.researchgate.net/publication/387254488_Automated_Grading_and_Feedback_Systems_Reducing_Teacher_Workload_and_Improving_Student_Performance
-
+37. Flask Full Course: Build Stunning Web Apps Fast | Python Flask Tutorial: https://www.youtube.com/watch?v=45P3xQPaYxc
