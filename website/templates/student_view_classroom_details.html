@@ -20,7 +20,8 @@
                 <div class="card-header">
                     <h3>Available Quizzes</h3>
                 </div>
-                <div class="card-body">                    {% if available_quizzes %}
+                <div class="card-body">                    
+                    {% if available_quizzes %}
                         <div class="list-group list-group-flush">
                             {% for quiz_data in available_quizzes %}
                                 <div class="list-group-item d-flex justify-content-between align-items-center">
@@ -30,7 +31,7 @@
                                             <i class="fas fa-clock"></i> Available now
                                             {% if quiz_data.taken %}
                                                 <span class="badge bg-success ms-2">
-                                                    <i class="fas fa-check"></i> Completed
+                                                    Completed
                                                 </span>
                                             {% endif %}
                                         </small>
@@ -38,7 +39,8 @@
                                     {% if quiz_data.taken %}
                                         <a href="{{ url_for('views.take_quiz', quiz_id=quiz_data.quiz.id, classroom_id=classroom.id) }}" 
                                            class="btn btn-retake btn-sm btn-disabled">
-                                            <i class="fas fa-redo"></i> Retake Quiz
+                                            Quiz already taken
+                                            <!-- TODO: add feature where students can retake quizzes after a certain period and for no points-->
                                         </a>
                                     {% else %}
                                         <a href="{{ url_for('views.take_quiz', quiz_id=quiz_data.quiz.id, classroom_id=classroom.id) }}" 
@@ -53,7 +55,7 @@
                         <div class="empty-state">
                             <i class="fas fa-clipboard-list empty-state-icon"></i>
                             <h5 class="empty-state-title">No Quizzes Available</h5>
-                            <p class="empty-state-description">No quizzes are currently available in this classroom. Check back later!</p>
+                            <p class="empty-state-description">No quizzes are currently available in this classroom</p>
                         </div>
                     {% endif %}
                 </div>
