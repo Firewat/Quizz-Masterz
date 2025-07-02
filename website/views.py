@@ -34,24 +34,16 @@ def get_quiz_or_404(quiz_id, teacher_check=True):
 def home():
     available_quizzes = []
     if current_user.role == 'student':
-        student_classrooms = current_user.joined_classrooms
-        for classroom in student_classrooms:
+        #AI used to shorten this section
+        for classroom in current_user.joined_classrooms:
             for quiz in classroom.quizzes.filter_by(is_published=True):
-                existing_attempt = StudentQuizAttempt.query.filter_by(
-                    student_id=current_user.id,
-                    quiz_id=quiz.id,
-                    classroom_id=classroom.id
-                ).first()
-                
-                if not existing_attempt: 
-                    quiz_data = {
-                        'quiz': quiz,
-                        'classroom': classroom
-                    }
-                    available_quizzes.append(quiz_data)
+                if not StudentQuizAttempt.query.filter_by(
+                    student_id=current_user.id, quiz_id=quiz.id, classroom_id=classroom.id
+                ).first():
+                    available_quizzes.append({'quiz': quiz, 'classroom': classroom})
     
     return render_template("home.html", user=current_user, available_quizzes=available_quizzes)
-
+        # until here
 
 
 @views.route('/profile')
@@ -105,40 +97,25 @@ def take_quiz(quiz_id, classroom_id):
         return redirect(url_for('views.student_view_classroom', classroom_id=classroom_id))
 
     if request.method == 'POST':
-        total_score_for_attempt = 0
-        
+        total_score = 0
+        #AI used to shorten this section
         for question in questions:
-            selected_answer_ids = request.form.getlist(f'question_{question.id}')
-            question_score = 0
-            correct_answers_for_question = [str(a.id) for a in question.answers if a.is_correct]
+            selected_answers = request.form.getlist(f'question_{question.id}')
+            correct_answers = [str(a.id) for a in question.answers if a.is_correct]
             
-            is_question_correct = False
-            if selected_answer_ids:
-                for sel_id in selected_answer_ids:
-                    if sel_id in correct_answers_for_question:
-                        is_question_correct = True
-                        break 
-            
-            if is_question_correct:
-                question_score += question.learning_points
-            else:
-                pass 
+            if any(sel in correct_answers for sel in selected_answers):
+                total_score += question.learning_points
 
-            total_score_for_attempt += question_score
-
-        current_user.learning_points = (current_user.learning_points or 0) + total_score_for_attempt
+        current_user.learning_points = (current_user.learning_points or 0) + total_score
         
- 
         new_attempt = StudentQuizAttempt(
-            student_id=current_user.id,
-            quiz_id=quiz.id,
-            classroom_id=classroom.id,
-            score=total_score_for_attempt
+            student_id=current_user.id, quiz_id=quiz.id, 
+            classroom_id=classroom.id, score=total_score
         )
         db.session.add(new_attempt)
         db.session.commit()
-
-        flash(f'Done! You scored {total_score_for_attempt} LP on "{quiz.name}". Your total LP is now {current_user.learning_points}.', category='success')
+        # until here
+        flash(f'Done! You scored {total_score} LP on "{quiz.name}". Your total LP is now {current_user.learning_points}.', category='success')
         return redirect(url_for('views.student_view_classroom', classroom_id=classroom_id))
 
     return render_template('take_quiz.html', user=current_user, quiz=quiz, questions=questions, classroom_id=classroom_id, classroom=classroom)
@@ -208,28 +185,17 @@ def edit_classroom(classroom_id):
 
 
 
-    all_students = classroom.students.all()
-
-    attempts_in_classroom = StudentQuizAttempt.query.filter_by(classroom_id=classroom.id).all()
+    #AI used to shorten this section
+    attempts = StudentQuizAttempt.query.filter_by(classroom_id=classroom.id).all()
     student_scores = {}
-    for attempt in attempts_in_classroom:
+    for attempt in attempts:
         student_scores[attempt.student_id] = student_scores.get(attempt.student_id, 0) + attempt.score
-    
 
-    leaderboard = []
-    for student in all_students:
-        leaderboard_entry = {
-            'name': student.first_name,
-            'email': student.email,
-            'student_id': student.id,
-            'score': student_scores.get(student.id, 0),  
-           # 'skin': selected_skin
-        }
-        leaderboard.append(leaderboard_entry)
-    
-
-    leaderboard.sort(key=lambda x: x['score'], reverse=True)
-
+    leaderboard = sorted([{
+        'name': student.first_name, 'email': student.email, 'student_id': student.id,
+        'score': student_scores.get(student.id, 0)
+    } for student in classroom.students.all()], key=lambda x: x['score'], reverse=True)
+    # until here
 
     classroom_quizzes = classroom.quizzes.filter_by(is_published=True).all()
     draft_quizzes = Quiz.query.filter_by(teacher_id=current_user.id, is_published=False).all()
@@ -473,20 +439,16 @@ def upload_quiz_to_classroom(quiz_id, classroom_id):
         return redirect(url_for('views.teacher_classrooms'))
     
 
+    #AI used to shorten this section
     if quiz.questions.count() == 0:
         flash('Cannot upload quiz without any questions!', category='error')
-        return redirect(url_for('views.classroom', classroom_id=classroom.id))
+        return redirect(url_for('views.edit_classroom', classroom_id=classroom.id))
     
-
-    questions_without_answers = []
-    for question in quiz.questions:
-        if question.answers.count() == 0:
-            questions_without_answers.append(question.text[:50] + "...")
-    
+    questions_without_answers = [q.text[:50] + "..." for q in quiz.questions if q.answers.count() == 0]
     if questions_without_answers:
         flash(f'Cannot upload quiz! Some questions have no answers: {", ".join(questions_without_answers)}', category='error')
         return redirect(url_for('views.edit_classroom', classroom_id=classroom.id))
-    
+    # until here
 
     quiz.is_published = True
     if quiz not in classroom.quizzes:
@@ -688,26 +650,15 @@ def student_view_classroom(classroom_id):
         }
         available_quizzes_data.append(quiz_data)
 
-
-    all_students = classroom.students.all()
-    
-
-    attempts_in_classroom = StudentQuizAttempt.query.filter_by(classroom_id=classroom.id).all()
+    #AI used to shorten this section
+    attempts = StudentQuizAttempt.query.filter_by(classroom_id=classroom.id).all()
     student_scores = {}
-    for attempt in attempts_in_classroom:
+    for attempt in attempts:
         student_scores[attempt.student_id] = student_scores.get(attempt.student_id, 0) + attempt.score
     
-
-    leaderboard = []
-    for student in all_students:
-        leaderboard_entry = {
-            'name': student.first_name,
-            'score': student_scores.get(student.id, 0),  
-        }
-        leaderboard.append(leaderboard_entry)
-    
-
-    leaderboard.sort(key=lambda x: x['score'], reverse=True)
+    leaderboard = sorted([{
+        'name': student.first_name, 'score': student_scores.get(student.id, 0)
+    } for student in classroom.students.all()], key=lambda x: x['score'], reverse=True)
 
     student_total_lp = current_user.learning_points if current_user.learning_points is not None else 0
     
@@ -717,7 +668,7 @@ def student_view_classroom(classroom_id):
                          available_quizzes=available_quizzes_data,
                          leaderboard=leaderboard,
                          student_total_lp=student_total_lp) 
-
+    # until here
 
 
 
@@ -740,25 +691,16 @@ def student_quizzes():
     if current_user.role != 'student':
         flash('Access denied. Students only.', category='error')
         return redirect(url_for('views.home'))
-
-    student_classrooms = current_user.joined_classrooms
+#AI used to shorten this section
     available_quizzes = []
-    
-    for classroom in student_classrooms:
+    for classroom in current_user.joined_classrooms:
         for quiz in classroom.quizzes:
-            from .models import StudentQuizAttempt
             existing_attempt = StudentQuizAttempt.query.filter_by(
-                student_id=current_user.id,
-                quiz_id=quiz.id,
-                classroom_id=classroom.id
+                student_id=current_user.id, quiz_id=quiz.id, classroom_id=classroom.id
             ).first()
-            
-            quiz_data = {
-                'quiz': quiz,
-                'classroom': classroom,
-                'taken': existing_attempt is not None
-            }
-            available_quizzes.append(quiz_data)
+            available_quizzes.append({
+                'quiz': quiz, 'classroom': classroom, 'taken': existing_attempt is not None
+            })
     
     return render_template("student_quizzes.html", user=current_user, available_quizzes=available_quizzes)
 
