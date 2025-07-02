@@ -112,8 +112,6 @@ Quizz-Masterz/
 
 ├── add_test_students.py        # Script to add test students to database
 
-├── database_diagram.dbml       # Database diagram definition
-
 ├── venv/                       # Virtual environment folder
 
 ├── instance/                   # Flask instance folder
@@ -121,6 +119,10 @@ Quizz-Masterz/
 │   └── database.db            # SQLite database file
 
 ├── docs/                       # Project documentation
+
+│   ├──Code Sources/
+
+        └── code_sources.txt   # Sources for code creation
 
 │   ├── _config.yml            # Documentation configuration
 
