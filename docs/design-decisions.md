@@ -3,11 +3,8 @@ title: Design Decisions
 nav_order: 3
 ---
 
-{: .label }
-[Jane Dane]
-
 {: .no_toc }
-# Design decisions
+# Design decisions 20.07!!! MUSS ERLEDIGT WERDEN
 
 <details open markdown="block">
 {: .text-delta }

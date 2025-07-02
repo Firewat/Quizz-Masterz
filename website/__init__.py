@@ -1,6 +1,4 @@
-# Responsible: Lasse
-
-
+# source: [13,14,15,17]
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
@@ -18,8 +16,6 @@ def create_app():
 
     db.init_app(app)
 
-
-    # 1.
 
     from .views import views
     from .auth import auth

@@ -4,18 +4,8 @@ parent: Technical Docs
 nav_order: 3
 ---
 
-{: .label }
-[Jane Dane]
-
 {: .no_toc }
-# Reference documentation
-
-{: .attention }
-> This page collects internal functions, routes with their functions, and APIs (if any).
-> 
-> See [Uber](https://developer.uber.com/docs/drivers/references/api) or [PayPal](https://developer.paypal.com/api/rest/) for exemplary high-quality API reference documentation.
->
-> You may delete this `attention` box.
+# Reference documentation 20.07!!!
 
 <details open markdown="block">
 {: .text-delta }

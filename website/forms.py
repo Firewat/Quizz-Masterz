@@ -1,4 +1,4 @@
-# Responsible: Lasse
+# source: [16]
 
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SelectField, SubmitField
@@ -13,7 +13,7 @@ class LoginForm(FlaskForm):
 
 class SignUpForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
-    first_name = StringField('First Name', validators=[DataRequired(), Length(min=2, max=150)])
+    first_name = StringField('Name', validators=[DataRequired(), Length(min=2, max=150)])
     password1 = PasswordField('Password', validators=[DataRequired(), Length(min=7)])
     password2 = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password1')])
     role = SelectField('Role', choices=[('student', 'Student'), ('teacher', 'Teacher')], validators=[DataRequired()])

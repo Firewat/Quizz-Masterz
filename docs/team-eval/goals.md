@@ -4,9 +4,6 @@ parent: Team Evaluation
 nav_order: 1
 ---
 
-{: .label }
-[Jane Dane]
-
 {: .no_toc }
 # Goals achieved and missed
 
@@ -16,3 +13,7 @@ nav_order: 1
 + ToC
 {: toc }
 </details>
+
+### Goal achieved
+
+### Goal missed
