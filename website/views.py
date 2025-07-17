@@ -1,6 +1,6 @@
 # source: [13,17,18,21,22,25,37]
 
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify
 from flask_login import login_required, current_user
 from .models import Classroom, User, Quiz, Question, Answer, StudentQuizAttempt, ShopItem, UserPurchase
 from . import db
@@ -193,7 +193,8 @@ def edit_classroom(classroom_id):
 
     leaderboard = sorted([{
         'name': student.first_name, 'email': student.email, 'student_id': student.id,
-        'score': student_scores.get(student.id, 0)
+        'score': student_scores.get(student.id, 0),
+        'selected_avatar': student.selected_avatar
     } for student in classroom.students.all()], key=lambda x: x['score'], reverse=True)
     # until here
 
@@ -718,13 +719,13 @@ def shop():
         flash('Access denied. Shop is only available to students.', category='error')
         return redirect(url_for('views.home'))
     
-    # Get all available shop items
+
     shop_items = ShopItem.query.filter_by(is_available=True).all()
     
-    # Get user's purchased items
+
     purchased_items = [purchase.shop_item_id for purchase in current_user.purchases]
     
-    return render_template("shop.html", user=current_user, shop_items=shop_items, purchased_items=purchased_items)
+    return render_template("shop.html", user=current_user)
 
 @views.route('/shop/buy/<int:item_id>')
 @login_required
@@ -735,7 +736,7 @@ def buy_item(item_id):
     
     shop_item = ShopItem.query.get_or_404(item_id)
     
-    # Check if user already owns this item
+
     existing_purchase = UserPurchase.query.filter_by(
         user_id=current_user.id, 
         shop_item_id=item_id
@@ -745,12 +746,12 @@ def buy_item(item_id):
         flash('You already own this item!', category='error')
         return redirect(url_for('views.shop'))
     
-    # Check if user has enough learning points
+
     if current_user.learning_points < shop_item.price:
         flash(f'Not enough Learning Points! You need {shop_item.price - current_user.learning_points} more LP.', category='error')
         return redirect(url_for('views.shop'))
     
-    # Process the purchase
+
     current_user.learning_points -= shop_item.price
     purchase = UserPurchase(user_id=current_user.id, shop_item_id=item_id)
     
@@ -763,3 +764,81 @@ def buy_item(item_id):
 
 
 
+def get_unlocked_avatars(user):
+    if not user.unlocked_avatars:
+        return set()
+    return set([icon.strip() for icon in user.unlocked_avatars.split(',') if icon.strip()])
+
+
+@views.route('/shop/buy-simple/<item_name>/<int:price>')
+@login_required
+def buy_simple_item(item_name, price):
+
+    name_to_icon = {
+        'Bald Avatar': 'bald.png',
+        'Boy Avatar': 'boy.png',
+        'Girl Avatar': 'girl.png',
+        'Boy Avatar 2': 'boy(1).png',
+        'Girl Avatar 2': 'girl(1).png',
+        'Astronaut': 'astronaut.png',
+        'Thief Avatar': 'thief.png',
+        'Ninja Avatar': 'ninja.png',
+    }
+    icon = name_to_icon.get(item_name)
+    if not icon:
+        flash('Invalid avatar.', category='error')
+        return redirect(url_for('views.shop'))
+    unlocked = get_unlocked_avatars(current_user)
+    if icon in unlocked:
+        flash('You already unlocked this avatar!', category='info')
+        return redirect(url_for('views.shop'))
+    if current_user.learning_points < price:
+        flash(f'Not enough Learning Points! You need {price - current_user.learning_points} more LP.', category='error')
+        return redirect(url_for('views.shop'))
+
+    # current_user.learning_points -= price
+    # Add to unlocked avatars
+    unlocked.add(icon)
+    current_user.unlocked_avatars = ','.join(unlocked)
+    db.session.commit()
+    flash(f'Successfully unlocked {item_name} for {price} LP!', category='success')
+    return redirect(url_for('views.shop'))
+
+@views.route('/shop/select-avatar/<avatar_icon>')
+@login_required
+def select_avatar(avatar_icon):
+    unlocked = get_unlocked_avatars(current_user)
+    if avatar_icon not in unlocked:
+        flash('You must unlock this avatar first!', category='error')
+        return redirect(url_for('views.shop'))
+    current_user.selected_avatar = avatar_icon
+    db.session.commit()
+    flash('Avatar selected!', category='success')
+    return redirect(url_for('views.shop'))
+
+
+@views.route('/api/students')
+def api_students():
+
+    students = User.query.filter_by(role='student').all()
+    students_data = []
+    for student in students:
+        students_data.append({
+            'id': student.id,
+            'name': student.first_name,
+            'email': student.email,
+            'learning_points': student.learning_points or 0
+        })
+    return jsonify({'students': students_data, 'total': len(students_data)})
+
+
+@views.route('/api/shop-items')
+def api_shop_items():
+    shop_items = [
+        {'name': 'Bald Avatar', 'price': 25, 'icon': 'bald.png', 'type': 'avatar'},
+        {'name': 'Boy Avatar', 'price': 30, 'icon': 'boy.png', 'type': 'avatar'},
+        {'name': 'Girl Avatar', 'price': 30, 'icon': 'girl.png', 'type': 'avatar'},
+        {'name': 'Astronaut', 'price': 50, 'icon': 'astronaut.png', 'type': 'avatar'},
+        {'name': 'Ninja Avatar', 'price': 75, 'icon': 'ninja.png', 'type': 'avatar'}
+    ]
+    return jsonify({'shop_items': shop_items, 'total': len(shop_items)})

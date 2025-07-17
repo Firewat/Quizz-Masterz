@@ -36,15 +36,10 @@
                         <div class="card-body text-center">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span class="badge bg-primary">{{ item.price }} LP</span>
-                                {% set unlocked = false %}
-                                {% for purchase in user.purchases %}
-                                    {% if purchase.shop_item and purchase.shop_item.name == item.name %}
-                                        {% set unlocked = true %}
-                                    {% endif %}
-                                {% endfor %}
+                                {% set unlocked_avatars = user.unlocked_avatars.split(',') if user.unlocked_avatars else [] %}
                                 {% if user.selected_avatar == item.icon %}
                                     <button class="btn btn-info btn-sm" disabled>Selected</button>
-                                {% elif unlocked %}
+                                {% elif item.icon in unlocked_avatars %}
                                     <a href="{{ url_for('views.select_avatar', avatar_icon=item.icon) }}" class="btn btn-primary btn-sm">Select</a>
                                 {% elif (user.learning_points or 0) >= item.price %}
                                     <a href="{{ url_for('views.buy_simple_item', item_name=item.name, price=item.price) }}" class="btn btn-success btn-sm">Unlock</a>
