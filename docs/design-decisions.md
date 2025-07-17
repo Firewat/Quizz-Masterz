@@ -15,6 +15,8 @@ nav_order: 3
 
 ## Table of Contents
 01: Web Application Framework Selection - Flask with Jinja2
+02: Datenbank-Architektur - SQLite mit SQLAlchemy
+03: Frontend-Architektur - Bootstrap mit Jinja2
 
 ## 01: Web Application Framework Selection - Flask with Jinja2
 
@@ -60,3 +62,60 @@ Key factors for choosing Flask:
 4. Built-in Jinja2 templating for dynamic HTML
 5. Easy integration with SQLite for data storage
 6. Simple deployment process
+
+## 02: Datenbank-Architektur - SQLite mit SQLAlchemy
+
+### Meta
+**Status**: Entschieden  
+**Updated**: 2024-02-20
+
+### Problem Statement
+Für die Quiz-Plattform benötigten wir eine Datenbankstruktur, die:
+- Benutzerprofile und Authentifizierung verwaltet
+- Quiz-Inhalte und Ergebnisse speichert
+- Klassenraum-Management ermöglicht
+- Shop-System und Punkteverwaltung unterstützt
+- Einfach zu warten und zu skalieren ist
+
+### Decision
+Wir haben uns für SQLite mit SQLAlchemy ORM entschieden, mit folgender Struktur:
+- Normalisierte Datenbankstruktur mit Fremdschlüsselbeziehungen
+- Effiziente Indizierung häufig abgefragter Felder
+- Kaskadierendes Löschen für abhängige Datensätze
+- Transaktionsintegrität für kritische Operationen
+
+### Begründung
+- Perfekt für mittlere Anwendungsgrößen
+- Einfache Integration mit Flask
+- Keine separate Datenbankinstallation erforderlich
+- Robuste ORM-Funktionalität durch SQLAlchemy
+- Einfache Datensicherung und Migration
+
+## 03: Frontend-Architektur - Bootstrap mit Jinja2
+
+### Meta
+**Status**: Entschieden  
+**Updated**: 2024-02-20
+
+### Problem Statement
+Die Benutzeroberfläche musste:
+- Responsiv und benutzerfreundlich sein
+- Einheitliches Design bieten
+- Dynamische Quiz-Interaktionen ermöglichen
+- Einfache Navigation gewährleisten
+- Gamification-Elemente unterstützen
+
+### Decision
+Implementation einer Frontend-Architektur basierend auf:
+- Bootstrap für responsives Design
+- Jinja2-Templates für dynamische HTML-Generierung
+- AJAX für Echtzeit-Updates
+- Client-seitige Validierung
+- Modulares CSS-System für verschiedene Komponenten
+
+### Begründung
+- Bootstrap bietet ein ausgereiftes Grid-System
+- Jinja2 ermöglicht effiziente Template-Vererbung
+- Einfache Integration von Gamification-Elementen
+- Optimierte Benutzerinteraktion durch AJAX
+- Gute Browser-Kompatibilität

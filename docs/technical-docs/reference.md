@@ -5,7 +5,7 @@ nav_order: 3
 ---
 
 {: .no_toc }
-# Reference documentation 20.07!!!
+# Reference documentation 
 
 <details open markdown="block">
 {: .text-delta }
