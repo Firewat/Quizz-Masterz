@@ -20,7 +20,7 @@ nav_order: 3
 
 ### Meta
 **Status**: Decided  
-**Updated**: 20-Jul-2023
+**Updated**: 20-Jun-2025
 
 ### Problem Statement
 We need to choose a frontend framework for our quiz application that will allow us to:
