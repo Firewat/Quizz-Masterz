@@ -23,7 +23,6 @@ Quiz Masterz is built using a Flask-based architecture with SQLAlchemy ORM for d
 
 ### Authentication System
 - User registration and login using Flask-Login
-- Password hashing using Werkzeug security
 - Role-based access control for teachers and students
 - Session management and secure routing
 
@@ -38,33 +37,30 @@ Quiz Masterz is built using a Flask-based architecture with SQLAlchemy ORM for d
 - Multiple-choice questions with multiple correct answers
 - Learning Points (LP) scoring system
 - Quiz attempt tracking to prevent retakes
-- Automated scoring and LP distribution
+- Automated grading, scoring and LP distribution
 
 ### Classroom Management
-- Unique join codes for classroom access
-- Student roster management
-- Quiz assignment and tracking
+- Join codes for classroom access
+- Student management
+- Quiz assignment
 - Classroom-specific leaderboards
 - Student performance analytics
 
 ### Shop System
-- LP-based virtual currency
-- Cosmetic item purchasing
-- Avatar selection and management
-- Inventory tracking
+- LP-based "virtual currency"
+- Avatar purchasing
+- Avatar selection
 
 ## Security Features
 
 ### Access Control
-- Route protection using Flask-Login decorators
-- Role verification for sensitive operations
-- Cross-site request forgery (CSRF) protection
+- Route protection using Flask-Login
+- Role verification
 - Session security measures
 
 ### Data Protection
 - Password hashing with salt
 - SQL injection prevention through SQLAlchemy
-- Input validation and sanitization
 - Secure quiz submission handling
 
 ## Technical Implementation
@@ -98,24 +94,22 @@ Quiz Masterz is built using a Flask-based architecture with SQLAlchemy ORM for d
 ```
 
 ### Database Architecture
-- Normalized database design with foreign key relationships
+- Normalized database design with foreign and primary key relationships
 - Efficient indexing on frequently queried fields
-- Cascade delete behavior for dependent records
+- Cascade delete behavior for entries
 - Transaction integrity for critical operations
 
 ### Frontend Architecture
 - Bootstrap-based responsive design
 - Dynamic form handling with Flask-WTF
-- AJAX for real-time updates
 - Client-side validation
 
 ## Performance Considerations
 
 ### Database Optimization
-- Lazy loading for related records
-- Efficient query patterns
-- Appropriate indexing
-- Connection pooling
+- Lazy loading for related entries
+- Query patterns
+- Indexing
 
 ### Caching Strategy
 - Session caching for user data
@@ -124,7 +118,6 @@ Quiz Masterz is built using a Flask-based architecture with SQLAlchemy ORM for d
 
 ### Scalability
 - Modular codebase design
-- Separation of concerns
 - Extensible data models
 - Maintainable route structure
 
@@ -139,19 +132,14 @@ Quiz Masterz is built using a Flask-based architecture with SQLAlchemy ORM for d
 ### System Errors
 - Graceful error handling
 - 404 and 500 error pages
-- Database error recovery
-- Transaction rollbacks
+- Database error
 
 ## Future Considerations
 
 ### Planned Enhancements
-- Advanced analytics dashboard
-- Additional question types
-- Enhanced shop features
+- Advanced analytics and Administrator dashboard
 - Performance optimization
 
 ### Scalability Plans
-- Database sharding capability
-- Caching improvements
 - API endpoint development
-- Load balancing preparation
+- Quiz History implementation
