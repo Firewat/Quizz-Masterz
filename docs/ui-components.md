@@ -11,28 +11,28 @@ The QuizMasterz application features a student and teacher-friendly interface wi
 
 ### Student Interface
 
-![Student Dashboard](Quizz-Masterz/docs/assets/images/Student_Dashboard.png)
+![Student Dashboard](assets/images/Student_Dashboard.png)
 
 ### Authentication Screens
 
-![Login Screen](Quizz-Masterz/docs/assets/images/Login.png)
+![Login Screen](assets/images/Login.png)
 
-![Sign Up Form](Quizz-Masterz/docs/assets/images/Sign_Up.png)
+![Sign Up Form](assets/images/Sign_Up.png)
 
 ## Student Features
 
 ### Classroom Management
-![Join Classroom](Quizz-Masterz/docs/assets/images/join_Classroom_student.PNG)
-![My Classrooms](Quizz-Masterz/docs/assets/images/my_classrooms_student.PNG)
+![Join Classroom](assets/images/join_Classroom_student.PNG)
+![My Classrooms](assets/images/my_classrooms_student.PNG)
 
 ### Quiz Taking Interface
 
-![Available Quizzes](Quizz-Masterz/docs/assets/images/quiz_in_classroom_student.PNG)
-![Take Quiz](Quizz-Masterz/docs/assets/images/quiz_taking_student.PNG)
+![Available Quizzes](assets/images/quiz_in_classroom_student.PNG)
+![Take Quiz](assets/images/quiz_taking_student.PNG)
 
 ### Student Profile & Shop
-![Student Profile](Quizz-Masterz/docs/assets/images/student_profile.PNG)
-![Student Shop](Quizz-Masterz/docs/assets/images/shop_student.PNG)
+![Student Profile](assets/images/student_profile.PNG)
+![Student Shop](assets/images/shop_student.PNG)
 
 ## System Architecture
 
