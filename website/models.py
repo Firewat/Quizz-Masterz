@@ -120,6 +120,27 @@ class StudentQuizAttempt(db.Model):
         return f'<StudentQuizAttempt student_id={self.student_id} quiz_id={self.quiz_id} classroom_id={self.classroom_id} score={self.score}>'
     
     
-    # TODO: Class UserSkin
-    # class UserSkin(db.Model):
-    # add Skins to shop. etc
+# Shop Models
+class ShopItem(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    description = db.Column(db.Text)
+    price = db.Column(db.Integer, nullable=False)  # Price in Learning Points
+    item_type = db.Column(db.String(50), default='cosmetic')  # cosmetic, boost, etc.
+    icon_filename = db.Column(db.String(100))  # Filename for the icon
+    is_available = db.Column(db.Boolean, default=True)
+    
+    def __repr__(self):
+        return f'<ShopItem {self.name} - {self.price} LP>'
+
+class UserPurchase(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    shop_item_id = db.Column(db.Integer, db.ForeignKey('shop_item.id'), nullable=False)
+    purchase_date = db.Column(db.DateTime, default=db.func.current_timestamp())
+    
+    user = db.relationship('User', backref=db.backref('purchases', lazy='dynamic'))
+    shop_item = db.relationship('ShopItem', backref=db.backref('purchases', lazy='dynamic'))
+    
+    def __repr__(self):
+        return f'<UserPurchase user_id={self.user_id} item_id={self.shop_item_id}>'

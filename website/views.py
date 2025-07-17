@@ -2,7 +2,7 @@
 
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_required, current_user
-from .models import Classroom, User, Quiz, Question, Answer, StudentQuizAttempt
+from .models import Classroom, User, Quiz, Question, Answer, StudentQuizAttempt, ShopItem, UserPurchase
 from . import db
 import secrets
 
@@ -710,7 +710,7 @@ def student_quizzes():
 
 
 
-# Shop Route (TODO: Implement working Shop)
+# Shop Routes
 @views.route('/shop')
 @login_required
 def shop():
@@ -718,7 +718,47 @@ def shop():
         flash('Access denied. Shop is only available to students.', category='error')
         return redirect(url_for('views.home'))
     
-    return render_template("shop.html", user=current_user)
+    # Get all available shop items
+    shop_items = ShopItem.query.filter_by(is_available=True).all()
+    
+    # Get user's purchased items
+    purchased_items = [purchase.shop_item_id for purchase in current_user.purchases]
+    
+    return render_template("shop.html", user=current_user, shop_items=shop_items, purchased_items=purchased_items)
+
+@views.route('/shop/buy/<int:item_id>')
+@login_required
+def buy_item(item_id):
+    if current_user.role != 'student':
+        flash('Access denied. Shop is only available to students.', category='error')
+        return redirect(url_for('views.home'))
+    
+    shop_item = ShopItem.query.get_or_404(item_id)
+    
+    # Check if user already owns this item
+    existing_purchase = UserPurchase.query.filter_by(
+        user_id=current_user.id, 
+        shop_item_id=item_id
+    ).first()
+    
+    if existing_purchase:
+        flash('You already own this item!', category='error')
+        return redirect(url_for('views.shop'))
+    
+    # Check if user has enough learning points
+    if current_user.learning_points < shop_item.price:
+        flash(f'Not enough Learning Points! You need {shop_item.price - current_user.learning_points} more LP.', category='error')
+        return redirect(url_for('views.shop'))
+    
+    # Process the purchase
+    current_user.learning_points -= shop_item.price
+    purchase = UserPurchase(user_id=current_user.id, shop_item_id=item_id)
+    
+    db.session.add(purchase)
+    db.session.commit()
+    
+    flash(f'Successfully purchased {shop_item.name} for {shop_item.price} LP!', category='success')
+    return redirect(url_for('views.shop'))
 
 
 
