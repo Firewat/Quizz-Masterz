@@ -38,8 +38,6 @@ Flask-based web application for creating, managing, and taking educational quizz
 
 ## Quick Start
 
-
-
 ### Prerequisites
 
 - Python 3.7 or higher
@@ -84,80 +82,22 @@ Flask-based web application for creating, managing, and taking educational quizz
 
 4.  **Access the application**
 
-    Open your browser and navigate to `http://127.0.0.1:5000` or localhost website
+    Open your browser and navigate to `http://127.0.0.1:5000` 
 
 
 
-- **Database Models** (`models.py`)
-
-  - `User`: User accounts with role-based access (student/teacher)
-
-  - `Classroom`: Teacher-managde classrooms
-
-  - `Quiz`: Quiz definitions with questions
-
-  - `Question`: Individual quiz questions
-
-  - `Answer`: Multiple Answer choices for questions
-
-  - `QuizSubmission`: Student quiz attempts
-
-  - `UserAnswer`: Individual question responses
-
-
-
-- **Authentication System** (`auth.py`)
-
-  - User registration and login
-
-  - Password hashing 
-
-  - Session management with Flask-Login
-
-  - Role-based access control
-
-
-
-- **Forms** (`forms.py`)
-
-  - WTForms-based form validation
-
-  - `LoginForm`: User authentication
-
-  - `SignUpForm`: User registration
-
-  - Additional forms for quiz/classroom management
-
-
-
-- **Views and Routes** (`views.py`)
-
-  - Main application routes
-
-  - Quiz management endpoints
-
-  - Classroom administration
-
-  - Test quiz functionality
-
-  - Student and teacher dashboards
-
-
-- **Dependencies** (`requirements.txt`)
+## Dependencies
+(`requirements.txt`)
 
   ```
-  flask
-  Flask-SQLAlchemy
-  flask-login
-  Flask-Migrate
-  Flask-WTF
-  WTForms
-  email-validator
+flask
+Flask-SQLAlchemy
+flask-login
+Flask-Migrate
+Flask-WTF
+WTForms
+email-validator
   ```
-
-
-
-
 
 
 ## In Development 
