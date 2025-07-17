@@ -15,5 +15,7 @@ nav_order: 1
 </details>
 
 ### Goal achieved
+shop implementation
 
 ### Goal missed
+quiz history

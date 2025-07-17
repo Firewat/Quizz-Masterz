@@ -4,7 +4,7 @@ nav_order: 3
 ---
 
 {: .no_toc }
-# Design decisions 20.07!!! MUSS ERLEDIGT WERDEN
+# Design Decisions
 
 <details open markdown="block">
 {: .text-delta }
@@ -13,77 +13,50 @@ nav_order: 3
 {: toc }
 </details>
 
-## 01: [Title]
+## Table of Contents
+01: Web Application Framework Selection - Flask with Jinja2
+
+## 01: Web Application Framework Selection - Flask with Jinja2
 
 ### Meta
+**Status**: Decided  
+**Updated**: 2024-02-20
 
-Status
-: **Work in progress** - Decided - Obsolete
-
-Updated
-: DD-MMM-YYYY
-
-### Problem statement
-
-[Describe the problem to be solved or the goal to be achieved. Include relevant context information.]
-
-### Decision
-
-[Describe **which** design decision was taken for **what reason** and by **whom**.]
-
-### Regarded options
-
-[Describe any possible design decision that will solve the problem. Assess these options, e.g., via a simple pro/con list.]
-
----
-
-## [Example, delete this section] 01: How to access the database - SQL or SQLAlchemy 
-
-### Meta
-
-Status
-: Work in progress - **Decided** - Obsolete
-
-Updated
-: 30-Jun-2024
-
-### Problem statement
-
-Should we perform database CRUD (create, read, update, delete) operations by writing plain SQL or by using SQLAlchemy as object-relational mapper?
-
-Our web application is written in Python with Flask and connects to an SQLite database. To complete the current project, this setup is sufficient.
-
-We intend to scale up the application later on, since we see substantial business value in it.
-
-
-
-Therefore, we will likely:
-Therefore, we will likely:
-Therefore, we will likely:
-
-+ Change the database schema multiple times along the way, and
-+ Switch to a more capable database system at some point.
+### Problem Statement
+We needed to choose a web application framework that would allow us to:
+- Create an interactive quiz platform
+- Handle user authentication and sessions
+- Manage database operations efficiently
+- Support template-based rendering
+- Maintain easy testability and deployment
+- Enable rapid development with a small team
 
 ### Decision
+We have decided to use Flask as our web framework with Jinja2 templating engine, SQLite database, and Python backend. This decision was made based on the following requirements:
+- Need for a lightweight yet powerful web framework
+- Simple integration with SQLite for data persistence
+- Built-in template engine for dynamic HTML rendering
+- Strong Python ecosystem for educational applications
+- Easy learning curve for team members
 
-We stick with plain SQL.
+### Regarded Options
+We considered several technical approaches:
 
-Our team still has to come to grips with various technologies new to us, like Python and CSS. Adding another element to our stack will slow us down at the moment.
+**Web Framework Comparison:**
 
-Also, it is likely we will completely re-write the app after MVP validation. This will create the opportunity to revise tech choices in roughly 4-6 months from now.
-*Decision was taken by:* github.com/joe, github.com/jane, github.com/maxi
+Criterion | Flask + Jinja2 | Django | FastAPI
+----------|---------------|---------|----------
+Learning Curve | ✔️ Simple and intuitive | ❌ Steeper learning curve | ✔️ Modern and intuitive
+Development Speed | ✔️ Rapid prototyping | ✔️ Lots of built-in features | ✔️ Fast development
+Database Integration | ✔️ SQLAlchemy support | ✔️ ORM included | ✔️ Async database support
+Template System | ✔️ Jinja2 built-in | ✔️ Django Templates | ❌ No built-in templating
+Project Size | ✔️ Perfect for medium apps | ❌ Overkill for our needs | ✔️ Good for APIs
+Flexibility | ✔️ Highly flexible | ❌ More rigid structure | ✔️ Very flexible
 
-### Regarded options
-
-We regarded two alternative options:
-
-+ Plain SQL
-+ SQLAlchemy
-
-| Criterion | Plain SQL | SQLAlchemy |
-| --- | --- | --- |
-| **Know-how** | ✔️ We know how to write SQL | ❌ We must learn ORM concept & SQLAlchemy |
-| **Change DB schema** | ❌ SQL scattered across code | ❔ Good: classes, bad: need Alembic on top |
-| **Switch DB engine** | ❌ Different SQL dialect | ✔️ Abstracts away DB engine |
-
----
+Key factors for choosing Flask:
+1. Lightweight and flexible architecture
+2. Perfect balance of simplicity and functionality
+3. Excellent documentation and community support
+4. Built-in Jinja2 templating for dynamic HTML
+5. Easy integration with SQLite for data storage
+6. Simple deployment process
