@@ -20,6 +20,7 @@ class User(db.Model, UserMixin):
     first_name = db.Column(db.String(150))
     role = db.Column(db.String(50))
     learning_points = db.Column(db.Integer, default=0)
+    selected_avatar = db.Column(db.String(100), default=None)  # Filename of selected avatar icon
     
     classrooms_created = db.relationship('Classroom', foreign_keys='[Classroom.teacher_id]', backref='teacher', lazy=True)
     joined_classrooms = db.relationship('Classroom', secondary=classroom_members,
@@ -127,7 +128,6 @@ class ShopItem(db.Model):
     description = db.Column(db.Text)
     price = db.Column(db.Integer, nullable=False)  # Price in Learning Points
     item_type = db.Column(db.String(50), default='cosmetic')  # cosmetic, boost, etc.
-    icon_filename = db.Column(db.String(100))  # Filename for the icon
     is_available = db.Column(db.Boolean, default=True)
     
     def __repr__(self):
