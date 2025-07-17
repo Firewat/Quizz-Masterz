@@ -114,7 +114,7 @@ Students and teachers can quickly sign up and get started immediately.
 - Instant quiz creation with pre-built templates
 
 ### **Improved Engagement** 
-- "The results [of this Study] showed a change in the behavior of the gamified group showing a significant improvement in the accuracy of students with personality traits with low agreeableness, low openness, and introverts who used the gamified version in the second half of the course." (soruce: https://slejournal.springeropen.com/articles/10.1186/s40561-019-0098-x) 
+- "The results [of this Study] showed a change in the behavior of the gamified group showing a significant improvement in the accuracy of students with personality traits with low agreeableness, low openness, and introverts who used the gamified version in the second half of the course." (source: https://slejournal.springeropen.com/articles/10.1186/s40561-019-0098-x) 
 - Real-time leaderboards create healthy competition
 
 
