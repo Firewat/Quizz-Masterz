@@ -5,54 +5,34 @@ nav_order: 99
 
 # QuizMasterz UI Components
 
-The QuizMasterz application features a modern, user-friendly interface with various UI components designed for both students and teachers. Here's an overview of our main UI components and their usage.
+The QuizMasterz application features a student and teacher-friendly interface with various UI components designed for both Users. Here's an overview:
 
 ## Key Interfaces
 
 ### Student Interface
 
-```markdown
-![Student Dashboard](assets/images/Dashboard WF.PNG)
-```
-
-![Student Dashboard](assets/images/Dashboard WF.PNG)
+![Student Dashboard](assets/images/Student_Dashboard.png)
 
 ### Authentication Screens
 
-```markdown
-![Login Screen](assets/images/Login Screen.PNG)
-```
+![Login Screen](assets/images/Login.png)
 
-![Login Screen](assets/images/Login Screen.PNG)
-
-```markdown
-![Sign Up Form](assets/images/Sign up form.PNG)
-```
-
-![Sign Up Form](assets/images/Sign up form.PNG)
+![Sign Up Form](assets/images/Sign_Up.png)
 
 ## Student Features
 
 ### Classroom Management
-{: .info }
-> Students can join classrooms and view their enrolled classes through an intuitive interface.
-
-![Join Classroom](assets/images/join classroom student.PNG)
-![My Classrooms](assets/images/My classrooms Student.PNG)
+![Join Classroom](assets/images/join_Classroom_student.PNG)
+![My Classrooms](assets/images/my_classrooms_student.PNG)
 
 ### Quiz Taking Interface
-{: .tip }
-> Students can access available quizzes and take them in an interactive environment.
 
-![Available Quizzes](assets/images/Available Quizzes Student.PNG)
-![Take Quiz](assets/images/Take Quiz Student.PNG)
+![Available Quizzes](assets/images/quiz_in_classroom_student.PNG)
+![Take Quiz](assets/images/quiz_taking_student.PNG)
 
 ### Student Profile & Shop
-{: .attention }
-> Students can manage their profile and use the shop feature to enhance their learning experience.
-
-![Student Profile](assets/images/Student Profile Student.PNG)
-![Student Shop](assets/images/Student Shop student.PNG)
+![Student Profile](assets/images/student_profile.PNG)
+![Student Shop](assets/images/shop_student.PNG)
 
 ## System Architecture
 
@@ -63,9 +43,10 @@ graph TD;
     Student-->Authentication;
     Student-->Classrooms;
     Student-->Quizzes;
+    Student-->Shop;
     Teacher-->QuizManagement;
     Teacher-->ClassroomManagement;
-    ClassroomManagement-->Students;
+    ClassroomManagement-->StudentManagement;
 ```
 
 For a complete understanding of our system architecture, refer to our detailed UML diagrams:
