@@ -15,7 +15,7 @@ layout: default
 {: toc }
 </details>
 
-## Overview (anpassen das schön untereinander ist!)
+## Overview 
 
 For Teachers:
 Classroom Management & Creation: Create and manage multiple classrooms.
@@ -34,10 +34,38 @@ Multiple Answer Support: Students can select multiple answers per question.
 Partial Credit Scoring: Scoring system with partial credit for partially correct answers and penalties for incorrect selections.
 User Authentication: Secure login and registration system with role-based access (Teacher/Student).
 
-## Codemap??? --> use cas diagramm reinhauen
+## Codemap
 
-[Describe how your app is structured. Don't aim for completeness, rather describe *just* the most important parts.]
+- **Entry Point:**
+  - `main.py` starts the application and initializes the web server.
 
-## Cross-cutting concerns??? haben zeit bis zum 20.07
+- **Website Package:**
+  - `auth.py`: Handles user authentication, registration, and session management.
+  - `models.py`: Defines database models for users, classrooms, quizzes, questions, and answers.
+  - `views.py`: Contains the main route handlers for both teacher and student features.
+  - `forms.py`: Manages form validation and processing for user input.
+  - `static/` and `templates/`: Contain static assets (CSS) and HTML templates for rendering the UI.
 
-[Describe anything that is important for a solid understanding of your codebase. Most likely, you want to explain the behavior of (parts of) your application. In this section, you may also link to important [design decisions](../design-decisions.md).]
+- **Database:**
+  - `instance/database.db` stores all persistent data (users, classrooms, quizzes, results).
+
+**Main Flow:**
+1. Users register and log in (role: Teacher or Student).
+2. Teachers create/manage classrooms and quizzes.
+3. Students join classrooms and take quizzes.
+4. Results and progress are tracked and displayed.
+
+For a visual overview, refer to the [UML use case diagram](../assets/images/FullStack_Quizz_Masterz_UML_Use_Case_Diagramm_simplified.jpg).
+
+## Cross-cutting concerns
+
+Three cross-cutting concerns in Quizz-Masterz are:
+
+**1. Authentication & Authorization:**
+All users must register and log in to access the system. The application enforces role-based access control, ensuring that Teachers and Students can only access features appropriate to their roles. Sensitive actions (like quiz creation or classroom management) are protected so only authorized users can perform them.
+
+**2. Data Validation:**
+Every user input—such as registration details, quiz answers, and classroom codes—is validated both on the client and server sides. This prevents invalid or malicious data from entering the system and ensures data integrity throughout the application.
+
+**3. Error Handling:**
+The application provides clear, user-friendly error messages for common issues (e.g., failed login, invalid classroom code). 
