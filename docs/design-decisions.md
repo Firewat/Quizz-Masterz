@@ -4,7 +4,7 @@ nav_order: 3
 ---
 
 {: .no_toc }
-# Design decisions 20.07!!! MUSS ERLEDIGT WERDEN
+# Design Decisions
 
 <details open markdown="block">
 {: .text-delta }
@@ -13,77 +13,43 @@ nav_order: 3
 {: toc }
 </details>
 
-## 01: [Title]
+## Table of Contents
+01: Frontend Framework Selection - React vs. Vue.js
+
+## 01: Frontend Framework Selection - React vs. Vue.js
 
 ### Meta
+**Status**: Decided  
+**Updated**: 20-Jul-2023
 
-Status
-: **Work in progress** - Decided - Obsolete
-
-Updated
-: DD-MMM-YYYY
-
-### Problem statement
-
-[Describe the problem to be solved or the goal to be achieved. Include relevant context information.]
-
-### Decision
-
-[Describe **which** design decision was taken for **what reason** and by **whom**.]
-
-### Regarded options
-
-[Describe any possible design decision that will solve the problem. Assess these options, e.g., via a simple pro/con list.]
-
----
-
-## [Example, delete this section] 01: How to access the database - SQL or SQLAlchemy 
-
-### Meta
-
-Status
-: Work in progress - **Decided** - Obsolete
-
-Updated
-: 30-Jun-2024
-
-### Problem statement
-
-Should we perform database CRUD (create, read, update, delete) operations by writing plain SQL or by using SQLAlchemy as object-relational mapper?
-
-Our web application is written in Python with Flask and connects to an SQLite database. To complete the current project, this setup is sufficient.
-
-We intend to scale up the application later on, since we see substantial business value in it.
-
-
-
-Therefore, we will likely:
-Therefore, we will likely:
-Therefore, we will likely:
-
-+ Change the database schema multiple times along the way, and
-+ Switch to a more capable database system at some point.
+### Problem Statement
+We need to choose a frontend framework for our quiz application that will allow us to:
+- Create interactive quiz interfaces
+- Manage complex state for quiz progression
+- Handle real-time updates
+- Ensure good performance with multiple concurrent users
+- Maintain easy testability
 
 ### Decision
+We have decided to use React as our frontend framework. This decision was made by the core development team considering our collective experience and the project's requirements. React's component-based architecture and extensive ecosystem will help us build a scalable quiz platform more efficiently.
 
-We stick with plain SQL.
+### Regarded Options
+We considered two main options:
 
-Our team still has to come to grips with various technologies new to us, like Python and CSS. Adding another element to our stack will slow us down at the moment.
+**React vs Vue.js Comparison:**
 
-Also, it is likely we will completely re-write the app after MVP validation. This will create the opportunity to revise tech choices in roughly 4-6 months from now.
-*Decision was taken by:* github.com/joe, github.com/jane, github.com/maxi
+Criterion | React | Vue.js
+----------|--------|--------
+Learning Curve | ✔️ Team already familiar | ❌ Would require additional training
+Community Support | ✔️ Large community & resources | ✔️ Growing community
+Performance | ✔️ Virtual DOM, efficient updates | ✔️ Similar performance
+State Management | ✔️ Redux ecosystem available | ✔️ Vuex available
+Testing Tools | ✔️ Jest & React Testing Library | ❌ Less mature testing ecosystem
+Mobile Development | ✔️ React Native available | ❌ Limited mobile options
+Team Expertise | ✔️ 3 developers with React experience | ❌ No Vue.js experience
 
-### Regarded options
-
-We regarded two alternative options:
-
-+ Plain SQL
-+ SQLAlchemy
-
-| Criterion | Plain SQL | SQLAlchemy |
-| --- | --- | --- |
-| **Know-how** | ✔️ We know how to write SQL | ❌ We must learn ORM concept & SQLAlchemy |
-| **Change DB schema** | ❌ SQL scattered across code | ❔ Good: classes, bad: need Alembic on top |
-| **Switch DB engine** | ❌ Different SQL dialect | ✔️ Abstracts away DB engine |
-
----
+The decision for React was based on:
+1. Existing team expertise
+2. Strong testing capabilities
+3. Potential for mobile expansion
+4. Large ecosystem of quiz-related components
