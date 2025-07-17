@@ -14,62 +14,238 @@ nav_order: 3
 {: toc }
 </details>
 
-## [Section / module]
+## Authentication
 
-### `function_definition()`
+### `login()`
 
-**Route:** `/route/`
+**Route:** `/login`
 
-**Methods:** `POST` `GET` `PATCH` `PUT` `DELETE`
+**Methods:** `GET` `POST`
 
-**Purpose:** [Short explanation of what the function does and why]
+**Purpose:** Handle user login with email and password validation.
 
-**Sample output:**
-
-[Show an image, string output, or similar illustration -- or write NONE if function generates no output]
+**Sample output:** Redirects to home page on success, shows error messages on failure.
 
 ---
 
-## [Example, delete this section] Show to-do lists
+### `logout()`
 
-### `get_lists()`
-
-**Route:** `/lists/`
+**Route:** `/logout`
 
 **Methods:** `GET`
 
-**Purpose:** Show all to-do lists.
+**Purpose:** Log out the current user and end their session.
 
-**Sample output:**
-
-![get_lists() sample](../assets/images/fswd-intro_00.png)
+**Sample output:** Redirects to login page.
 
 ---
 
-### `get_list_todos(list_id)`
+### `sign_up()`
 
-**Route:** `/lists/<int:list_id>`
+**Route:** `/sign-up`
 
-**Methods:** `GET`
+**Methods:** `GET` `POST`
 
-**Purpose:** Retrieve all to-do items of to-do list with ID `list_id` from database and present to user.
+**Purpose:** Register new users with email, name, password, and role selection.
 
-**Sample output:**
-
-![get_list_todos() sample](../assets/images/fswd-intro_02.png)
+**Sample output:** Redirects to home page on successful registration.
 
 ---
 
-## [Example, delete this section] Insert sample data
+## Teacher Functions
 
-### `run_insert_sample()`
+### `teacher_classrooms()`
 
-**Route:** `/insert/sample`
+**Route:** `/teacher/classrooms`
 
 **Methods:** `GET`
 
-**Purpose:** Flush the database and insert sample data set
+**Purpose:** Display all classrooms created by the teacher.
 
-**Sample output:**
+**Sample output:** List of teacher's classrooms with management options.
 
-Browser shows: `Database flushed and populated with some sample data.`
+---
+
+### `create_classroom()`
+
+**Route:** `/teacher/create_classroom`
+
+**Methods:** `GET` `POST`
+
+**Purpose:** Create a new classroom with a name and automatically generated join code.
+
+**Sample output:** Creates classroom and redirects to teacher's classrooms page.
+
+---
+
+### `edit_classroom(classroom_id)`
+
+**Route:** `/teacher/edit_classroom/<int:classroom_id>`
+
+**Methods:** `GET` `POST`
+
+**Purpose:** Edit classroom details, manage students and quizzes, view leaderboard.
+
+**Sample output:** Classroom management interface with student list and quiz options.
+
+---
+
+### `create_quiz_for_classroom(classroom_id)`
+
+**Route:** `/teacher/classroom/<int:classroom_id>/create_quiz`
+
+**Methods:** `GET` `POST`
+
+**Purpose:** Create a new quiz within a specific classroom context.
+
+**Sample output:** Redirects to quiz question management on creation.
+
+---
+
+### `teacher_manage_quiz_questions(quiz_id)`
+
+**Route:** `/teacher/quiz/<int:quiz_id>/manage_questions`
+
+**Methods:** `GET` `POST`
+
+**Purpose:** Add and manage questions for a quiz.
+
+**Sample output:** Interface for adding/editing quiz questions.
+
+---
+
+### `teacher_manage_question_answers(question_id)`
+
+**Route:** `/teacher/question/<int:question_id>/manage_answers`
+
+**Methods:** `GET` `POST`
+
+**Purpose:** Manage answers for a specific quiz question.
+
+**Sample output:** Interface for adding/editing question answers.
+
+---
+
+### `quiz_review_details(quiz_id, classroom_id)`
+
+**Route:** `/teacher/quiz/<int:quiz_id>/review/<int:classroom_id>`
+
+**Methods:** `GET`
+
+**Purpose:** View detailed quiz statistics and student performance.
+
+**Sample output:** Quiz statistics including scores and participation rates.
+
+---
+
+## Student Functions
+
+### `student_join_classroom()`
+
+**Route:** `/student/join_classroom`
+
+**Methods:** `GET` `POST`
+
+**Purpose:** Allow students to join a classroom using a join code.
+
+**Sample output:** Success message and redirect to home on successful join.
+
+---
+
+### `student_my_classrooms()`
+
+**Route:** `/student/my_classrooms`
+
+**Methods:** `GET`
+
+**Purpose:** Display all classrooms joined by the student.
+
+**Sample output:** List of joined classrooms with access to quizzes.
+
+---
+
+### `take_quiz(quiz_id, classroom_id)`
+
+**Route:** `/take-quiz/<int:quiz_id>/<int:classroom_id>`
+
+**Methods:** `GET` `POST`
+
+**Purpose:** Allow students to take a quiz and submit answers.
+
+**Sample output:** Quiz interface and score results after submission.
+
+---
+
+### `student_view_classroom(classroom_id)`
+
+**Route:** `/student/classroom/<int:classroom_id>`
+
+**Methods:** `GET`
+
+**Purpose:** Show classroom details, available quizzes, and leaderboard to students.
+
+**Sample output:** Classroom view with quiz list and class rankings.
+
+---
+
+## Shop System
+
+### `shop()`
+
+**Route:** `/shop`
+
+**Methods:** `GET`
+
+**Purpose:** Display available items for purchase with learning points.
+
+**Sample output:** Shop interface with available avatars and items.
+
+---
+
+### `buy_item(item_id)`
+
+**Route:** `/shop/buy/<int:item_id>`
+
+**Methods:** `GET`
+
+**Purpose:** Process purchase of shop items using learning points.
+
+**Sample output:** Purchase confirmation or error message.
+
+---
+
+### `select_avatar(avatar_icon)`
+
+**Route:** `/shop/select-avatar/<avatar_icon>`
+
+**Methods:** `GET`
+
+**Purpose:** Allow students to select and activate purchased avatars.
+
+**Sample output:** Avatar selection confirmation.
+
+---
+
+## API Endpoints
+
+### `api_students()`
+
+**Route:** `/api/students`
+
+**Methods:** `GET`
+
+**Purpose:** Retrieve list of all students with their learning points.
+
+**Sample output:** JSON with student data including IDs, names, and points.
+
+---
+
+### `api_shop_items()`
+
+**Route:** `/api/shop-items`
+
+**Methods:** `GET`
+
+**Purpose:** Get list of available shop items and their prices.
+
+**Sample output:** JSON with shop items data including names, prices, and types.
