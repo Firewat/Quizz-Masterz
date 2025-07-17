@@ -14,7 +14,6 @@ nav_order: 2
 {: toc }
 </details>
 
-### Improve for next time: ???
 
 ### Lessons Learned & Improvements for Next Time
 
