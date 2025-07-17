@@ -86,7 +86,11 @@
                                     
                                     <div class="student-info">
                                         <div class="student-avatar">
-                                            <i class="fas fa-user-circle avatar-default"></i>
+                                            {% if student.selected_avatar %}
+                                                <img src="{{ url_for('static', filename='shop_icons/' + student.selected_avatar) }}" alt="avatar" style="width:40px; height:40px; border-radius:50%; object-fit:cover;">
+                                            {% else %}
+                                                <i class="fas fa-user-circle avatar-default"></i>
+                                            {% endif %}
                                         </div>
                                         <div class="student-details">
                                             <div class="student-name">{{ student.name }}</div>
