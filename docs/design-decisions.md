@@ -14,42 +14,49 @@ nav_order: 3
 </details>
 
 ## Table of Contents
-01: Frontend Framework Selection - React vs. Vue.js
+01: Web Application Framework Selection - Flask with Jinja2
 
-## 01: Frontend Framework Selection - React vs. Vue.js
+## 01: Web Application Framework Selection - Flask with Jinja2
 
 ### Meta
 **Status**: Decided  
-**Updated**: 20-Jun-2025
+**Updated**: 2024-02-20
 
 ### Problem Statement
-We need to choose a frontend framework for our quiz application that will allow us to:
-- Create interactive quiz interfaces
-- Manage complex state for quiz progression
-- Handle real-time updates
-- Ensure good performance with multiple concurrent users
-- Maintain easy testability
+We needed to choose a web application framework that would allow us to:
+- Create an interactive quiz platform
+- Handle user authentication and sessions
+- Manage database operations efficiently
+- Support template-based rendering
+- Maintain easy testability and deployment
+- Enable rapid development with a small team
 
 ### Decision
-We have decided to use React as our frontend framework. This decision was made by the core development team considering our collective experience and the project's requirements. React's component-based architecture and extensive ecosystem will help us build a scalable quiz platform more efficiently.
+We have decided to use Flask as our web framework with Jinja2 templating engine, SQLite database, and Python backend. This decision was made based on the following requirements:
+- Need for a lightweight yet powerful web framework
+- Simple integration with SQLite for data persistence
+- Built-in template engine for dynamic HTML rendering
+- Strong Python ecosystem for educational applications
+- Easy learning curve for team members
 
 ### Regarded Options
-We considered two main options:
+We considered several technical approaches:
 
-**React vs Vue.js Comparison:**
+**Web Framework Comparison:**
 
-Criterion | React | Vue.js
-----------|--------|--------
-Learning Curve | ✔️ Team already familiar | ❌ Would require additional training
-Community Support | ✔️ Large community & resources | ✔️ Growing community
-Performance | ✔️ Virtual DOM, efficient updates | ✔️ Similar performance
-State Management | ✔️ Redux ecosystem available | ✔️ Vuex available
-Testing Tools | ✔️ Jest & React Testing Library | ❌ Less mature testing ecosystem
-Mobile Development | ✔️ React Native available | ❌ Limited mobile options
-Team Expertise | ✔️ 3 developers with React experience | ❌ No Vue.js experience
+Criterion | Flask + Jinja2 | Django | FastAPI
+----------|---------------|---------|----------
+Learning Curve | ✔️ Simple and intuitive | ❌ Steeper learning curve | ✔️ Modern and intuitive
+Development Speed | ✔️ Rapid prototyping | ✔️ Lots of built-in features | ✔️ Fast development
+Database Integration | ✔️ SQLAlchemy support | ✔️ ORM included | ✔️ Async database support
+Template System | ✔️ Jinja2 built-in | ✔️ Django Templates | ❌ No built-in templating
+Project Size | ✔️ Perfect for medium apps | ❌ Overkill for our needs | ✔️ Good for APIs
+Flexibility | ✔️ Highly flexible | ❌ More rigid structure | ✔️ Very flexible
 
-The decision for React was based on:
-1. Existing team expertise
-2. Strong testing capabilities
-3. Potential for mobile expansion
-4. Large ecosystem of quiz-related components
+Key factors for choosing Flask:
+1. Lightweight and flexible architecture
+2. Perfect balance of simplicity and functionality
+3. Excellent documentation and community support
+4. Built-in Jinja2 templating for dynamic HTML
+5. Easy integration with SQLite for data storage
+6. Simple deployment process
