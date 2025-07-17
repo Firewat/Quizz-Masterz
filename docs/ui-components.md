@@ -3,60 +3,74 @@ title: UI Components
 nav_order: 99
 ---
 
-{: .attention}
-> Once you are familiar with the available UI components of this template, exclude this page by changing `nav_order: 99` to `nav_exclude: true` on top of this page (line 3). Its *front matter* will then look like this:
-> ```
-> ---
-> title: UI Components
-> nav_exclude: true
-> ---
-> ```
+# QuizMasterz UI Components
 
-# UI components 20.07!!! MUSS GEMACHT WERDEN!
+The QuizMasterz application features a modern, user-friendly interface with various UI components designed for both students and teachers. Here's an overview of our main UI components and their usage.
 
-The [Just the Docs documentation](https://just-the-docs.github.io/just-the-docs/docs/ui-components) details more UI components.
+## Key Interfaces
 
-For a quick reference of the markdown syntax, visit [this page](https://github.com/just-the-docs/just-the-docs/blob/main/docs/index-test.md?plain=1).
-
-## Images
+### Student Interface
 
 ```markdown
-![get_list_todos_sample](assets/images/fswd-intro_02.png)
+![Student Dashboard](assets/images/Dashboard WF.PNG)
 ```
 
-![get_list_todos_sample](assets/images/fswd-intro_02.png)
+![Student Dashboard](assets/images/Dashboard WF.PNG)
 
-## Callouts
+### Authentication Screens
 
+```markdown
+![Login Screen](assets/images/Login Screen.PNG)
+```
+
+![Login Screen](assets/images/Login Screen.PNG)
+
+```markdown
+![Sign Up Form](assets/images/Sign up form.PNG)
+```
+
+![Sign Up Form](assets/images/Sign up form.PNG)
+
+## Student Features
+
+### Classroom Management
 {: .info }
-> This is an info callout.
+> Students can join classrooms and view their enrolled classes through an intuitive interface.
 
+![Join Classroom](assets/images/join classroom student.PNG)
+![My Classrooms](assets/images/My classrooms Student.PNG)
+
+### Quiz Taking Interface
 {: .tip }
-> This is a tip callout.
+> Students can access available quizzes and take them in an interactive environment.
 
+![Available Quizzes](assets/images/Available Quizzes Student.PNG)
+![Take Quiz](assets/images/Take Quiz Student.PNG)
+
+### Student Profile & Shop
 {: .attention }
-> This is an attention callout.
+> Students can manage their profile and use the shop feature to enhance their learning experience.
 
-{: .download }
-> This is a download callout.
+![Student Profile](assets/images/Student Profile Student.PNG)
+![Student Shop](assets/images/Student Shop student.PNG)
 
-## Labels
+## System Architecture
 
-{: .label }
-[Default label]
-
-{: .label .label-green }
-[Green label]
-
-{: .label .label-red }
-[Red label]
-
-## Mermaid.js
+### UML Diagrams
 
 ```mermaid
 graph TD;
-    A-->B;
-    A-->C;
+    Student-->Authentication;
+    Student-->Classrooms;
+    Student-->Quizzes;
+    Teacher-->QuizManagement;
+    Teacher-->ClassroomManagement;
+    ClassroomManagement-->Students;
 ```
 
-Visit the [Mermaid docs](https://mermaid.js.org/intro/) for a thorough description of the charting possibilities.
+For a complete understanding of our system architecture, refer to our detailed UML diagrams:
+
+![Simplified UML](assets/images/FullStack_Quizz_Masterz_UML_Use_Case_Diagramm_simplified.jpg)
+
+{: .download }
+> For more detailed technical documentation, check our [architecture documentation](technical-docs/architecture.md) section.

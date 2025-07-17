@@ -21,7 +21,7 @@ Status
 : **Done**
 
 Updated
-: 20-July-2023
+: 20-Jun-2025
 
 ### Goal
 
@@ -96,10 +96,10 @@ Based on the evaluation results, we plan to implement the following improvements
 ### Meta
 
 Status
-: **Work in progress**
+: **Done**
 
 Updated
-: 20-July-2023
+: 20-Jun-2025
 
 ### Goal
 
