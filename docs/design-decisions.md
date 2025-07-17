@@ -15,14 +15,14 @@ nav_order: 3
 
 ## Table of Contents
 01: Web Application Framework Selection - Flask with Jinja2
-02: Datenbank-Architektur - SQLite mit SQLAlchemy
-03: Frontend-Architektur - Bootstrap mit Jinja2
+02: Database Architecture - SQLite with SQLAlchemy
+03: Frontend Architecture - Bootstrap with Jinja2
 
 ## 01: Web Application Framework Selection - Flask with Jinja2
 
 ### Meta
 **Status**: Decided  
-**Updated**: 2024-02-20
+**Updated**: 20-06-2025
 
 ### Problem Statement
 We needed to choose a web application framework that would allow us to:
@@ -63,59 +63,59 @@ Key factors for choosing Flask:
 5. Easy integration with SQLite for data storage
 6. Simple deployment process
 
-## 02: Datenbank-Architektur - SQLite mit SQLAlchemy
+## 02: Database Architecture - SQLite with SQLAlchemy
 
 ### Meta
-**Status**: Entschieden  
-**Updated**: 2024-02-20
+**Status**: Decided  
+**Updated**: 20-06-2025
 
 ### Problem Statement
-Für die Quiz-Plattform benötigten wir eine Datenbankstruktur, die:
-- Benutzerprofile und Authentifizierung verwaltet
-- Quiz-Inhalte und Ergebnisse speichert
-- Klassenraum-Management ermöglicht
-- Shop-System und Punkteverwaltung unterstützt
-- Einfach zu warten und zu skalieren ist
+For the quiz platform, we needed a database structure that:
+- Manages user profiles and authentication
+- Stores quiz content and results
+- Enables classroom management
+- Supports shop system and points management
+- Is easy to maintain and scale
 
 ### Decision
-Wir haben uns für SQLite mit SQLAlchemy ORM entschieden, mit folgender Struktur:
-- Normalisierte Datenbankstruktur mit Fremdschlüsselbeziehungen
-- Effiziente Indizierung häufig abgefragter Felder
-- Kaskadierendes Löschen für abhängige Datensätze
-- Transaktionsintegrität für kritische Operationen
+We chose SQLite with SQLAlchemy ORM, with the following structure:
+- Normalized database structure with foreign key relationships
+- Efficient indexing of frequently queried fields
+- Cascading deletion for dependent records
+- Transaction integrity for critical operations
 
-### Begründung
-- Perfekt für mittlere Anwendungsgrößen
-- Einfache Integration mit Flask
-- Keine separate Datenbankinstallation erforderlich
-- Robuste ORM-Funktionalität durch SQLAlchemy
-- Einfache Datensicherung und Migration
+### Rationale
+- Perfect for medium-sized applications
+- Easy integration with Flask
+- No separate database installation required
+- Robust ORM functionality through SQLAlchemy
+- Simple backup and migration
 
-## 03: Frontend-Architektur - Bootstrap mit Jinja2
+## 03: Frontend Architecture - Bootstrap with Jinja2
 
 ### Meta
-**Status**: Entschieden  
-**Updated**: 2024-02-20
+**Status**: Decided  
+**Updated**: 20-06-2025
 
 ### Problem Statement
-Die Benutzeroberfläche musste:
-- Responsiv und benutzerfreundlich sein
-- Einheitliches Design bieten
-- Dynamische Quiz-Interaktionen ermöglichen
-- Einfache Navigation gewährleisten
-- Gamification-Elemente unterstützen
+The user interface needed to:
+- Be responsive and user-friendly
+- Provide consistent design
+- Enable dynamic quiz interactions
+- Ensure easy navigation
+- Support gamification elements
 
 ### Decision
-Implementation einer Frontend-Architektur basierend auf:
-- Bootstrap für responsives Design
-- Jinja2-Templates für dynamische HTML-Generierung
-- AJAX für Echtzeit-Updates
-- Client-seitige Validierung
-- Modulares CSS-System für verschiedene Komponenten
+Implementation of a frontend architecture based on:
+- Bootstrap for responsive design
+- Jinja2 templates for dynamic HTML generation
+- AJAX for real-time updates
+- Client-side validation
+- Modular CSS system for various components
 
-### Begründung
-- Bootstrap bietet ein ausgereiftes Grid-System
-- Jinja2 ermöglicht effiziente Template-Vererbung
-- Einfache Integration von Gamification-Elementen
-- Optimierte Benutzerinteraktion durch AJAX
-- Gute Browser-Kompatibilität
+### Rationale
+- Bootstrap provides a mature grid system
+- Jinja2 enables efficient template inheritance
+- Easy integration of gamification elements
+- Optimized user interaction through AJAX
+- Good browser compatibility
