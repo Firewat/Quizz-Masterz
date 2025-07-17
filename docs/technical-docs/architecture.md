@@ -15,57 +15,143 @@ layout: default
 {: toc }
 </details>
 
-## Overview 
+## System Overview
 
-For Teachers:
-Classroom Management & Creation: Create and manage multiple classrooms.
-Quiz Creation: Build quizzes with multiple-choice questions supporting multiple correct answers.
-Student Monitoring: View student performance and quiz results.
-Set Learning Points: Set multiple correct answers with flexible scoring for Students to earn Learning Points (LP).
+Quiz Masterz is built using a Flask-based architecture with SQLAlchemy ORM for database management. The system is designed around role-based access control (RBAC) with two primary user types: Teachers and Students.
 
-For Students:
-Classroom Participation: Join classrooms using unique classroom codes.
-Quiz Taking: Take quizzes with multiple answer selection capability.
-(TODO) Performance Tracking: View quiz results with detailed scoring breakdown and earn LPs for your right answers.
-(TODO) Shop: Level up and earn Skins for your Profile.
+## Core Components
 
-System Features:
-Multiple Answer Support: Students can select multiple answers per question.
-Partial Credit Scoring: Scoring system with partial credit for partially correct answers and penalties for incorrect selections.
-User Authentication: Secure login and registration system with role-based access (Teacher/Student).
+### Authentication System
+- User registration and login using Flask-Login
+- Password hashing using Werkzeug security
+- Role-based access control for teachers and students
+- Session management and secure routing
 
-## Codemap
+### Database Layer
+- SQLite database with SQLAlchemy ORM
+- Relational models for Users, Classrooms, Quizzes, Questions, and Answers
+- Association tables for many-to-many relationships
+- Transaction management for quiz submissions and shop purchases
 
-- **Entry Point:**
-  - `main.py` starts the application and initializes the web server.
+### Quiz Management System
+- Draft and published quiz states
+- Multiple-choice questions with multiple correct answers
+- Learning Points (LP) scoring system
+- Quiz attempt tracking to prevent retakes
+- Automated scoring and LP distribution
 
-- **Website Package:**
-  - `auth.py`: Handles user authentication, registration, and session management.
-  - `models.py`: Defines database models for users, classrooms, quizzes, questions, and answers.
-  - `views.py`: Contains the main route handlers for both teacher and student features.
-  - `forms.py`: Manages form validation and processing for user input.
-  - `static/` and `templates/`: Contain static assets (CSS) and HTML templates for rendering the UI.
+### Classroom Management
+- Unique join codes for classroom access
+- Student roster management
+- Quiz assignment and tracking
+- Classroom-specific leaderboards
+- Student performance analytics
 
-- **Database:**
-  - `instance/database.db` stores all persistent data (users, classrooms, quizzes, results).
+### Shop System
+- LP-based virtual currency
+- Cosmetic item purchasing
+- Avatar selection and management
+- Inventory tracking
 
-**Main Flow:**
-1. Users register and log in (role: Teacher or Student).
-2. Teachers create/manage classrooms and quizzes.
-3. Students join classrooms and take quizzes.
-4. Results and progress are tracked and displayed.
+## Security Features
 
-For a visual overview, refer to the [UML use case diagram](../assets/images/FullStack_Quizz_Masterz_UML_Use_Case_Diagramm_simplified.jpg).
+### Access Control
+- Route protection using Flask-Login decorators
+- Role verification for sensitive operations
+- Cross-site request forgery (CSRF) protection
+- Session security measures
 
-## Cross-cutting concerns
+### Data Protection
+- Password hashing with salt
+- SQL injection prevention through SQLAlchemy
+- Input validation and sanitization
+- Secure quiz submission handling
 
-Three cross-cutting concerns in Quizz-Masterz are:
+## Technical Implementation
 
-**1. Authentication & Authorization:**
-All users must register and log in to access the system. The application enforces role-based access control, ensuring that Teachers and Students can only access features appropriate to their roles. Sensitive actions (like quiz creation or classroom management) are protected so only authorized users can perform them.
+### Route Structure
+```
+/auth/
+  ├─ /login
+  ├─ /logout
+  └─ /sign-up
 
-**2. Data Validation:**
-Every user input—such as registration details, quiz answers, and classroom codes—is validated both on the client and server sides. This prevents invalid or malicious data from entering the system and ensures data integrity throughout the application.
+/teacher/
+  ├─ /classrooms
+  ├─ /create_classroom
+  ├─ /edit_classroom/<id>
+  ├─ /quiz/<id>/manage_questions
+  ├─ /quiz/<id>/review/<classroom_id>
+  └─ /quiz/<id>/upload_to_classroom/<classroom_id>
 
-**3. Error Handling:**
-The application provides clear, user-friendly error messages for common issues (e.g., failed login, invalid classroom code). 
+/student/
+  ├─ /join_classroom
+  ├─ /my_classrooms
+  ├─ /classroom/<id>
+  ├─ /quizzes
+  └─ /take-quiz/<quiz_id>/<classroom_id>
+
+/shop/
+  ├─ /
+  ├─ /buy/<item_id>
+  └─ /select-avatar/<avatar_icon>
+```
+
+### Database Architecture
+- Normalized database design with foreign key relationships
+- Efficient indexing on frequently queried fields
+- Cascade delete behavior for dependent records
+- Transaction integrity for critical operations
+
+### Frontend Architecture
+- Bootstrap-based responsive design
+- Dynamic form handling with Flask-WTF
+- AJAX for real-time updates
+- Client-side validation
+
+## Performance Considerations
+
+### Database Optimization
+- Lazy loading for related records
+- Efficient query patterns
+- Appropriate indexing
+- Connection pooling
+
+### Caching Strategy
+- Session caching for user data
+- Query result caching
+- Static asset caching
+
+### Scalability
+- Modular codebase design
+- Separation of concerns
+- Extensible data models
+- Maintainable route structure
+
+## Error Handling
+
+### User Feedback
+- Flash messages for user actions
+- Clear error messages
+- Success confirmations
+- Input validation feedback
+
+### System Errors
+- Graceful error handling
+- 404 and 500 error pages
+- Database error recovery
+- Transaction rollbacks
+
+## Future Considerations
+
+### Planned Enhancements
+- Advanced analytics dashboard
+- Additional question types
+- Enhanced shop features
+- Performance optimization
+
+### Scalability Plans
+- Database sharding capability
+- Caching improvements
+- API endpoint development
+- Load balancing preparation
