@@ -2,7 +2,7 @@
 
 from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify
 from flask_login import login_required, current_user
-from .models import Classroom, User, Quiz, Question, Answer, StudentQuizAttempt, ShopItem, UserPurchase
+from .models import Classroom, User, Quiz, Question, Answer, StudentQuizAttempt
 from . import db
 import secrets
 
@@ -655,7 +655,11 @@ def student_view_classroom(classroom_id):
         student_scores[attempt.student_id] = student_scores.get(attempt.student_id, 0) + attempt.score
     
     leaderboard = sorted([{
-        'name': student.first_name, 'score': student_scores.get(student.id, 0)
+        'name': student.first_name,
+        'email': student.email,
+        'student_id': student.id,
+        'score': student_scores.get(student.id, 0),
+        'selected_avatar': student.selected_avatar
     } for student in classroom.students.all()], key=lambda x: x['score'], reverse=True)
 
     student_total_lp = current_user.learning_points if current_user.learning_points is not None else 0
@@ -703,63 +707,14 @@ def student_quizzes():
     return render_template("student_quizzes.html", user=current_user, available_quizzes=available_quizzes)
     # until here
 
-
-
-
-
-
-
-
-
-# Shop Routes
+# Shop 
 @views.route('/shop')
 @login_required
 def shop():
     if current_user.role != 'student':
         flash('Access denied. Shop is only available to students.', category='error')
         return redirect(url_for('views.home'))
-    
-
-    shop_items = ShopItem.query.filter_by(is_available=True).all()
-    
-
-    purchased_items = [purchase.shop_item_id for purchase in current_user.purchases]
-    
     return render_template("shop.html", user=current_user)
-
-@views.route('/shop/buy/<int:item_id>')
-@login_required
-def buy_item(item_id):
-    if current_user.role != 'student':
-        flash('Access denied. Shop is only available to students.', category='error')
-        return redirect(url_for('views.home'))
-    
-    shop_item = ShopItem.query.get_or_404(item_id)
-    
-
-    existing_purchase = UserPurchase.query.filter_by(
-        user_id=current_user.id, 
-        shop_item_id=item_id
-    ).first()
-    
-    if existing_purchase:
-        flash('You already own this item!', category='error')
-        return redirect(url_for('views.shop'))
-    
-
-    if current_user.learning_points < shop_item.price:
-        flash(f'Not enough Learning Points! You need {shop_item.price - current_user.learning_points} more LP.', category='error')
-        return redirect(url_for('views.shop'))
-    
-
-    current_user.learning_points -= shop_item.price
-    purchase = UserPurchase(user_id=current_user.id, shop_item_id=item_id)
-    
-    db.session.add(purchase)
-    db.session.commit()
-    
-    flash(f'Successfully purchased {shop_item.name} for {shop_item.price} LP!', category='success')
-    return redirect(url_for('views.shop'))
 
 
 

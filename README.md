@@ -103,14 +103,14 @@ email-validator
 ## In Development 
 
 - Advanced quiz management features
-- Shop
+- Shop (partially finished)
 - Quiz History for Students
 
 ## Planned Features
 
 - Student performance analytics
 - Advanced question types
-- Shop for Students
+- Finished Shop for Students
 - Notes Creation
 
 
