@@ -5,7 +5,7 @@ nav_order: 99
 
 # QuizMasterz UI Components
 
-The QuizMasterz application features a student and teacher-friendly interface with various UI components designed for both Users. Here's an overview:
+The QuizMasterz application features a student and teacher-friendly interface with various UI components designed for both Users. Here's the overview.
 
 ## Key Interfaces
 
