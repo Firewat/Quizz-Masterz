@@ -14,7 +14,7 @@ Code Sources for Quiz Masterz Project
 7. Jinja2 Templates Documentation: https://jinja.palletsprojects.com/en/stable/templates/
 8. Jinja2 Loops Tutorial: https://pushmetrics.io/learn/jinja/jinja-loops/
 9. Jinja2 If-Else Control Structures: https://pushmetrics.io/learn/jinja/jinja-if-else-control-structures/
-10. Flask Official Documentation: https://flask.palletsprojects.com/en/stable/
+10. Flask Official Documentation: https://flask.palletsprojects.com/en/stable/patterns/templateinheritance/
 11. TestDriven.io Tips: https://testdriven.io/tips/
 12. MDN HTML Input Checkbox: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/checkbox
 
@@ -29,21 +29,22 @@ Code Sources for Quiz Masterz Project
 - Backend & Flask
 
 -- main.py
-13. Flask Official Documentation: https://flask.palletsprojects.com/
+13. Flask Official Documentation: https://flask.palletsprojects.com/ : https://flask.palletsprojects.com/en/stable/quickstart/#debug-mode
 18. Flask Routing: https://flask.palletsprojects.com/en/latest/quickstart/#routing
 
 -- website/__init__.py
-13. Flask Official Documentation: https://flask.palletsprojects.com/
+13. Flask Official Documentation: https://flask.palletsprojects.com/ : https://flask.palletsprojects.com/en/stable/patterns/appfactories/
 14. Flask-Login Documentation: https://flask-login.readthedocs.io/
-15. SQLAlchemy Documentation: https://docs.sqlalchemy.org/
+15. SQLAlchemy Documentation: https://realpython.com/python-sqlite-sqlalchemy/
 17. Modular Applications with Blueprints: https://flask.palletsprojects.com/en/latest/blueprints/
 
 -- website/models.py
-15. SQLAlchemy Documentation: https://docs.sqlalchemy.org/
 14. Flask-Login Documentation: https://flask-login.readthedocs.io/
+15. SQLAlchemy Documentation: https://realpython.com/python-sqlite-sqlalchemy/
+
 
 -- website/views.py
-13. Flask Official Documentation: https://flask.palletsprojects.com/
+13. Flask Official Documentation: https://flask.palletsprojects.com/ : https://flask.palletsprojects.com/en/stable/api/#incoming-request-data
 17. Modular Applications with Blueprints: https://flask.palletsprojects.com/en/latest/blueprints/
 18. Flask Routing: https://flask.palletsprojects.com/en/latest/quickstart/#routing
 21. Flask-SQLAlchemy API: https://flask-sqlalchemy.palletsprojects.com/en/latest/api/#flask_sqlalchemy.BaseQuery.get_or_404
