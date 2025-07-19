@@ -17,6 +17,8 @@ Code Sources for Quiz Masterz Project
 10. Flask Official Documentation: https://flask.palletsprojects.com/en/stable/
 11. TestDriven.io Tips: https://testdriven.io/tips/
 12. MDN HTML Input Checkbox: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/checkbox
+38. Shop template: https://github.com/hjlarry/flask-shop
+
 
 --- Bootstrap
 32. Bootstraps Forms: https://getbootstrap.com/docs/5.0/forms/overview/ 
