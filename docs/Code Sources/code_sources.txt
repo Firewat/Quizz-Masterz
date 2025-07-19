@@ -52,7 +52,7 @@ Code Sources for Quiz Masterz Project
 25. Secret.token_hex Python: https://docs.python.org/3/library/secrets.html#secrets.token_hex
 
 -- website/auth.py
-13. Flask Official Documentation: https://flask.palletsprojects.com/
+13. Flask Official Documentation: https://flask.palletsprojects.com/ : https://flask.palletsprojects.com/en/stable/patterns/flashing/
 14. Flask-Login Documentation: https://flask-login.readthedocs.io/
 17. Modular Applications with Blueprints: https://flask.palletsprojects.com/en/latest/blueprints/
 22. Flask Form handling: https://flask.palletsprojects.com/en/latest/quickstart/#http-methods
