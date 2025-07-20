@@ -48,16 +48,3 @@ To assess the efficiency and user-friendliness of the quiz creation process for 
 
 We asked the aunt of one of the teammates what she thought of our web application.
 She was impressed by the simple use and the fun gamification aspects. She mentioned that the interface felt intuitive, even for someone not very experienced with technology, and appreciated how the point system and unlockable avatars could motivate students to participate more actively. She also noted that the clear layout made it easy to create and assign quizzes.
-
-### Results
-
-Preliminary findings (ongoing evaluation):
-- Average time to create a 10-question quiz: 15 minutes
-- Most requested features:
-  * Bulk question import
-  * Question bank functionality
-  * More question type options
-- 75% satisfaction rate with current interface
-- Common challenges:
-  * Managing multiple answer options
-  * Organizing quizzes within classrooms
