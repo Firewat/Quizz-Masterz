@@ -27,17 +27,18 @@ nav_order: 2
 - [UML Use Case Diagram - Simplified](../assets/pdfs/FullStack_Quizz_Masterz_UML_Use_Case_Diagramm_simplified.pdf)
 - [UML Use Case Diagram - Complete](../assets/pdfs/FullStack_Quizz_Mastzerz_Complete_UML_Use_Case_Diagram.pdf)
 
+...
 ### User
 ```python
 class User(db.Model, UserMixin):
-    id = db.Integer, primary_key=True
-    email = db.String(150), unique=True
-    password = db.String(150)
-    first_name = db.String(150)
-    role = db.String(50)  # 'teacher' or 'student'
-    learning_points = db.Integer, default=0
-    selected_avatar = db.String(100), default=None
-    unlocked_avatars = db.Text, default=''
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(150), unique=True)
+    password = db.Column(db.String(150))
+    first_name = db.Column(db.String(150))
+    role = db.Column(db.String(50))  # 'teacher' or 'student'
+    learning_points = db.Column(db.Integer, default=0)
+    selected_avatar = db.Column(db.String(100), default=None)
+    unlocked_avatars = db.Column(db.Text, default='')
 ```
 
 Relationships:
@@ -48,10 +49,10 @@ Relationships:
 ### Classroom
 ```python
 class Classroom(db.Model):
-    id = db.Integer, primary_key=True
-    name = db.String(100)
-    teacher_id = db.Integer, ForeignKey('user.id')
-    join_code = db.String(8), unique=True
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    teacher_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    join_code = db.Column(db.String(8), unique=True, nullable=False)
 ```
 
 Relationships:
@@ -63,10 +64,10 @@ Relationships:
 ### Quiz
 ```python
 class Quiz(db.Model):
-    id = db.Integer, primary_key=True
-    name = db.String(150)
-    teacher_id = db.Integer, ForeignKey('user.id')
-    is_published = db.Boolean, default=False
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(150), nullable=False)
+    teacher_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    is_published = db.Column(db.Boolean, default=False, nullable=False)
 ```
 
 Relationships:
@@ -77,10 +78,10 @@ Relationships:
 ### Question
 ```python
 class Question(db.Model):
-    id = db.Integer, primary_key=True
-    quiz_id = db.Integer, ForeignKey('quiz.id')
-    text = db.Text
-    learning_points = db.Integer, default=1
+    id = db.Column(db.Integer, primary_key=True)
+    quiz_id = db.Column(db.Integer, db.ForeignKey('quiz.id'), nullable=False)
+    text = db.Column(db.Text, nullable=False)
+    learning_points = db.Column(db.Integer, nullable=False, default=1)
 ```
 
 Relationships:
@@ -90,10 +91,10 @@ Relationships:
 ### Answer
 ```python
 class Answer(db.Model):
-    id = db.Integer, primary_key=True
-    question_id = db.Integer, ForeignKey('question.id')
-    text = db.String(255)
-    is_correct = db.Boolean, default=False
+    id = db.Column(db.Integer, primary_key=True)
+    question_id = db.Column(db.Integer, db.ForeignKey('question.id'), nullable=False)
+    text = db.Column(db.String(255), nullable=False)
+    is_correct = db.Column(db.Boolean, default=False, nullable=False)
 ```
 
 Relationships:
@@ -102,43 +103,17 @@ Relationships:
 ### StudentQuizAttempt
 ```python
 class StudentQuizAttempt(db.Model):
-    id = db.Integer, primary_key=True
-    student_id = db.Integer, ForeignKey('user.id')
-    quiz_id = db.Integer, ForeignKey('quiz.id')
-    classroom_id = db.Integer, ForeignKey('classroom.id')
-    score = db.Integer, default=0
+    id = db.Column(db.Integer, primary_key=True)
+    student_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    quiz_id = db.Column(db.Integer, db.ForeignKey('quiz.id'), nullable=False)
+    classroom_id = db.Column(db.Integer, db.ForeignKey('classroom.id'), nullable=False)
+    score = db.Column(db.Integer, default=0)
 ```
 
 Relationships:
 - `student`: Many-to-one with User
 - `quiz`: Many-to-one with Quiz
 - `classroom`: Many-to-one with Classroom
-
-### Shop System Models
-
-#### ShopItem
-```python
-class ShopItem(db.Model):
-    id = db.Integer, primary_key=True
-    name = db.String(100)
-    description = db.Text
-    price = db.Integer  # Price in Learning Points
-    item_type = db.String(50), default='cosmetic'
-    is_available = db.Boolean, default=True
-```
-
-#### UserPurchase
-```python
-class UserPurchase(db.Model):
-    id = db.Integer, primary_key=True
-    user_id = db.Integer, ForeignKey('user.id')
-    shop_item_id = db.Integer, ForeignKey('shop_item.id')
-    purchase_date = db.DateTime, default=current_timestamp
-```
-
-Relationships:
-- `user`: Many-to-one with User
-- `shop_item`: Many-to-one with ShopItem
 
 ## Association Tables
 
@@ -159,6 +134,7 @@ classroom_quizzes = db.Table('classroom_quizzes',
     db.Column('quiz_id', db.Integer, db.ForeignKey('quiz.id'), primary_key=True)
 )
 ```
+...
 
 ## Quiz Flow
 
