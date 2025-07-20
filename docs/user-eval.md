@@ -25,72 +25,12 @@ Updated
 
 ### Goal
 
-To evaluate the usability and effectiveness of the quiz-taking experience for students, focusing on:
-- Navigation through available quizzes
-- Quiz completion process
-- Understanding of quiz feedback
-- Overall user satisfaction with the interface
+To evaluate the usability and effectiveness of the quiz-taking experience for students.
 
-### Method
+### Method & Results
 
 1. User Testing Sessions:
-   - Selected 10 students from different academic levels
-   - Provided a set of 3 sample quizzes of varying difficulty
-   - Observed students completing the following tasks:
-     * Logging into the system
-     * Joining a classroom
-     * Finding available quizzes
-     * Completing a quiz
-     * Reviewing their results
-
-2. Data Collection:
-   - Recorded completion times for each task
-   - Documented user navigation patterns
-   - Collected feedback through post-test questionnaires
-   - Recorded observed difficulties and user comments
-
-### Results
-
-1. Task Completion Rates:
-   - 100% of users successfully logged in
-   - 90% successfully joined a classroom
-   - 95% found and started their assigned quizzes
-   - 85% completed all three sample quizzes
-
-2. Time Metrics:
-   - Average login time: 45 seconds
-   - Average time to join a classroom: 2 minutes
-   - Average quiz completion time: 8 minutes
-
-3. User Feedback:
-   - 80% found the navigation intuitive
-   - 90% appreciated the immediate quiz feedback
-   - 70% expressed satisfaction with the overall experience
-   - Main points of confusion:
-     * Some users initially struggled to find the classroom join function
-     * Quiz progress indication could be clearer
-
-### Implications
-
-Based on the evaluation results, we plan to implement the following improvements:
-
-1. Interface Enhancements:
-   - Add more visible progress indicators during quiz taking
-   - Improve the visibility of the classroom join button
-   - Include tooltips for first-time users
-
-2. Functionality Updates:
-   - Implement a quick tutorial for new users
-   - Add confirmation messages for important actions
-   - Include a progress saving feature for longer quizzes
-
-3. Future Evaluation:
-   - Schedule a follow-up evaluation after implementing changes
-   - Focus on measuring improvement in navigation efficiency
-   - Expand user testing to include teacher interface
-
----
-
+We asked multiple Students at the HWR what they thought about our idea and showed them our web application. Most of the students gave us positive feedback and said that the app would be a great way for younger students to learn in school. They all mentioned the motivating effect of earning learning points and unlocking avatars. Several students mentioned that the interface was easy to navigate and visually appealing, making it enjoyable to use.
 ## 02: Teacher Quiz Creation Workflow
 
 ### Meta
@@ -103,23 +43,11 @@ Updated
 
 ### Goal
 
-To assess the efficiency and user-friendliness of the quiz creation process for teachers, focusing on:
-- Ease of creating new quizzes
-- Question and answer management
-- Classroom administration features
-- Overall workflow efficiency
+To assess the efficiency and user-friendliness of the quiz creation process for teachers.
+### Method & Results
 
-### Method
-
-1. Teacher Workshop Sessions:
-   - 5 teachers from different subject areas
-   - Task-based evaluation of creating and managing quizzes
-   - Observation of classroom management features usage
-
-2. Process Documentation:
-   - Recording time spent on quiz creation
-   - Noting common patterns and pain points
-   - Gathering feature requests and suggestions
+We asked the aunt of one of the teammates what she thought of our web application.
+She was impressed by the simple use and the fun gamification aspects. She mentioned that the interface felt intuitive, even for someone not very experienced with technology, and appreciated how the point system and unlockable avatars could motivate students to participate more actively. She also noted that the clear layout made it easy to create and assign quizzes.
 
 ### Results
 
@@ -133,23 +61,3 @@ Preliminary findings (ongoing evaluation):
 - Common challenges:
   * Managing multiple answer options
   * Organizing quizzes within classrooms
-
-### Implications
-
-Planned improvements based on initial feedback:
-1. Development priorities:
-   - Implement question bank feature
-   - Add bulk import/export functionality
-   - Enhance question type variety
-
-2. Interface improvements:
-   - Streamline question creation workflow
-   - Add better organization tools for quizzes
-   - Improve classroom management interface
-
-Next steps:
-- Complete evaluation with remaining teacher participants
-- Prioritize development of most-requested features
-- Schedule follow-up evaluation after implementations
-
----

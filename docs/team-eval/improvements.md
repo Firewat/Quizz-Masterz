@@ -19,7 +19,6 @@ nav_order: 2
 
 1. **Skill Development:**
    - We want to further develop our technical and communication skills, for example through pair programming, focused code reviews, and sharing best practices within the team.
-   - We will plan more time for both individual and team learning to use new technologies and tools more confidently.
 
 2. **More Time for Design & Planning:**
    - Next time, we will consciously allocate more time for the design and planning phase to avoid detours and misunderstandings later on.
