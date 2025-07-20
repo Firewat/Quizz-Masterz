@@ -88,13 +88,57 @@ The user interface needed to:
 Implementation of a frontend architecture based on:
 - Bootstrap for responsive design
 - Jinja2 templates for dynamic HTML generation
-- AJAX for real-time updates
 - Client-side validation
 - Modular CSS system for various components
 
-### Rationale
-- Bootstrap provides a mature grid system
-- Jinja2 enables efficient template inheritance
-- Easy integration of gamification elements
-- Optimized user interaction through AJAX
-- Good browser compatibility
+
+
+## 3 Example Design Decisions (from the presentation)
+
+## 1 Problem
+### Problem Statement
+How do we implement RBAC so teachers can manage quizzes and students only access assigned ones?
+
+### Decision
+We implemented a simple role-based system with roles stored in the database.
+
+### Communication
+- The `role` field in the User model determines if a user is a teacher or student.
+- Route-level guards and decorators restrict access to quiz management features for teachers and quiz participation for students.
+
+### Implementation
+
+![Design Decision 1](assets/images/dd_1.PNG)
+
+
+
+## 2 Problem
+### Problem Statement
+How can teachers navigate in the quiz creation process?
+
+### Decision
+Implement contextual navigation to streamline the quiz creation workflow.
+
+### Communication
+Teachers need to move quickly and intuitively between different creation levels (e.g., quiz overview, adding questions, assigning to classrooms).
+
+### Implementation
+
+![Desin Decision 2](assets/images/dd_2.PNG)
+
+
+## 3 Problem
+### Problem Statement
+How should form validation be handled?
+
+### Decision
+Implement server-side validation using Flask-WTF.
+
+### Communication
+- Shows users form validation errors directly on the page.
+- Ensures data integrity and security by validating all input on the server side.
+
+### Implementation
+
+![Design Decision 3](assets/images/dd_3.PNG)
+
