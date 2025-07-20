@@ -1,3 +1,20 @@
+---
+title: Sources
+parent: Technical Docs
+nav_order: 4
+---
+
+{: .no_toc }
+# Reference documentation 
+
+<details open markdown="block">
+{: .text-delta }
+<summary>Table of contents</summary>
++ ToC
+{: toc }
+</details>
+
+
 # Code Sources for Quiz Masterz Project
 
 ## HTML & Templates
