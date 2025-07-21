@@ -238,7 +238,7 @@ nav_order: 3
 
 **Sample output:** JSON with student data including IDs, names, and points.
 
-![JSON-Output_Student](assets/images/json_output_student.PNG)
+![JSON-Output_Student](images_technical_docs\json_output_student.PNG)
 
 ### `api_shop_items()`
 
