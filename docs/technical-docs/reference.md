@@ -238,6 +238,20 @@ nav_order: 3
 
 **Sample output:** JSON with student data including IDs, names, and points.
 
+  ```json
+  {
+    "students": [
+      {
+        "id": 1,
+        "name": "Lasse",
+        "email": "lasse@gmail.com",
+        "learning_points": 78
+      },
+      ...
+    ],
+    "total": 10
+  }
+
 ---
 
 ### `api_shop_items()`

@@ -42,6 +42,7 @@ Matr.-Nr.
 The team members mentioned above declare:
 
 > This work was created independently and by our own hands. Any content taken verbatim or in substance from other sources has been properly identified as such. This declaration applies to all content and includes both this documentation and the source code submitted as the project result.
+> Diese Arbeit wurde selbständig und eigenhändig erstellt. Die den benutzten Quellen wörtlich oder inhaltlich entnommenen Stellen sind als solche kenntlich gemacht. Diese Erklärung gilt für jeglichen Inhalt und umfasst sowohl diese Dokumentation als auch den als Projektergebnis eingereichten Quellcode.
 
 {: .fs-2 }
 Last build: {{ site.time | date: '%d %b %Y, %R%:z' }}
